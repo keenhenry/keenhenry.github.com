@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+ "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+ 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	
+<head>
+	<title>Henry Huang</title>
+	<link rel="stylesheet" type="text/css" href="./css/home.css" />
+	<script type="text/javascript" src="./scripts/showClock.js"></script>
+	<script type="text/javascript" src="./scripts/displayContent.js"></script>
+	<script type="text/javascript" src="./scripts/listProjects.js"></script>
+</head>
+
+<body>
+	<div id="top-section">
+		<ul>
+			<li><a id="first" href="javascript:display('tab1','about');">About</a></li>
+			<li><a id="second" href="javascript:display('tab2','projects');">Projects</a></li>
+			<li><a id="third" href="javascript:display('tab3','resume');">Resume</a></li>
+			<li><a id="fourth" href="javascript:display('tab4','hobbies');">Hobbies</a></li>
+			<li><a id="fifth" href="javascript:display('tab5','photos');">Photos</a></li>
+			<li><a id="last" href="javascript:display('tab6','links');">Links</a></li>
+		</ul>	
+	</div>
+	
+	<div id="middle-section">
+		<div class="left-col">
+			<div id="image">
+				<img src="./image/henry2.jpg" alt="Henry Huang" />
+				<div id="red-rectangle"></div>
+				<div id="yellow-rectangle"></div>
+				<div id="blue-rectangle"></div>
+			</div>
+
+			<div id="contact">
+				<p>EMAIL: hh2360@columbia.edu <br />MOBILE: +1 917-213-8151</p>
+				<p>500 Riverside Drive, Apt. #908<br />New York, NY10027</p>
+			</div>
+
+			<div id="nav">
+				<ul>
+				<li onclick="changeColor('tab1');" id="tab1">
+					<a href="javascript:show('about');">ABOUT</a>
+				</li>
+		   		<li onclick="changeColor('tab2');" id="tab2">
+					<a href="javascript:show('projects');">PROJECTS</a>
+				</li>
+		   		<li onclick="changeColor('tab3');" id="tab3">
+					<a href="javascript:show('resume');">RESUME</a>
+				</li>
+		   		<li onclick="changeColor('tab4');" id="tab4">
+					<a href="javascript:show('hobbies');">HOBBIES</a>
+				</li>
+				<li onclick="changeColor('tab5');" id="tab5">
+					<a href="javascript:show('photos');">PHOTOS</a>
+				</li>
+		   		<li onclick="changeColor('tab6');" id="tab6">
+					<a href="javascript:show('links');">LINKS</a>
+				</li>
+				</ul>
+			</div>
+		</div>
+		<div class="right-col">
+			<div id="about">
+				<h1>About Henry</h1>
+				<p>Henry is a Master student at Columbia University working towards his degree
+				in Computer Science. He was born in Taipei, Taiwan, but grew up in a city called
+				Hsinchu. Before coming to Columbia, Henry obtained his BS degree in Electronics 
+				Engineering at National Chiao-Tung University, Hsinchu, Taiwan. In 2004, his parents 
+				moved to New Zealand, which is considered his second home now.</p>
+				
+				<p>When he has free time, Henry loves to take pictures of landscape and people. Other 
+				than that, he watches baseball but plays basketball, table tennis and 
+				<a href="http://en.wikipedia.org/wiki/Go_(game)" target="_blank"><i>Go</i></a> 
+				(A Chinese board game). Last but not least, he sometimes writes some little programs 
+				for fun.</p>
+			</div>
+			<div id="projects">
+				<h1>Projects</h1>
+				<div id="proj-lists"></div>
+			</div>
+			<div id="resume">
+				<h1>Resume</h1>
+				<p>Henry is looking for positions in entry level system administrator, entry level 
+				software developer or junior database application programmer.</p>
+				
+				<p>Here are his resumes:</p>
+				<ul>
+					<li><a href="./pdf/resume_softdevel.pdf">resume</a> as a software developer (PDF)</li>
+					<li><a href="./pdf/resume_sysadmin.pdf">resume</a> as a system administrator (PDF)
+					</li>
+				</ul>
+			</div>
+			<div id="hobbies">
+				<h1>Hobbies</h1>
+				<p>Henry started to fall in love with photography when he served in the military in 
+				Taiwan. Now he uses a Nikon D40X to do most of his shootings, however he plans to 
+				switch to Nikon	D90 for better quality of images. One reason he loves about photography 
+				is that a moment of a tiny fraction of your life can have a huge impact on the minds 
+				of millions of people. Here are some pictures he took before:</p> 
+				<ul>
+					<li>
+					<a href="http://www.flickr.com/photos/keenhenry/" target="_blank">Flickr Album
+					</a>
+					</li>
+					<li>
+					<a href="http://picasaweb.google.com/keenhenry1109" target="_blank">Picasa Album
+					</a>
+					</li>
+				</ul>
+				
+				<p>Other than photography, Henry also likes to play <i>Go</i> and puzzles. He sometimes 
+				plays Go with <a href="http://yi-wang.me" target="_blank">Wang Yi</a> and Henry has 
+				many interesting puzzles given by his girl friend as birthday presents.</p>
+				
+				<p>As a computer science student, Henry also likes to write programs for fun. You can
+				check what kinds of programs he did <a href="javascript:display('tab2','projects');">HERE</a></p>
+				
+				<p>Last but not least, Henry watches baseball for his leisure time and is a fan of
+				<a href="http://newyork.yankees.mlb.com/index.jsp?c_id=nyy" target="_blank">
+				New York Yankees</a>.</p>
+			</div>
+			<div id="photos">
+				<h1>Photos</h1>
+				
+				<div id="scrollable">
+				<ul>
+				<li id="nz1" onclick="changePhoto('./image/nz/nz1.jpg');">
+					<img src="./image/thumbnail/thumb_nz1.jpg" alt="nz1" /><div>Lake Te Anau</div></li>
+				<li id="nz2" onclick="changePhoto('./image/nz/nz2.jpg');">
+					<img src="./image/thumbnail/thumb_nz2.jpg" alt="nz2" /><div>Country Road</div></li>
+				<li id="nz3" onclick="changePhoto('./image/nz/nz3.jpg');">
+					<img src="./image/thumbnail/thumb_nz3.jpg" alt="nz3" /><div>Queenstown</div></li>
+				<li id="nz4" onclick="changePhoto('./image/nz/nz4.jpg');">
+					<img src="./image/thumbnail/thumb_nz4.jpg" alt="nz4" /><div>Lake Te Anau</div></li>
+				<li id="ny1" onclick="changePhoto('./image/nyc/ny1.jpg');">
+					<img src="./image/thumbnail/thumb_ny1.jpg" alt="ny1" /><div>Manhattan</div></li>
+				<li id="ny5" onclick="changePhoto('./image/nyc/ny5.jpg');">
+					<img src="./image/thumbnail/thumb_ny5.jpg" alt="ny5" /><div>Sakura</div></li>
+				</li>
+				<li id="ny3" onclick="changePhoto('./image/nyc/ny3.jpg');">
+					<img src="./image/thumbnail/thumb_ny3.jpg" alt="ny3" /><div>Fire Island</div></li>
+				<li id="ny6" onclick="changePhoto('./image/nyc/ny6.jpg');">
+					<img src="./image/thumbnail/thumb_ny6.jpg" alt="ny6" /><div>Sakura Park</div></li>
+				</li>
+				<li id="eu1" onclick="changePhoto('./image/eu/eu1.jpg');">
+					<img src="./image/thumbnail/thumb_eu1.jpg" alt="eu1" /><div>Eiffel Tower</div></li>
+				<li id="eu2" onclick="changePhoto('./image/eu/eu2.jpg');">
+					<img src="./image/thumbnail/thumb_eu2.jpg" alt="eu2" /><div>Rotterdam</div></li>
+				<li id="eu3" onclick="changePhoto('./image/eu/eu3.jpg');">
+					<img src="./image/thumbnail/thumb_eu3.jpg" alt="eu3" /><div>Barcelona</div></li>
+				<li id="eu4" onclick="changePhoto('./image/eu/eu4.jpg');">
+					<img src="./image/thumbnail/thumb_eu4.jpg" alt="eu4" /><div>Pompidou</div></li>
+				<li id="tw1" onclick="changePhoto('./image/tw/tw1.jpg');">
+					<img src="./image/thumbnail/thumb_tw1.jpg" alt="tw1" /><div>Holy Light</div></li>
+				<li id="tw2" onclick="changePhoto('./image/tw/tw2.jpg');">
+					<img src="./image/thumbnail/thumb_tw2.jpg" alt="tw2" /><div>Hua-Lien</div></li>
+				<li id="tw3" onclick="changePhoto('./image/tw/tw3.jpg');">
+					<img src="./image/thumbnail/thumb_tw3.jpg" alt="tw3" /><div>Green Corridor</div></li>
+				<li id="tw4" onclick="changePhoto('./image/tw/tw4.jpg');">
+					<img src="./image/thumbnail/thumb_tw4.jpg" alt="tw4" /><div>Luce Chapel</div></li>
+				</ul>  
+				</div>	<!-- End of scrollable section -->
+				
+				<div id="display-large-photo">
+				<img id="large_photo" src="./image/instruction.jpg" width="550" height="420"/>
+				</div>	
+			</div>
+			<div id="links">
+				<h1>Links</h1>
+				<p>Here are some links Henry finds useful or interesting to his own interests:</p>
+				<ul>
+					<li>Henry's 
+					<a href="http://keenhenry1109.blogspot.com" target="_blank">BLOG</a> and 
+					<a href="http://www.flickr.com/photos/keenhenry" target="_blank">Photos</a></li>
+					<li><a href="http://www.jmarshall.com/easy/" target="_blank">
+					WEB Technology Made Really Easy</a></li>
+					<li>Interested in learning WEB? Go to 
+					<a href="http://www.w3schools.com/" target="_blank">W3School</a></li>
+					<li><a href="http://www.csszengarden.com/" target="_blank">
+					CSS Zen Gargen</a></li>
+					<li>Better javascript - 
+					<a href="http://docs.jquery.com/Main_Page" target="_blank">jQuery reference
+					</a></li>
+					<li>To learn PHP - <a href="http://php.net/manual/en/index.php" target="_blank">
+					PHP documentation</a></li>
+					<li><a href="http://java.sun.com/javase/6/docs/api" target="_blank">
+					Java 6 SE API reference</a></li>
+					<li><a href="http://java.sun.com/docs/books/tutorial" target="_blank">
+					Java Online Tutorials</a></li>
+					<li>C/C++ <a href="http://www.cppreference.com/wiki/start" target="_blank">
+					STL Online Reference</a></li>
+					<li><a href="http://www.gnu.org/software/libc/" target="_blank">
+					GNU C Library</a></li>
+					<li><a href="http://lxr.linux.no/linux" target="_blank">LXR Linux</a></li>
+					<li>Learning <a href="http://perldoc.perl.org/index-language.html" target="_blank">Perl</a></li>
+					<li>Learning <a href="http://docs.python.org/" target="_blank">Python</a></li>
+					<li><a href="http://httpd.apache.org/docs/2.2/" target="_blank">
+					Apache 2.2 Server Reference</a>
+					</li>
+					<li>How to use <a href="http://git-scm.com/documentation" target="_blank">
+					Git</a>?</li>
+					<li>How to use 
+					<a href="http://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/" target="_blank">LaTeX
+					</a>?</li>
+					<li><a href="http://vimdoc.sourceforge.net/htmldoc/" target="_blank">
+					Vim Manual</a></li>
+					<li><a href="http://cslibrary.stanford.edu" target="_blank">
+					Stanford CS Education Library</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	<div id="bottom-section">
+		<p id="footnote">Copyright &copy 2010-2012 by Hsiu-Yu Huang</p>
+		<p id="clock"></p>
+	</div>
+	
+	<script type="text/javascript">show('about');</script>
+	<script type="text/javascript">clock();</script>
+	<!-- <script type="text/javascript">changePhoto('./image/eu/eu4.jpg');</script> -->
+	<script type="text/javascript">loadXMLDoc('./data/projects.xml');</script>
+</body>
+</html>
