@@ -120,3 +120,13 @@ body > footer {
   font-size: 18px;
   color: #888;
 }
+
+/* styles for archives */
+ol#archive li {
+  margin-bottom: 0.1em;
+}
+ol#archive li time {
+  float: left;
+  display: block;
+  width: 6em;
+}
