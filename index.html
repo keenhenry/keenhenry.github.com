@@ -1,26 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
- "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
- 
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-  <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
-  <title>Keenhenry and his Web residence</title>
-  <link rel="stylesheet" type="text/css" href="./static/css/main.css" />
-</head>
+---
+layout: default
+title: Keenhenry and his Web residence
+---
 
-<body>
-  <div id='container'>
-    <h1 id='keen'>Keen</h1>
-    <h1 id='henry'>henry</h1>
-    <div id='nav'>
-      <a href="about.html">the man</a>
-      <a href="codes.html">his codes</a>
-      <a href="resume.html" >resume</a>
-      <a href="https://github.com/keenhenry">github</a>
-      <a href="blog.html">blog</a>
-      <a href="http://twitter.com/#!/keenhenry">twitter</a>
-    </div>
-  </div>
-</body>
-</html>
+<h2>Henry Huang</h2>
+<div id='about'>
+<p>Henry, a man that has lived in four countries (Taiwan, New Zealand, USA, Holland) across four continents (Asia, Oceania, North America, Europa), likes programming, photography, philosophy and frisbee. He is also a <a href="http://en.wikipedia.org/wiki/Go_(game)">Go</a> player.</p>
+
+<p>He currently works for <a href="http://www.mapscape.eu/">Mapscape</a> as a software engineer, where he enjoys processing large data sets to produce high quality digital maps for all kinds of GISs.</p>
+</div>
+
+<div id='portrait'><img src="./static/image/henry_small.jpg" /></div>
+
+<h2>Archive</h2>
+<ol id="archive">
+  {% for post in site.posts offset:1 %}
+    <li>
+      <time datetime="{{ post.date | xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+      <p><a href="{{ post.url }}">{{ post.title }}</a></p>
+    </li>
+  {% endfor %}
+</ol>
