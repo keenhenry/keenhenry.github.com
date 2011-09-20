@@ -4,17 +4,18 @@
  * @datae: 20/09/2011
  */
 
-/* control of styles of rows in left columns */ 
-img {
-	float: right;	
-}
-
-#nav {
-	clear: both;	
-    	text-align: right;
-}
-
-/* styles for navigation menu */ 
-#nav a {
+/* styles for navigation menu */
+.header a {
        	text-decoration: none;
+} 
+.header h1 {
+	float: left;
+}
+.header #nav {
+	text-align: right;
+}
+
+/* styles for content */
+.center img {
+	float: right;	
 }
