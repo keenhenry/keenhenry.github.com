@@ -1,4 +1,3 @@
 safe: true
 pygments: true
 permalink: '/:title'
-exclude: demo.markdown
