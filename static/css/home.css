@@ -4,16 +4,6 @@
  * @datae: 20/09/2011
  */
 
-/* styles for navigation menu */
-.header a {
-       	text-decoration: none;
-} 
-.header h1 {
-	float: left;
-}
-.header #nav {
-	text-align: right;
-}
 
 /* styles for content */
 .center img {
