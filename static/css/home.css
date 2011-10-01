@@ -5,7 +5,11 @@
  */
 
 
-/* styles for content */
+/* styles for homepage content */
 .center img {
 	float: right;	
+}
+
+#opening {
+  font-size: 20px;
 }

@@ -50,16 +50,17 @@ body > header > h1 {
   font-weight: normal;
 }
 
-/* styles for navigation menu */
-.header a {
+/* styles for header navigation menu */
+header a, header a:hover {
        	text-decoration: none;
 } 
-.header h1 {
+header h1 {
 	float: left;
 }
-.header #nav {
+header #nav {
 	text-align: right;
 }
+/*************************************/
 
 .post header {
   margin-bottom: 10px;
