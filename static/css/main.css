@@ -51,15 +51,18 @@ body > header > h1 {
 }
 
 /* styles for header navigation menu */
-header a, header a:hover {
-       	text-decoration: none;
-} 
 header h1 {
 	float: left;
 }
 header #nav {
 	text-align: right;
 }
+header a, header a:hover {
+       	text-decoration: none;
+} 
+header #nav a {
+	margin-left: 8px;
+} 
 /*************************************/
 
 .post header {
