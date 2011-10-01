@@ -21,16 +21,8 @@
 <body>
   <!-- 1 column layout -->
   <div class="container">
-    <div class="header">	
-      <h1><a href="/">Keenhenry.me</a></h1>
-      <div id='nav'>
-        <a href="resume.html" >resume</a>
-        <a href="codes.html">codes</a>
-        <a href="blog.html">blog</a>
-        <a href="http://github.com/keenhenry">github</a>
-        <a href="http://twitter.com/#!/keenhenry">twitter</a>
-      </div>
-    </div>
+    <!-- <div class="header"></div> -->
+    {% include header.html %}
     <hr />
     <div class='center'>{{ content }}</div>
     {% include footer.html %}
