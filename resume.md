@@ -70,8 +70,8 @@ layout: default
 
     \textbf{Hank Shell} - \url{http://bit.ly/pnVwwk} \hfill 08/2010 \vspace{-3mm}\\\vspace{-1mm}%
       \begin{list2}
-       \item Implemented 9 built-in commands
-       \item Support I/O redirections
+       - Implemented 9 built-in commands
+       - Support I/O redirections
        \item Support multiple level pipelining
        \item Support globbing
        \item Support command line file/command name auto-completion
