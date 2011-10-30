@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Vim tips - spell checking
+category: vim
 ---
 
 Can you imagine VIM can do spell checking? Yes! VIM surprises you again!
