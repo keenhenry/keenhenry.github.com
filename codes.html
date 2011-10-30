@@ -1,19 +1,14 @@
 ---
 layout: default
+title: Codes
 ---
 
-<article>
-  <time datetime="{{ site.posts.first.date | xmlschema }}">{{ site.posts.first.date | date: "%d %b" }}</time>
-  <h2><a href="{{ site.posts.first.url }}">{{ site.posts.first.title }}</a></h2>
-  {{ site.posts.first.content }}
-</article>
-<hr />
-<h2>Archive</h2>
-<ol id="archive">
-  {% for post in site.posts %}
-    <li>
-      <time datetime="{{ post.date | xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>      
-      <p><a href="{{ post.url }}">{{ post.title }}</a></p>
-    </li>
-  {% endfor %}
-</ol>
+<h2>Projects</h2>
+
+<h3>
+  <a href="http://bit.ly/eiooQ0">Game Isolate</a> 
+  <span>(Android, Java)</span>
+</h3>
+<p>A simple board game on Android platform for fun. The game engine was implemented with tailor-made &alpha;&beta;
+algorithm</p>
+<!-- If this is the last entry (project item) on the page; don't put horizontal line tag beneath it -->
