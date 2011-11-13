@@ -1,25 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
 <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--> 	
+<!--[if (gte IE 9)|!(IE)]><!-->
 <html lang="en"> <!--<![endif]-->
 <head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">	<!-- Force Latest IE rendering engine -->
-  <title>Keenhenry and his Web residence</title>
 
-  <!--[if lt IE 9]>
-    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <!-- <link href="http://feeds.feedburner.com/sirupsen" rel="alternate" title="Sirupsen" type="application/atom+xml" /> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-  <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
-  <link rel="stylesheet" type="text/css" href="/static/css/layout.css" />
-  <link rel="stylesheet" type="text/css" href="/static/css/skeleton.css" />
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="stylesheets/base.css">
+	<link rel="stylesheet" href="stylesheets/skeleton.css">
+	<link rel="stylesheet" href="stylesheets/layout.css">
   <!-- <link rel="stylesheet" type="text/css" href="/static/css/syntax.css" /> -->
   <!-- <link rel="stylesheet" type="text/css" href="/static/css/default.css" /> -->
   <!-- <link rel="stylesheet" type="text/css" href="/static/css/home.css" /> -->
+  
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
 </head>
 
 <body>
@@ -32,9 +48,15 @@
     <hr />
     {% include footer.html %}
   </div>
-  <!-- Grab Google CDN's jQuery. fall back to local if necessary
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script>
-  -->
+
+  <!-- JS
+  ================================================== -->
+  <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+  <script src="javascripts/tabs.js"></script>
+  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
+
+<!-- End Document
+================================================== -->
 </body>
 </html> 
