@@ -1,18 +1,25 @@
 ---
 layout: default
+blog: true
 ---
 
-<article>
-  <time datetime="{{ page.date | xmlschema }}">{{ page.date | date: "%d %b, %Y" }}</time>
-  <h2>{{ page.title }}</h2>
+<article class="sixteen columns clearfix">
+  <h2 class="row">{{ page.title }}</h2>
+  <div class="row">
+      <div class="eleven columns alpha orange">{{ page.date | date_to_string }}</div>
+      <div class='five columns omega' id='tweet'>
+          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ page.title }}" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+          <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+      </div>
+  </div>
+ <!-- <time datetime="{{ page.date | xmlschema }}"></time> time tag is HTML 5 tag; currently is not supported by all major browsers -->
   {{ content }}
 </article>
-<hr>
-<div id="paginator">
-  {% if page.previous %}
-    <a id="left" href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Older</a>
-  {% endif %}
-  {% if page.next %}
-    <a id="right" href="{{ page.next.url }}" title="{{ page.next.title }}">Newer &rarr;</a>
-  {% endif %}
-</div>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--   {% if page.previous %} -->
+<!--     <a id="left" href="{{ page.previous.url }}" title="{{ page.previous.title }}">&larr; Older</a> -->
+<!--   {% endif %} -->
+<!--   {% if page.next %} -->
+<!--     <a id="right" href="{{ page.next.url }}" title="{{ page.next.title }}">Newer &rarr;</a> -->
+<!--   {% endif %} -->
+<!-- </div> -->
