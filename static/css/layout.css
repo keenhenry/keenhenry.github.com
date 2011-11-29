@@ -51,6 +51,16 @@ footer > p > a {
 /* #Page Styles
 ================================================== */
 
+#twitter_div > ul > li {
+    list-style-type : circle;
+    list-style-image: url('/static/image/twitter_12.png');
+    padding: 0.2em; 
+    border:2px double #ddd; 
+    -moz-border-radius:5px;         
+    -webkit-border-radius:5px;      
+    border-radius:5px;
+}
+
 /* .date { */
 /*     text-align: right; */
 /* } */
