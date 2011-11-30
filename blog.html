@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Blog 
+title: Blog Archives
 ---
 
 <!-- <article class="sixteen columns clearfix"> -->
@@ -10,11 +10,19 @@ title: Blog
 <!-- </article> -->
 <!-- <hr /> -->
 <!-- <h2 class="sixteen columns clearfix">Archive</h2> -->
-<ol class="sixteen columns" id="archive">
+<div class="eight columns alpha left">
+<ol id="archive">
   {% for post in site.posts %}
-    <li class="row">
-      <p class="eight columns alpha"><a href="{{ post.url }}">{{ post.title }}</a></p>
-      <time class="eight columns omega" datetime="{{ post.date | xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>      
+    <li>
+      <p class="post title"><a href="{{ post.url }}">{{ post.title }}</a></p>
+      <time class="post date" datetime="{{ post.date | xmlschema }}">{{ post.date | date_to_string }}</time>      
     </li>
   {% endfor %}
 </ol>
+</div>
+<div class="eight columns omega right" id="blog-snippet">
+    <h4>{{ site.posts.first.title }}</a></h2>
+    {{ site.posts.first.content | truncatewords:50 }}
+    <br />
+    <div id="read-more"><a href="{{ site.posts.first.url }}" >Read more ...</a></div>
+</div>

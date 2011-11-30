@@ -25,16 +25,25 @@ header > h1 {
     text-align: right;
     font-size: 16px;
     position:relative;
-    top: 23px;
+    top: 25px;
 }
 
 .navbar > a {
 	margin-left: 15px;
+	margin-right: 15px;
 }
 
 a, a:hover {
    	text-decoration: none;
 } 
+
+.left, .right {
+    padding: 0.2em; 
+    border:2px double #ddd; 
+    -moz-border-radius:5px;         
+    -webkit-border-radius:5px;      
+    border-radius:5px;
+}
 
 /* header h1 { */
 /* 	float: left; */
@@ -44,16 +53,18 @@ a, a:hover {
   font-size: 20px;
 }
 
-footer > p > a {
+footer > a {
     margin-right: 30px;
 }
 
 /* #Page Styles
 ================================================== */
 
+/*** Customized styles for homepage ***/ 
+
 #twitter_div > ul > li {
-    list-style-type : circle;
-    list-style-image: url('/static/image/twitter_12.png');
+    /* list-style-type : circle; */
+    /* list-style-image: url('/static/image/twitter_12.png'); */
     padding: 0.2em; 
     border:2px double #ddd; 
     -moz-border-radius:5px;         
@@ -65,9 +76,41 @@ footer > p > a {
 /*     text-align: right; */
 /* } */
 
-/* .author { */
-/*     text-align: right; */
-/* } */
+/*** Customized styles for books page ***/ 
+.author {
+    font-size : 0.8em;
+    font-style: italic;
+    text-align: right;
+}
+
+/*** Customized styles for codes page ***/ 
+.project.language {
+    margin-left: 5em;
+}
+
+.project.description {
+    margin-top: 1em;
+}
+
+.project.list.item {
+    /* list-style-type : circle; */
+    /* list-style-image: url('/static/image/twitter_12.png'); */
+    padding: 0.2em; 
+    border:2px double #ddd; 
+    -moz-border-radius:5px;         
+    -webkit-border-radius:5px;      
+    border-radius:5px;
+}
+
+/*** Customized styles for blog page ***/ 
+
+#blog-snippet {
+    font-size: 1em;
+}
+
+#read-more {
+    margin-top: 2em;
+}
 
 /* #Media Queries
 ================================================== */
