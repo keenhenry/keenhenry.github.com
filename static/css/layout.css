@@ -17,8 +17,9 @@
 /* #Site Styles
 ================================================== */
 
-header > h1 {
+.four.columns h1 {
     font-size: 46px;
+    margin-bottom: 10px;
 }
 
 .navbar {

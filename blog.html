@@ -10,19 +10,21 @@ title: Blog Archives
 <!-- </article> -->
 <!-- <hr /> -->
 <!-- <h2 class="sixteen columns clearfix">Archive</h2> -->
-<div class="eight columns alpha left">
-<ol id="archive">
-  {% for post in site.posts %}
-    <li>
-      <p class="post title"><a href="{{ post.url }}">{{ post.title }}</a></p>
-      <time class="post date" datetime="{{ post.date | xmlschema }}">{{ post.date | date_to_string }}</time>      
-    </li>
-  {% endfor %}
-</ol>
-</div>
-<div class="eight columns omega right" id="blog-snippet">
+<div class="twelve columns offset-by-four" id="blog-snippet">
     <h4>{{ site.posts.first.title }}</a></h2>
     {{ site.posts.first.content | truncatewords:50 }}
     <br />
     <div id="read-more"><a href="{{ site.posts.first.url }}" >Read more ...</a></div>
 </div>
+
+<div class="twelve columns offset-by-four">
+<ul id="archive">
+  {% for post in site.posts %}
+    <li>
+    <p class="post title"><span>{{ post.date | date_to_string }}</span><a href="{{ post.url }}">{{ post.title }}</a></p>
+      <!-- <time class="post date" datetime="{{ post.date | xmlschema }}">{{ post.date | date_to_string }}</time>       -->
+    </li>
+  {% endfor %}
+</ul>
+</div>
+
