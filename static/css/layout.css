@@ -114,24 +114,20 @@ article li li li {
 
 /*** Customized styles for homepage ***/ 
 
+#twitter_div > ul {
+    padding-top: 15px;
+    border-top: 2px solid gray;
+}
+
 #twitter_div > ul > li {
     /* list-style-type : circle; */
     list-style-image: url('/static/image/twitter_12.png');
+    margin-bottom: 5px;
     padding: 0.1em; 
     /* border:2px double #ddd;  */
     /* -moz-border-radius:5px;          */
     /* -webkit-border-radius:5px;       */
     /* border-radius:5px; */
-}
-
-/*** Customized styles for blog page ***/ 
-
-#blog-snippet {
-    font-size: 1em;
-}
-
-#read-more {
-    margin-top: 2em;
 }
 
 /* #Media Queries
