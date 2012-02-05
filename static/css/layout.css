@@ -55,17 +55,17 @@ h1 { font-size: 40px; }
 }
 
 a {
-    color: #06A; 
+    color: #FF4500; 
    	text-decoration: none;
 } 
 
 a:hover {
-  color: #06A;
+  color: #FF4500;
   text-decoration: underline;
   cursor: pointer;
 }
 
-a:visited { color: #607890; }
+a:visited { color: #FFA500; }
 
 .highlight {
   /* background: #F7F7F7; */
