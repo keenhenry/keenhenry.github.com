@@ -3,17 +3,27 @@ layout: default
 blog: true
 ---
 
-<article class="sixteen columns clearfix">
-  <h2 class="row">{{ page.title }}</h2>
-  <div class="row">
-      <div class="eleven columns alpha orange">{{ page.date | date_to_string }}</div>
-      <div class='five columns omega' id='tweet'>
-          <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ page.title }}" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
-          <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-      </div>
-  </div>
- <!-- <time datetime="{{ page.date | xmlschema }}"></time> time tag is HTML 5 tag; currently is not supported by all major browsers -->
+<header class="ten columns offset-by-four">
+<h1>{{ page.title }}</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  {{ page.date | date_to_string }}
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="{{ page.title }}" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
   {{ content }}
+
+  <footer>
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--   {% if page.previous %} -->

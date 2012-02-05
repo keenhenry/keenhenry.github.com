@@ -23,7 +23,7 @@ body {
   font-size: 12pt;
 }
 
-h1 { font-size: 46px; }
+h1 { font-size: 40px; }
 
 .four.columns h1 {
     margin-bottom: 10px;
@@ -42,6 +42,18 @@ h1 { font-size: 46px; }
     padding-top: 15px;
 }
 
+.lower {
+    border-top: 2px;
+}
+
+#posts {
+    padding-top: 15px;
+}
+
+#posts span {
+  color: #999;
+}
+
 a {
     color: #06A; 
    	text-decoration: none;
@@ -55,13 +67,43 @@ a:hover {
 
 a:visited { color: #607890; }
 
-/* .left, .right { */
-/*     padding: 0.2em;  */
-/*     border:2px double #ddd;  */
-/*     -moz-border-radius:5px;          */
-/*     -webkit-border-radius:5px;       */
-/*     border-radius:5px; */
-/* } */
+.highlight {
+  /* background: #F7F7F7; */
+  /* border: 2px solid #EEE; */
+  /* color: #000; */
+  /* display: block; */
+  /* line-height: 150%; */
+  /* margin: 24px 0 24px 0; */
+  /* padding: 10px; */
+  margin-bottom: 20px;
+}
+
+pre {
+  margin-bottom: 20px;
+}
+
+code {
+  font-size: 90%;
+  font-family: Monaco, Consolas, monospace;
+}
+
+article li {
+  margin-left: 30px;
+    list-style: disc outside;
+}
+
+article li li {
+    list-style: circle outside;
+}
+
+article li li li {
+    list-style: square outside;
+}
+
+#tweet {
+  text-align: right;
+  margin-bottom:20px;
+}
 
 .opening.word {
   font-size: 20px;
@@ -80,36 +122,6 @@ a:visited { color: #607890; }
     /* -moz-border-radius:5px;          */
     /* -webkit-border-radius:5px;       */
     /* border-radius:5px; */
-}
-
-/* .date { */
-/*     text-align: right; */
-/* } */
-
-/*** Customized styles for books page ***/ 
-.author {
-    font-size : 0.8em;
-    font-style: italic;
-    text-align: right;
-}
-
-/*** Customized styles for codes page ***/ 
-.project.language {
-    margin-left: 5em;
-}
-
-.project.description {
-    margin-top: 1em;
-}
-
-.project.list.item {
-    /* list-style-type : circle; */
-    /* list-style-image: url('/static/image/twitter_12.png'); */
-    padding: 0.2em; 
-    border:2px double #ddd; 
-    -moz-border-radius:5px;         
-    -webkit-border-radius:5px;      
-    border-radius:5px;
 }
 
 /*** Customized styles for blog page ***/ 
