@@ -42,9 +42,9 @@ h1 { font-size: 40px; }
     padding-top: 15px;
 }
 
-.lower {
-    border-top: 2px;
-}
+/* .lower { */
+/*     border-top: 2px; */
+/* } */
 
 #posts {
     padding-top: 15px;
@@ -55,17 +55,17 @@ h1 { font-size: 40px; }
 }
 
 a {
-    color: #FF4500; 
+    color: #F30; 
    	text-decoration: none;
 } 
 
 a:hover {
-  color: #FF4500;
+  color: #F30;  /* Web-safe color code */
   text-decoration: underline;
   cursor: pointer;
 }
 
-a:visited { color: #FFA500; }
+a:visited { color: #F90; }
 
 .highlight {
   /* background: #F7F7F7; */
