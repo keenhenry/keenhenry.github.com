@@ -26,7 +26,7 @@ body {
 h1 { font-size: 40px; }
 
 .four.columns h1 {
-    margin-bottom: 10px;
+    margin-bottom: 11px;
 }
 
 .navbar {
@@ -36,6 +36,10 @@ h1 { font-size: 40px; }
 .navbar > section {
     position: fixed;
     width: inherit;
+}
+
+.icons {
+    margin-right: 10px;
 }
 
 .upper {
@@ -55,17 +59,17 @@ h1 { font-size: 40px; }
 }
 
 a {
-    color: #F30; 
+    color: #C30; 
    	text-decoration: none;
 } 
 
 a:hover {
-  color: #F30;  /* Web-safe color code */
+  color: #C30;  /* Web-safe color code */
   text-decoration: underline;
   cursor: pointer;
 }
 
-a:visited { color: #F90; }
+a:visited { color: #900; }
 
 .highlight {
   /* background: #F7F7F7; */
