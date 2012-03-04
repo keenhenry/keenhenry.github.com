@@ -134,6 +134,12 @@ article li li li {
     /* border-radius:5px; */
 }
 
+/*** Customized styles for links page ***/ 
+
+.link.categories {
+    margin-top: 2em;
+}
+
 /* #Media Queries
 ================================================== */
 
