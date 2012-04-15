@@ -5,7 +5,7 @@ category: opensource, database
 ---
 
 Not long ago, after working on this current job for six months, I started to realize what I have been working on is an
-an 'internal' opensource project. The tools we use are all opensourced; the workflow is also similar to what you will 
+'internal' opensource project. The tools we use are all opensourced; the workflow is also similar to what you will 
 experience when participating any opensource project.
 
 Such experience motivates me to join another opensource project in my spare time, to further cultivate my knowledge and
