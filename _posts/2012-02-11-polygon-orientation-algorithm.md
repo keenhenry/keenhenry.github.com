@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Determine orientation of a polygon
-category: algorithms
+category: [notes, algorithms]
 ---
 
 In [this](http://keenhenry.me/polygon-area-algorithm/) article, I explained the by-product of calculating area is
