@@ -70,21 +70,36 @@
       </section>
     </div> 
 
-    <!-- About page for henry huang <h2>Henry Huang</h2> -->
-<div class="twelve columns offset-by-four upper" id='bio'>
-<p><span class="opening word">Henry</span>, a man that has lived in four countries across four continents, likes programming, photography, philosophy, traveling and frisbee. He is also a <a href="http://en.wikipedia.org/wiki/Go_(game)">Go</a> player.</p>
+    <header class="ten columns offset-by-four">
+<h1>B-tree and B+-tree</h1>
+</header>
 
-<p>
-He currently has interests in building database applications for processing large data sets. Therefore, he now works 
-for <a href="http://www.mapscape.eu/">Mapscape</a>, where he processes large, raw map data to produce high quality
-digital maps. Henry usually programs in C/C++, Java, and Python. If you are interested, go check out his projects on 
-<a href="http://github.com/keenhenry">Github</a>
-</p>
+<div class="five columns offset-by-four gray">
+  15 May 2012
 </div>
 
-<div class="twelve columns offset-by-four lower" id='twitter_div'>
-<ul id="twitter_update_list"><li>&nbsp;</li></ul>
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="B-tree and B+-tree" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
+
+<article class="ten columns offset-by-four">
+  <p>B-tree is suitable for find, insert and delete operations, but terrible for next operation or sequential processing.</p>
+
+<p>B+-tree, however, is a variant of B-tree, performs well not only on find, insert and delete operations, but also on sequential processing (next operation). This is due to the fact that B-tree stores all the keys in the leaves and the entire upper levels are used for indexing (organized as B-tree) the keys in the leaves.</p>
+
+  <footer>
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/five-days-in-budapest" title="Hello, Budapest">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>

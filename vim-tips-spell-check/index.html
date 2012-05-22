@@ -70,21 +70,48 @@
       </section>
     </div> 
 
-    <!-- About page for henry huang <h2>Henry Huang</h2> -->
-<div class="twelve columns offset-by-four upper" id='bio'>
-<p><span class="opening word">Henry</span>, a man that has lived in four countries across four continents, likes programming, photography, philosophy, traveling and frisbee. He is also a <a href="http://en.wikipedia.org/wiki/Go_(game)">Go</a> player.</p>
+    <header class="ten columns offset-by-four">
+<h1>Spell checking in Vim</h1>
+</header>
 
-<p>
-He currently has interests in building database applications for processing large data sets. Therefore, he now works 
-for <a href="http://www.mapscape.eu/">Mapscape</a>, where he processes large, raw map data to produce high quality
-digital maps. Henry usually programs in C/C++, Java, and Python. If you are interested, go check out his projects on 
-<a href="http://github.com/keenhenry">Github</a>
-</p>
+<div class="five columns offset-by-four gray">
+  08 Oct 2011
 </div>
 
-<div class="twelve columns offset-by-four lower" id='twitter_div'>
-<ul id="twitter_update_list"><li>&nbsp;</li></ul>
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Spell checking in Vim" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
+
+<article class="ten columns offset-by-four">
+  <p>Can you imagine Vim can do spell checking? Yes! Vim surprises you again!</p>
+
+<p>For setting Vim to automatically check spelling errors, you can add the following line to your <code>.vimrc</code> file:</p>
+
+<pre><code>set spell</code></pre>
+
+<p>It will work like charms for any files you edit with Vim later on (What Vim will do is to highlight any misspelling words).</p>
+
+<p>That&#8217;s not the end of the story. You might wonder how to jump between misspelling words when you want to correct them. In that case, you need (in command modes): <code>]s</code> (jump to next spelling error) or <code>[s</code> (jump to previous spelling error).</p>
+
+<p>Also, showing suggestions for possible spellings is handy as well: move your cursor (again in command mode) to the word you need suggestions and type <code>z=</code>.</p>
+
+<p>If you don&#8217;t want some words to be recognized as misspellings, try <code>zg</code> (add good words to your dictionary), otherwise, use <code>zw</code> to make certain words added to bad words&#8217; list when they are not recognized as misspellings by Vim.</p>
+
+<p>Whew! That&#8217;s it for today&#8217;s Vim tips. See you next time!</p>
+
+  <footer>
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-plugins" title="Taking advantages of Vim plugins">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>
