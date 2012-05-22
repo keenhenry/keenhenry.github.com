@@ -1,7 +1,9 @@
 ---
 layout: post
 title: Spell checking in Vim
-category: [notes, vim]
+tags: 
+- notes
+- vim
 ---
 
 Can you imagine Vim can do spell checking? Yes! Vim surprises you again!

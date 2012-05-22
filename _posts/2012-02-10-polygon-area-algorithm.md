@@ -1,7 +1,9 @@
 ---
 layout: post
 title: Compute the area of a Simple Polygon
-category: [notes, algorithms]
+tags: 
+- notes
+- algorithms
 ---
 
 Polygon geometry is used heavily in my job. And just last week, I had to solve a problem which needed to calculate the

@@ -1,7 +1,9 @@
 ---
 layout: post
 title: Sqlite and Opensource Projects
-category: [database]
+tags: 
+- journal
+- database
 ---
 
 Not long ago, after working on this current job for six months, I started to realize what I have been working on is an

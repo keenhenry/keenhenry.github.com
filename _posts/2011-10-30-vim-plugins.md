@@ -1,7 +1,9 @@
 ---
 layout: post
 title: Taking advantages of Vim plugins
-category: [notes, vim]
+tags: 
+- notes
+- vim
 ---
 
 After one month of struggling with PLAIN VIM, I made up my minds to make my VIM experience smoother and more
