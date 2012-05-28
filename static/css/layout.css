@@ -46,9 +46,9 @@ h1 { font-size: 40px; }
     padding-top: 15px;
 }
 
-/* .lower { */
-/*     border-top: 2px; */
-/* } */
+.lower {
+    margin-top: 50px;
+}
 
 #posts {
     padding-top: 15px;
@@ -111,6 +111,21 @@ article li li li {
 
 .opening.word {
   font-size: 20px;
+}
+
+.tag_list {
+  list-style-type: none;
+}
+
+.tag_list li {
+  display: inline;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.tag_list li a {
+  margin-left: 0.5em;
 }
 
 /* #Page Styles
