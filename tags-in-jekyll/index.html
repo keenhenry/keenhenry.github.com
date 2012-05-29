@@ -70,70 +70,58 @@
       </section>
     </div> 
 
-    <h1 class="ten columns offset-by-four">journal posts</h1>
-<ul>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/five-days-in-budapest'>Hello, Budapest</a><span class="three columns gray">30 Apr 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/sqlite-opensource-project'>Sqlite and Opensource Projects</a><span class="three columns gray">15 Apr 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</ul>
+    <header class="ten columns offset-by-four">
+<h1>Creating Tags with Jekyll</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  29 May 2012
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Creating Tags with Jekyll" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>This blog is powered by <a href='http://jekyllrb.com/'>Jekyll</a> with <a href='http://pages.github.com/'>Github Pages</a>. So far such combination of tools makes development and deployment of (static) personal website farely easy and fast, plus the flexibility to adapting complex design. If you are looking for a highly personalizable blogging engine and a host for creating static website, <em>Jekyll</em> plus <em>Github Pages</em> will not let you down.</p>
+
+<p>However, it is not without limits. One thing I wanted to do is creating tags for each blog post and have them all collected on a sort of tag archive page. I did a bit of research, and found a direct solution: use a Jekyll <a href='https://github.com/mojombo/jekyll/wiki/Plugins'>plugin</a>. Sadly, Github Pages disables any plugins you are using when creating blog, so that won&#8217;t work directly.</p>
+
+<p>Therefore, here is yet another level of indirection (work-around).</p>
+
+<p>The work-around is to generate your static site/blog with Jekyll and its tag-generation plugin, LOCALLY. Then, push the generated content to Github. <a href='http://charliepark.org/tags-in-jekyll/'>Here</a> shows you how to generate tags using the plugin, and <a href='http://charliepark.org/jekyll-with-plugins/'>here</a> shows you exactly how to get around disabling of plugins by Github Pages.</p>
+
+<p>One pitfall I had while following the instructions in the referenced articles above, was forgetting to set <strong>safe</strong> to false in <strong>_config.yml</strong>, which is<br />to enable plugins. Once you have that figured out, everything else should be quite straight-forward.</p>
+
+<p>My <strong>_config.yml</strong> is listed below for reference: <div class='highlight'><pre><span class='l-Scalar-Plain'>safe</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>false</span>
+<span class='l-Scalar-Plain'>pygments</span><span class='p-Indicator'>:</span> <span class='l-Scalar-Plain'>true</span>
+<span class='l-Scalar-Plain'>permalink</span><span class='p-Indicator'>:</span> <span class='s'>&#39;/:title&#39;</span>
+</pre></div></p>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/jekyll">jekyll</a></li>
+    
+    <li><a href="/tag/webdev">webdev</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/btree-variants" title="B-tree and B+-tree">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>
