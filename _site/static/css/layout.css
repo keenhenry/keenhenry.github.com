@@ -1,0 +1,189 @@
+/*
+* Skeleton V1.1
+* Copyright 2011, Dave Gamache
+* www.getskeleton.com
+* Free to use under the MIT license.
+* http://www.opensource.org/licenses/mit-license.php
+* 8/17/2011
+*/
+
+/* Table of Content
+==================================================
+	#Site Styles
+	#Page Styles
+	#Media Queries
+	#Font-Face */
+
+/* #Site Styles
+================================================== */
+
+body {
+  margin: 20px;
+  font-family: Georgia, serif;
+  font-size: 12pt;
+}
+
+h1 { font-size: 40px; }
+
+.four.columns h1 {
+    margin-bottom: 10px;
+}
+
+.navbar {
+    width: 220px;
+}
+
+.navbar > section {
+    position: fixed;
+    width: inherit;
+}
+
+.icons {
+    margin-right: 11px;
+}
+
+.upper {
+    padding-top: 15px;
+}
+
+.lower {
+    margin-top: 50px;
+}
+
+#posts {
+    padding-top: 15px;
+}
+
+a {
+    color: #C30; 
+   	text-decoration: none;
+} 
+
+a:hover {
+  color: #C30;  /* Web-safe color code */
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:visited { color: #900; }
+
+.highlight {
+  /* background: #F7F7F7; */
+  /* border: 2px solid #EEE; */
+  /* color: #000; */
+  /* display: block; */
+  /* line-height: 150%; */
+  /* margin: 24px 0 24px 0; */
+  /* padding: 10px; */
+  margin-bottom: 20px;
+}
+
+pre {
+  margin-bottom: 20px;
+}
+
+code {
+  font-size: 90%;
+  font-family: Monaco, Consolas, monospace;
+}
+
+article li {
+  margin-left: 30px;
+    list-style: disc outside;
+}
+
+article li li {
+    list-style: circle outside;
+}
+
+article li li li {
+    list-style: square outside;
+}
+
+#tweet {
+  text-align: right;
+  margin-bottom:20px;
+}
+
+.opening.word {
+  font-size: 20px;
+}
+
+.tag_list {
+  list-style-type: none;
+}
+
+.tag_list li {
+  display: inline;
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+.tag_list li a {
+  margin-left: 0.5em;
+}
+
+/* #Page Styles
+================================================== */
+
+/*** Customized styles for homepage ***/ 
+
+#twitter_div > ul {
+    padding-top: 20px;
+    border-top: 2px solid gray;
+}
+
+#twitter_div > ul > li {
+    /* list-style-type : circle; */
+    list-style-image: url('/static/image/twitter_12.png');
+    margin-bottom: 5px;
+    padding: 0.1em; 
+    /* border:2px double #ddd;  */
+    /* -moz-border-radius:5px;          */
+    /* -webkit-border-radius:5px;       */
+    /* border-radius:5px; */
+}
+
+/*** Customized styles for links page ***/ 
+
+.link.categories {
+    margin-top: 2em;
+}
+
+/* #Media Queries
+================================================== */
+
+	/* Smaller than standard 960 (devices and browsers) */
+	@media only screen and (max-width: 959px) {}
+
+	/* Tablet Portrait size to standard 960 (devices and browsers) */
+	@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+	/* All Mobile Sizes (devices and browser) */
+	@media only screen and (max-width: 767px) {}
+
+	/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+	@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+	/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+	@media only screen and (max-width: 479px) {}
+
+
+/* #Font-Face
+================================================== */
+/* 	This is the proper syntax for an @font-face file
+		Just create a "fonts" folder at the root,
+		copy your FontName into code below and remove
+		comment brackets */
+
+/*	@font-face {
+	    font-family: 'FontName';
+	    src: url('../fonts/FontName.eot');
+	    src: url('../fonts/FontName.eot?iefix') format('eot'),
+	         url('../fonts/FontName.woff') format('woff'),
+	         url('../fonts/FontName.ttf') format('truetype'),
+	         url('../fonts/FontName.svg#webfontZam02nTh') format('svg');
+	    font-weight: normal;
+	    font-style: normal; }
+*/
