@@ -86,9 +86,13 @@
 <article class="ten columns offset-by-four">
   <p>Today I encountered <a href='http://stackoverflow.com/questions/5973427/error-passing-xxx-as-this-argument-of-xxx-discards-qualifiers'>this</a> compile-time error while using <a href='http://www.boost.org/doc/libs/1_41_0/doc/html/property_tree.html'>Boost Property Tree</a> library.</p>
 
-<p>It happened when invoking <code>read_xml(filename, pt)</code> function. Thankfully this is a common error which caused by <em>calling a non-const member function on const object</em>. I fixed this error right after I found the stackoverflow entry stated above.</p>
+<p>Thankfully this is a common error which caused by <em>calling a non-const member function on const object</em>. I fixed this error right after I found the stackoverflow entry stated above. The fix is straightforward: you either modify the non-const member function with a const modifier, or make the object non-const.</p>
 
-<p>Side note: <a href='http://stackoverflow.com/questions/550428/an-odd-c-error-test-cpp15-error-passing-const-as-this-argument-of'>Here</a> is a clearer explanation of what happened.</p>
+<p>To make the explanatiotn more concrete, here is an example of causing such an error:</p>
+
+<p>You declare a member function of a class like this - <code>func_name(arg_list) const</code>, which means <strong>not</strong> to modify &#8216;this&#8217; object (the object that member function belongs to or operate on) by modifying any data members of that object. However in that member function, you accidently changed the object&#8217;s states (by changing some data members). The fix would be removing the <code>const</code> modifier in the declaration / definition of the function, which means to allow the function to change this object&#8217;s states, or, to change the implementation of that function so that it leaves this object&#8217;s states intact.</p>
+
+<p>Side note: <a href='http://stackoverflow.com/questions/550428/an-odd-c-error-test-cpp15-error-passing-const-as-this-argument-of'>Here</a> is a clearer explanation of what could have happened.</p>
 
   <footer>
   <ul class="tag_list">
