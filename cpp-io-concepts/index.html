@@ -71,28 +71,36 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Passing-sth-as-this-argument-of-sth-disgards-qualifiers Error</h1>
+<h1>C++ IO Stream Concepts Review</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  06 Jun 2012
+  12 Jun 2012
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Passing-sth-as-this-argument-of-sth-disgards-qualifiers Error" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="C++ IO Stream Concepts Review" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Today I encountered <a href='http://stackoverflow.com/questions/5973427/error-passing-xxx-as-this-argument-of-xxx-discards-qualifiers'>this</a> compile-time error while using <a href='http://www.boost.org/doc/libs/1_41_0/doc/html/property_tree.html'>Boost Property Tree</a> library.</p>
+  <p>Recently I have to deal with C++ I/O interface extensively in my job. However, I had not used it directly for a while, so I decided to review/relearn a bit so that I can use it fluently.</p>
 
-<p>Thankfully this is a common error which caused by <em>calling a non-const member function on const object</em>. I fixed this error right after I found the stackoverflow entry stated above. The fix is straightforward: you either modify the non-const member function with a const modifier, or make the object non-const.</p>
+<p>At a first glimpse, I found it a bit confusing and complex, given the number of classes and their intertwined <a href='http://www.cplusplus.com/reference/iostream/'>inheritance relationships</a>. Then I picked up my old C++ textbook and went through the underlining design concepts of I/O Stream library. Suddenly, things became clear and intuitive.</p>
 
-<p>To make the explanatiotn more concrete, here is an example of causing such an error:</p>
+<p>Here I am going to outline what I had understood:</p>
 
-<p>You declare a member function of a class like this - <code>func_name(arg_list) const</code>, which means <strong>not</strong> to modify &#8216;this&#8217; object (the object that member function belongs to or operate on) by modifying any data members of that object. However in that member function, you accidently changed the object&#8217;s states (by changing some data members). The fix would be removing the <code>const</code> modifier in the declaration / definition of the function, which means to allow the function to change this object&#8217;s states, or, to change the implementation of that function so that it leaves this object&#8217;s states intact.</p>
+<ul>
+<li>The most fundamental concept is <em>stream</em>. Stream is a flow of characters or bytes, which means they have to <em>flow in</em> from one end, and <em>flow out</em> from the other end. The real question remained is what to connect to each end and how.</li>
 
-<p>Side note: <a href='http://stackoverflow.com/questions/550428/an-odd-c-error-test-cpp15-error-passing-const-as-this-argument-of'>Here</a> is a clearer explanation of what could have happened.</p>
+<li>For example, <code>cin</code> object is a predefined stream objec in STL I/O interface. The &#8216;input&#8217; end is connected to <code>stdin</code>, which is (usually) keyboard, the &#8216;output&#8217; end could be connected to different kinds of data structures in user program, like a <code>char array</code> or a <code>string</code> object and so on. Another example is <code>ifstream</code> object. The input end connects to an open file, output ends again could connect to various data structures in user program. And the bytes stream flow from the open file through <code>ifstream</code> object and then directed to some data structure predefined in user program.</li>
+
+<li>There are many ways or combinations to connect two ends of a stream, that is why we have many predefined <code>stream</code> classes in C++ STL I/O interface. Each I/O class represents one distinct stream concept, and some classes share certain features or components together. Class hierachy can be seen from <a href='http://www-h.eng.cam.ac.uk/help/tpl/languages/C++/io.html'>here</a>).</li>
+
+<li>Another important concept is buffer. Buffer makes I/O operations more efficient because it reduces frequencies of disk accessing. Every C++ stream class manages a buffer internally, which makes programmers&#8217; life easier when dealing with I/O. There is a <strong>base buffer class</strong> for the buffer used internally by c++ stream classes: <code>streambuf</code>. It is an abstract class which cannot be instantiated directly. However, it has two concrete derived classes - <code>filebuf</code> and <code>stringbuf</code>, which are actually used. Normally, a programmer does not need to create a buffer object to deal with I/O stuff since C++ stream classes already take care of that internally.</li>
+</ul>
+
+<p>To conclude, to use C++ I/O interface, a programmer usually does not need to create a memory buffer himself/herself, just create the most appropriate stream class object and connect the object&#8217;s input and output end accordingly.</p>
 
   <footer>
   <ul class="tag_list">
@@ -104,7 +112,7 @@
     
     <li><a href="/tag/c++">c++</a></li>
     
-    <li><a href="/tag/compile-time error">compile-time error</a></li>
+    <li><a href="/tag/io">io</a></li>
     
   </ul>
 
@@ -115,10 +123,8 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/icu" title="Yet Another Opensource Library - ICU">&larr; Older</a> -->
+<!--     <a id="left" href="/passing-xxx-discards-qualifiers-error" title="Passing-sth-as-this-argument-of-sth-disgards-qualifiers Error">&larr; Older</a> -->
 <!--    -->
-<!--    -->
-<!--     <a id="right" href="/cpp-io-concepts" title="C++ IO Stream Concepts Review">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
