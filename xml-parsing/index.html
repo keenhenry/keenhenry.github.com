@@ -70,136 +70,57 @@
       </section>
     </div> 
 
-    <h1 class="ten columns offset-by-four">travel posts</h1>
-<ul>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/five-days-in-budapest'>Hello, Budapest</a><span class="three columns gray">30 Apr 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</ul>
+    <header class="ten columns offset-by-four">
+<h1>Several approaches to parse XML files</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  05 Jul 2012
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Several approaches to parse XML files" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Recently I had the chance to parse XML (in C++) using several libraries, I would like to make a note about it. There are many XML parsing libraries out there and I guess each one has its own pros and cons. You just have to pick the one that is most suitable for your use cases.</p>
+
+<p>The first library I tried to use is <a href='http://www.boost.org/doc/libs/1_42_0/doc/html/boost_propertytree/tutorial.html'><em>boost property tree</em></a>. This library is only introduced after boost version 1.40. It is very suitable for parsing small, simple structured XML files, like configuration files. However, boost property tree is still powerful enough to accomplish some complex parsing if you really want to, it&#8217;s just that the interface is not intuitive and convenient for you to do complicated things, since it is not designed solely for parsing XML data.</p>
+
+<p><a href='http://bit.ly/LfaoN6'>Here</a> is a great blog post (containing some code examples) about using boost property tree.</p>
+
+<p>A friend of mine introduced <a href='http://www.grinninglizard.com/tinyxmldocs/tutorial0.html'>TinyXml</a> to me, which is yet another XML parser. I&#8217;ve never tried it, but I presume it to be an easy-to-use DOM parser.</p>
+
+<p>Finally, I settled with <a href='http://www.codesynthesis.com/projects/xsd/'>XSD</a> XML data binding approach. This is an approach I&#8217;ve never heard of in school before. In this approach, XSD compiler will generate the object data model interface (c++ code) for your XML data, according to the <a href='http://www.w3schools.com/schema/schema_intro.asp'>XML Schema Definition</a> file of your XML data. Every element, attribute in your XML data is a data type or <code>class</code> in the generated C++ interface; the interface provides setter and getter methods for every data type, so you access or modify the XML document through such interface.</p>
+
+<p>The static data binding approach is very schema dependent, so if your XML data is changed in the future, your code has to be rewritten against a new generated interface. <a href='ww.codesynthesis.com/projects/xsd/documentation/cxx/tree/guide/'>This</a> is the tutorial for using the generated interface, and <a href='http://www.codesynthesis.com/projects/xsd/documentation/xsd.xhtml'>this</a> is the manual of the command line tool for generating the C++ interface. Also, <a href='http://www.artima.com/cppsource/xml_data_binding.html'>some</a> code examples of using the generated interface.</p>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/c++">c++</a></li>
+    
+    <li><a href="/tag/xml parsing">xml parsing</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/freefall" title="Some excerpts from Freefall">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>
