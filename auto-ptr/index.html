@@ -84,7 +84,34 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>What is <code>auto_ptr</code> class?</p>
+  <p>What is <code>auto_ptr</code> class? It is a template that defines a pointer-like object intended to be assigned an address obtained by <code>new</code>. When an <code>auto_ptr</code> object expires, its destructor uses <code>delete</code> to free the memory. It is an example of smart pointer, which is a class that has pointer-like properties and augment the behavior of a simple pointer.</p>
+
+<p><code>auto_ptr</code> behaves very much like a simple pointer, with which you can store the address of memory allocated by <code>new</code> and can be derefernced. Here is an example:</p>
+
+<pre><code>void demo()
+{
+    auto_ptr&lt;double&gt; pd(new double);
+    *pd = 25.5;  // dereferencing!
+
+    // do not need to free memory yourself, auto_ptr takes care of that automatically
+    return;
+}</code></pre>
+
+<p>It is convenient and easy to use, however it does has some caveats:</p>
+
+<ol>
+<li><code>auto_ptr</code> cannot be used to point to dynamically allocated array, because it uses <code>delete</code> not <code>delete []</code>.</li>
+
+<li>It institutes the concept of <em>ownership</em>, with only one smart pointer allowed to own a particular object. Assignment transfers ownership. So it is advised that to use <code>auto_ptr</code> with STL container classes, it might not behave as you expected.</li>
+</ol>
+
+<p>Further readings:</p>
+
+<ul>
+<li><a href='http://www.gotw.ca/publications/using_auto_ptr_effectively.htm'>Using auto_ptr effectively</a></li>
+
+<li><a href='http://www.cplusplus.com/reference/std/memory/auto_ptr/'><code>auto_ptr</code> reference</a></li>
+</ul>
 
   <footer>
   <ul class="tag_list">
