@@ -71,42 +71,48 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Several approaches to parse XML files</h1>
+<h1>A Tale of Impressionism</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  05 Jul 2012
+  10 Jul 2012
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Several approaches to parse XML files" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="A Tale of Impressionism" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Recently I had the chance to parse XML (in C++) using several libraries, I would like to make a note about it. There are many XML parsing libraries out there and I guess each one has its own pros and cons. You just have to pick the one that is most suitable for your use cases.</p>
+  <p>At the end of last month, we visited <a href='http://www.hermitage.nl/en/'>Hermitage Museum</a> in Amsterdam, for the special exhibition of impressionism.</p>
 
-<p>The first library I tried to use is <a href='http://www.boost.org/doc/libs/1_42_0/doc/html/boost_propertytree/tutorial.html'><em>boost property tree</em></a>. This library is only introduced after boost version 1.40. It is very suitable for parsing small, simple structured XML files, like configuration files. However, boost property tree is still powerful enough to accomplish some complex parsing if you really want to, it&#8217;s just that the interface is not intuitive and convenient for you to do complicated things, since it is not designed solely for parsing XML data.</p>
+<p>The exhibition was so well-planned and organized that I was able to form a clear picture of the motivations and origins of impressionism, as well as its influences to other forms of arts at that time, and how it opened an new era to the libralization of painting styles and techniques and concepts later on. It is also because of that exhibition I had learned the intertwined bonding among arts, history and sociology.</p>
 
-<p><a href='http://bit.ly/LfaoN6'>Here</a> is a great blog post (containing some code examples) about using boost property tree.</p>
+<p>So Let&#8217;s begin with some history.</p>
 
-<p>A friend of mine introduced <a href='http://www.grinninglizard.com/tinyxmldocs/tutorial0.html'>TinyXml</a> to me, which is yet another XML parser. I&#8217;ve never tried it, but I presume it to be an easy-to-use DOM parser.</p>
+<p>In the middle of the 19th century, French art was controlled by Académie des Beaux-Arts. The Académie defined the contents, styles, techniques and standards of French paintings. The Académie hold annual art show, Salon de Paris, artitsts whose work was displayed in the show gained prestige and guaranteed source of income in the future. As a result, it was vital for artists to get recognizition by the Académie in order to survive. The paintings accepted by Académie at that time were mostly portraits, religious themes and mythological subjects, and the preferred or trending style was <a href='http://en.wikipedia.org/wiki/Realism_(visual_arts'>Realism</a>).</p>
 
-<p>Finally, I settled with <a href='http://www.codesynthesis.com/projects/xsd/'>XSD</a> XML data binding approach. This is an approach I&#8217;ve never heard of in school before. In this approach, XSD compiler will generate the object data model interface (c++ code) for your XML data, according to the <a href='http://www.w3schools.com/schema/schema_intro.asp'>XML Schema Definition</a> file of your XML data. Every element, attribute in your XML data is a data type or <code>class</code> in the generated C++ interface; the interface provides setter and getter methods for every data type, so you access or modify the XML document through such interface.</p>
+<p>There was a group of artists, later called impressionists, whose work could not fit in to the standards defined by Académie des Beaux-Arts, striving to survive and be rebellious. They preferred painting landscapes and contemporary life, which was influenced by <a href='http://en.wikipedia.org/wiki/Barbizon_school'>Barbizon school</a>, and believed the reality of a scene is a constantly changing state, only an <em>impression</em> can be captured. Interestingly, the invention of oil paint tube came just in time to help impressionists, because it made painting <em>outdoor</em> landscapes and real life subjects possible (oil paint can stay intact inside the tube and be carried around by the painter). Passionate artists, paint tube technology, new concepts towards arts and a conservative Académie gave birth to a new genre: <em>Impressionism</em>.</p>
 
-<p>The static data binding approach is very schema dependent, so if your XML data is changed in the future, your code has to be rewritten against a new generated interface. <a href='ww.codesynthesis.com/projects/xsd/documentation/cxx/tree/guide/'>This</a> is the tutorial for using the generated interface, and <a href='http://www.codesynthesis.com/projects/xsd/documentation/xsd.xhtml'>this</a> is the manual of the command line tool for generating the C++ interface. Also, <a href='http://www.artima.com/cppsource/xml_data_binding.html'>some</a> code examples of using the generated interface.</p>
+<p>The impressionists include: Claude Monet, Camille Pissarro, Paul Cézanne, Édouard Manet, Pierre-Auguste Renoir, Edgar Degas, etc. They started their own exhibitions to compete with Salon de Paris. Of course, the society at that time struggled a while to gradually accept and appreciate these different style of paintings. But quickly after that, impressionism started to gain popularity and acceptance in 1870s and continued to be prominant until 1890s.</p>
+
+<p>Impressionism was so influencial that it not only affected painters in its era, but also opens up new possibilities for other forms of arts that followed. For example, Vincent van Gogh and Paul Gauguin are examples that began to develop different precepts for use of color, form, line after impressionists. Pointillism and Cubism are art movements that also inspired by impressionism.</p>
+
+<p>Life is art. period.</p>
+
+<p>Note: this post referenced a <a href='http://en.wikipedia.org/wiki/Impressionism'>wikipedia article</a></p>
 
   <footer>
   <ul class="tag_list">
     Tags for this post: 
     
-    <li><a href="/tag/notes">notes</a></li>
+    <li><a href="/tag/travel">travel</a></li>
     
-    <li><a href="/tag/programming">programming</a></li>
+    <li><a href="/tag/art">art</a></li>
     
-    <li><a href="/tag/c++">c++</a></li>
+    <li><a href="/tag/history">history</a></li>
     
-    <li><a href="/tag/xml parsing">xml parsing</a></li>
+    <li><a href="/tag/impressionism">impressionism</a></li>
     
   </ul>
 
@@ -117,10 +123,10 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/freefall" title="Some excerpts from Freefall">&larr; Older</a> -->
+<!--     <a id="left" href="/xml-parsing" title="Several approaches to parse XML files">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/impressionism" title="A Tale of Impressionism">Newer &rarr;</a> -->
+<!--     <a id="right" href="/svg-guidelines" title="What you need to know about SVG images">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 

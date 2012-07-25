@@ -70,154 +70,51 @@
       </section>
     </div> 
 
-    <h1 class="ten columns offset-by-four">io posts</h1>
-<ul>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/cpp-io-concepts'>C++ IO Stream Concepts Review</a><span class="three columns gray">12 Jun 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</ul>
+    <header class="ten columns offset-by-four">
+<h1>What you need to know about SVG images</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  12 Jul 2012
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="What you need to know about SVG images" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>I had to processed SVG images as XML documents, and I found several gotcha&#8217;s when dealing with them.</p>
+
+<p>First it is better <a href='https://jwatt.org/svg/authoring/#doctype-declaration'>not to include a DOCTYPE declaration</a> in your SVG documents. Otherwise <a href='http://comments.gmane.org/gmane.text.xml.xerces-c.user/3524'>Xerces C++ will throw errors about it</a>.</p>
+
+<p>Secondly, SVG is a namespaced XML dialect. As a consequence, all the XML dialects used in your SVG documents must be bound to their <a href='http://www.w3.org/TR/xml-names11/'>namespaces</a>, otherwise DTDs validation will fail.</p>
+
+<p>Thirdly, make sure you get the units right. <code>pt</code> and <code>px</code> are different. Some units can be omitted others cannot. <a href='https://jwatt.org/svg/authoring/#specifying-units'>Read this</a> for more details of how to use units in SVG documents correctly.</p>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/svg">svg</a></li>
+    
+    <li><a href="/tag/xml">xml</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/impressionism" title="A Tale of Impressionism">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>
