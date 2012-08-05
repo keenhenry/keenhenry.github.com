@@ -92,6 +92,12 @@
 
 <p>Thirdly, make sure you get the units right. <code>pt</code> and <code>px</code> are different. Some units can be omitted others cannot. <a href='https://jwatt.org/svg/authoring/#specifying-units'>Read this</a> for more details of how to use units in SVG documents correctly.</p>
 
+<p><strong>Addendum</strong></p>
+
+<p><code>CDATA</code> section can be used to <em>escape</em> some characters, like <code>&lt;</code>, <code>&gt;</code> or <code>&amp;</code>, that are forbidden in XML elements. <code>CDATA</code> means <em>character data</em>, which indicates only characters data is within the section to XML parser, and will be ignored by XML parser. That is why <code>CDATA</code> is often used to enclose scripts, like Javascript, in XML or XHTML documents.</p>
+
+<p>&#8220;Style&#8221; information can also be embedded within a XML/SVG document by including <code>&lt;style&gt;</code> tag in <code>CDATA</code> section. However, enclosing style within <code>CDATA</code> is less needed since CSS styles have less need for <code>&lt;</code>, <code>&gt;</code> or <code>&amp;</code> characters. Therefore you can remove <code>CDATA</code> marker for CSS styles if you want.</p>
+
   <footer>
   <ul class="tag_list">
     Tags for this post: 
