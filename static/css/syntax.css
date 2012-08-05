@@ -2,6 +2,7 @@
  * This is a pygments generated css style file for codes in the website.
  *
  * @2012-05-30  H.Huang: Change colors for background, typed keyword, string and string symbol. Added color for boolean value.
+ * @2012-08-05  H.Huang: Added syntax highlight style for bash commands
  */ 
 
 .highlight  { background: #000000; }
@@ -31,7 +32,7 @@
 .highlight .kr { font-weight: bold } /* Keyword.Reserved */
 .highlight .kt { color: #00ffff; } /* Keyword.Type */
 .highlight .m { color: #009999 } /* Literal.Number */
-.highlight .s { color: #d462ff } /* Literal.String */
+.highlight .s { color: #ffff00 } /* Literal.String */
 .highlight .na { color: #008080 } /* Name.Attribute */
 .highlight .nb { color: #0086B3 } /* Name.Builtin */
 .highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
@@ -65,3 +66,4 @@
 .highlight .vg { color: #008080 } /* Name.Variable.Global */
 .highlight .vi { color: #008080 } /* Name.Variable.Instance */
 .highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+.highlight .bc { color: #fffafa } /* Bash commands */
