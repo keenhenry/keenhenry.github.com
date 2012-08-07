@@ -130,12 +130,12 @@ article li li li {
 /*** Customized styles for homepage ***/ 
 
 #map_div {
-    margin-top: 0px; 
+    margin-top: 10px; 
 }
 
 #map_div > iframe {
     margin-top: 10px;
-    /* border-top: 2px solid gray; */
+    border: 2px solid gray;
 }
 
 /* #twitter_div > ul { */
