@@ -71,38 +71,57 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Some Useful Bash Commands to Help You At Work</h1>
+<h1>Project Euler Problem 38</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  05 Aug 2012
+  14 Aug 2012
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Some Useful Bash Commands to Help You At Work" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Project Euler Problem 38" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>There are some routines I do frequently with command line utilities on Linux. But I do not always remember them. Here are some notes for myself:</p>
+  <p>Just solved problem 38 a few days ago, here is some notes about my algorithm:</p>
 
-<p>How to rename every file with <code>.svg</code> suffix to <code>.xml</code> suffix in a directory?</p>
-<div class='highlight'><pre class='bc'>$ find . -name <span class='s'>&quot;*.txt&quot;</span> -print | xargs rename <span class='s'>&#39;s/.svg/.xml/g&#39;</span>
+<p><strong>Step 1</strong>: Permute string &#8220;987654321&#8221; in <em>descending</em> order.</p>
+
+<p><strong>Step 2</strong>: For every permutation, use its first few digits (could be 1-, 2-, 3-, or 4-digits) as a base integer to generate a 9-digit concatenated product, if possible; otherwise continue with next permutation.</p>
+
+<p><strong>Step 3</strong>: Test if that generated concatenated product is equal to the current permutation, if it is, you found an answer; otherwise, repeat from <strong>Step 2</strong>.</p>
+
+<p>Here is my code in Python:</p>
+<div class='highlight'><pre><span class='kr'>def</span> <span class='nf'>p38</span><span class='p'>():</span>
+    <span class='kr'>def</span> <span class='nf'>print_concat_product</span><span class='p'>(</span><span class='n'>x</span><span class='p'>):</span>
+        <span class='kr'>for</span> <span class='n'>i</span> <span class='kr'>in</span> <span class='nf'>xrange</span><span class='p'>(</span><span class='mi'>2</span><span class='p'>,</span> <span class='mi'>5</span><span class='p'>):</span>
+            <span class='n'>concat_product</span> <span class='o'>=</span> <span class='n'>x</span><span class='p'>[</span><span class='mi'>0</span><span class='p'>:</span><span class='n'>i</span><span class='p'>]</span>
+            <span class='n'>n</span><span class='p'>,</span> <span class='n'>base</span> <span class='o'>=</span> <span class='mi'>2</span><span class='p'>,</span> <span class='nf'>int</span><span class='p'>(</span><span class='n'>concat_product</span><span class='p'>)</span>
+            <span class='kr'>while</span> <span class='nf'>len</span><span class='p'>(</span><span class='n'>concat_product</span><span class='p'>)</span> <span class='o'>&lt;=</span> <span class='mi'>9</span><span class='p'>:</span>
+                <span class='n'>concat_product</span> <span class='o'>+=</span> <span class='nf'>str</span><span class='p'>(</span><span class='n'>base</span><span class='o'>*</span><span class='n'>n</span><span class='p'>)</span>
+                <span class='kr'>if</span> <span class='nf'>len</span><span class='p'>(</span><span class='n'>concat_product</span><span class='p'>)</span> <span class='o'>==</span> <span class='mi'>9</span> <span class='o'>and</span> <span class='n'>concat_product</span> <span class='o'>==</span> <span class='n'>x</span><span class='p'>:</span>
+                    <span class='kr'>print</span> <span class='n'>x</span><span class='p'>,</span> <span class='s'>&quot;and its base:&quot;</span><span class='p'>,</span> <span class='nf'>str</span><span class='p'>(</span><span class='n'>base</span><span class='p'>)</span>
+                    <span class='kr'>break</span>
+                <span class='n'>n</span> <span class='o'>+=</span> <span class='mi'>1</span>
+
+    <span class='c'># print out all pandigital 9-digit numbers whose first digit is 9</span>
+    <span class='c'># in the order of permutation, which is from biggest to smallest</span>
+    <span class='n'>permute</span><span class='p'>(</span><span class='s'>&quot;9&quot;</span><span class='p'>,</span> <span class='s'>&quot;87654321&quot;</span><span class='p'>,</span> <span class='n'>print_concat_product</span><span class='p'>)</span>
 </pre></div>
-<p>How to check CPU utilization?</p>
-<div class='highlight'><pre class='bc'>$ mpstat -P ALL
-</pre></div>
-<p>How to check disk capacity?</p>
-<div class='highlight'><pre class='bc'>$ df -h
-</pre></div>
+<p><strong>P.S.</strong> <code>permute()</code> is a function to gernerate permutations of a string</p>
 
   <footer>
   <ul class="tag_list">
     Tags for this post: 
     
-    <li><a href="/tag/notes">notes</a></li>
+    <li><a href="/tag/algorithms">algorithms</a></li>
     
-    <li><a href="/tag/bash">bash</a></li>
+    <li><a href="/tag/project euler">project euler</a></li>
+    
+    <li><a href="/tag/math">math</a></li>
+    
+    <li><a href="/tag/notes">notes</a></li>
     
   </ul>
 
@@ -113,10 +132,10 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/svg-guidelines" title="What you need to know about SVG images">&larr; Older</a> -->
+<!--     <a id="left" href="/bash-commands" title="Some Useful Bash Commands to Help You At Work">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/project-euler-p38" title="Project Euler Problem 38">Newer &rarr;</a> -->
+<!--     <a id="right" href="/five-days-in-prague" title="Let's Get Bohemian!">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
