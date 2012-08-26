@@ -4,15 +4,16 @@
  * @2012-05-30  H.Huang: Change colors for background, typed keyword, string and string symbol. Added color for boolean value.
  * @2012-08-05  H.Huang: Added syntax highlight style for bash commands
  * @2012-08-26  H.Huang: Added syntax highlight style for python codes
+ * @2012-08-26  H.Huang: Added syntax highlight style for vim scripts
  */ 
 
 .highlight  { background: #000000; }
-.highlight .c { color: #999988; font-style: italic } /* Comment */
+.highlight .c { color: #ffa500; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
 .highlight .k { font-weight: bold } /* Keyword */
 .highlight .n { color: #ffffff; } /* Ordinary code, not reserved keyword */
 .highlight .o { color: #ffffff; font-weight: bold } /* Operator */
-.highlight .p { color: #ffffff; } /* parenthesis */
+.highlight .p { color: #ffffff; } /* parenthesis, punctuations */
 .highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
 .highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
 .highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
@@ -37,7 +38,7 @@
 .highlight .m { color: #009999 } /* Literal.Number */
 .highlight .s { color: #8d38c9 } /* Literal.String */
 .highlight .na { color: #008080 } /* Name.Attribute */
-.highlight .nb { color: #0086B3 } /* Name.Builtin */
+.highlight .nb { color: #2b60de } /* Name.Builtin */
 .highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
 .highlight .no { color: #008080 } /* Name.Constant */
 .highlight .ni { color: #800080 } /* Name.Entity */
