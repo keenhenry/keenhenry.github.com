@@ -70,236 +70,59 @@
       </section>
     </div> 
 
-    <h1 class="ten columns offset-by-four">programming posts</h1>
-<ul>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/xml-parsing'>Several approaches to parse XML files</a><span class="three columns gray">05 Jul 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/include-c-header-files-in-c%2B%2B'>How can I include a non-system C header file in C++ code?</a><span class="three columns gray">23 Jun 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/auto-ptr'>How do I use C++ auto_ptr class?</a><span class="three columns gray">23 Jun 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/cpp-io-concepts'>C++ IO Stream Concepts Review</a><span class="three columns gray">12 Jun 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/passing-xxx-discards-qualifiers-error'>Passing-sth-as-this-argument-of-sth-disgards-qualifiers Error</a><span class="three columns gray">06 Jun 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/icu'>Yet Another Opensource Library - ICU</a><span class="three columns gray">06 Jun 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</ul>
+    <header class="ten columns offset-by-four">
+<h1>Linking Order Matters When Linking Static Libraries in Your Program</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  17 Sep 2012
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Linking Order Matters When Linking Static Libraries in Your Program" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>This is again some note to myself.</p>
+
+<p>Today I tried to build the software I wrote at work, and kept getting linkage errors like this: <strong>undefined reference to sth</strong>. After analysing the problem, I knew immediately there are some dependencies among the libraries (statically linking) I linked together.</p>
+
+<p>Then I noticed linking order matters! Since it is static linking, the dependent library has to be linked first. However, it took me a while to figure out you actually need to list the libaries in a <strong>reverse order</strong> of dependencies to the linker. That said, if library A depends on libray B, then the following should appear in your <em>Makefile</em> or build script:</p>
+
+<pre><code>g++ -lA -lB</code></pre>
+
+<p>Some <a href='http://bit.ly/PAGq6a'>Stackoverflow</a> explanations for your information. Happy coding.</p>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/c++">c++</a></li>
+    
+    <li><a href="/tag/g++">g++</a></li>
+    
+    <li><a href="/tag/gcc">gcc</a></li>
+    
+    <li><a href="/tag/linking">linking</a></li>
+    
+    <li><a href="/tag/linker">linker</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/udacity-statistics" title="Statistics 101 On Udacity">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>
