@@ -71,24 +71,54 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Unix As IDE</h1>
+<h1>First Thing To Know About SQLite - Software Architecture</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  23 Sep 2012
+  27 Sep 2012
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Unix As IDE" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="First Thing To Know About SQLite - Software Architecture" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>I just finished reading a series of <a href='http://blog.sanctum.geek.nz/series/unix-as-ide/'>comprehensive blog posts</a> about UNIX/LINUX software development environment.</p>
+  <p>Some C++ review notes for myself:</p>
 
-<p>It is a series of posts explaining what the avaible tools are a programer can use to get things done and improve productivity. Even though I have been programming for several years on Linux now, I still found something helpful from these posts, particularly with the debugging and version control posts. The <a href='http://blog.sanctum.geek.nz/unix-as-ide-revisions/'>version-control-system post</a> even explained the history of version control systems and the terminologies in depth.</p>
+<p>When compiler tries to interpret function calls in C or C++, it binds function names with the particular block of code to be executed. This binding happens at compiler time and termed <em>static binding</em> (or <em>early binding</em>).</p>
 
-<p>Sweet.</p>
+<p>However there are times when the types of objects or functions couldn&#8217;t be determined at compile time, therefore compiler has to generate code or do some extra processing to make correct function call at run-time, this is called <em>dynamic binding</em> (or <em>late binding).</em></p>
+
+<p>Virtual member functions are the C++ answer to dynamic binding.</p>
+
+<p>Why having static binding then? (since dynamic binding solves all typing problems at run-time!). There are two reasons: efficiency and conceptual model.</p>
+
+<p>Efficiency - for a program to be able to make a runtime decision, it has to have some way to keep track of what sort of object a base-class pointer or reference refers to, and that entails some extra processing overhead. The fact that static binding is more efficient is the reason it is the default choice for C++. You should therefore go to virtual function only if the program design needs them.</p>
+
+<p>Conceptual model - when you design a class, you may have member functions that you don&#8217;t want redefined in derived classes. By making this function non-virtual, you accomplish two things, first you make it more efficient; second, you announce that it is your intention that this function not be redefined. That also suggests reserving the virtual label just for methods you expect to be redefined.</p>
+
+<p>Rule of thumb: if a method in a base class will be redefined in a derived class, you should make it virtual. If the method should not be redefined, you should make it non-virtual.</p>
+
+<p>How virtual function is implemented by compiler? &#8212;&gt; virtual function table (vtbl)</p>
+
+<p>The usual way compilers handle virtual functions is to add a hidden member to each object. The hidden member holds a pointer to an array of function addresses. Such an array is usually termed a virtual function table. The vtbl holds the addresses of the virtual functions declared for objects of that class.</p>
+
+<p>For example, ab object of a base class contains a pointer to a table of addresses of all the virtual functions for that class. And object of derived class contains a pointer to a separate table of addresses. If the derived class provides a new definition of a virtual function, the vtbl holds the address of the new function. If the derived class doesn&#8217;t redefine the virtual function, the vtbl holds the address of the original version of the function. If the derived class defines a new function and makes it virtual, its address is added to the vtbl.</p>
+
+<p>For each function call, there is an extra step of going to a table to look up an address.</p>
+
+<p>Some other notes about virtual function:</p>
+
+<ul>
+<li>
+<p>Beginning a class method declaration with the keyword virtual in a base class makes a function virtual for the base class and all classes derived from the base class, including classes derived from the derived classes, and so on.</p>
+</li>
+
+<li>
+<p>destructors should be virtual unless a class isn&#8217;t to be used as a base class. You should provide a base class with a virtual destructor, even if the class doesn&#8217;t need a destructor.</p>
+</li>
+</ul>
 
   <footer>
   <ul class="tag_list">
@@ -96,11 +126,13 @@
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/unix">unix</a></li>
+    <li><a href="/tag/c++">c++</a></li>
     
-    <li><a href="/tag/linux">linux</a></li>
+    <li><a href="/tag/virtual functions">virtual functions</a></li>
     
-    <li><a href="/tag/ide">ide</a></li>
+    <li><a href="/tag/polymorphism">polymorphism</a></li>
+    
+    <li><a href="/tag/dynamic typing">dynamic typing</a></li>
     
   </ul>
 
@@ -111,10 +143,8 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/sqlite-architecture" title="First Thing To Know About SQLite - Software Architecture">&larr; Older</a> -->
+<!--     <a id="left" href="/unix-as-ide" title="Unix As IDE">&larr; Older</a> -->
 <!--    -->
-<!--    -->
-<!--     <a id="right" href="/c%2B%2B-virtual-functions" title="First Thing To Know About SQLite - Software Architecture">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
