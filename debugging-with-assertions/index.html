@@ -71,266 +71,60 @@
       </section>
     </div> 
 
-    <h1 class="ten columns offset-by-four">udacity posts</h1>
-<ul>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/udacity-statistics'>Statistics 101 On Udacity</a><span class="three columns gray">02 Sep 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</ul>
+    <header class="ten columns offset-by-four">
+<h1>Debugging With Assertions</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  19 Nov 2012
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Debugging With Assertions" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Assertion is a powerful tool that can be used for software debugging or automating tests (such as in <strong>Unit Testing</strong>).</p>
+
+<p>In C/C++, assertions are optional, meaning that you can turn it on and off by supplying a single argument to the compiler. To elaborate, in C++, compile your code with <code>g++ -DNDEBUG</code> flag, then assertion is disabled; in C, make sure <code>NDEBUG</code> macro is defined before including <code>&lt;assert.h&gt;</code>, that is:</p>
+
+<pre><code>#define NDEBUG
+#include &lt;assert.h&gt;</code></pre>
+
+<p>Of course, the <a href='http://bit.ly/Ub2MAb'>trick</a> that applies to C also applies to C++. Choose for yourself. In Python, compile your program with <code>-O</code> flag then assertion is disabled.</p>
+
+<p>While assertions are quite convenient for testing the pre- and post-conditions of program routines or program invariants, there is one downside of putting them into your software: performance drag. Especially when the software is big and lots of assertions are embedded (and possibly within some complex data structures).</p>
+
+<p>Therefore, try to use assertions wisely, especially in places that do not hit program performance too much and conditions are easily checked.</p>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/debug">debug</a></li>
+    
+    <li><a href="/tag/debugging">debugging</a></li>
+    
+    <li><a href="/tag/assertions">assertions</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/encodings" title="Some Words About Encodings">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>
