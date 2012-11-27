@@ -72,31 +72,73 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Debugging With Assertions</h1>
+<h1>Installing Vim 7.3 From Source</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  19 Nov 2012
+  26 Nov 2012
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Debugging With Assertions" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Installing Vim 7.3 From Source" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Assertion is a powerful tool that can be used for software debugging or automating tests (such as in <strong>Unit Testing</strong>).</p>
+  <p>Installing Vim from source allows you to enable/disable features that you want, which could make your Vim more user-friendly.</p>
 
-<p>In C/C++, assertions are optional, meaning that you can turn it on and off by supplying a single argument to the compiler. To elaborate, in C++, compile your code with <code>g++ -DNDEBUG</code> flag, then assertion is disabled; in C, make sure <code>NDEBUG</code> macro is defined before including <code>&lt;assert.h&gt;</code>, that is:</p>
+<p>Here are some steps to do just that (a note to myself):</p>
 
-<pre><code>#define NDEBUG
-#include &lt;assert.h&gt;</code></pre>
+<p><strong>Step 1</strong> download the source from vim&#8217;s <a href='http://www.vim.org/download.php'>website</a>.</p>
 
-<p>Of course, the <a href='http://bit.ly/Ub2MAb'>trick</a> that applies to C also applies to C++. Choose for yourself. In Python, compile your program with <code>-O</code> flag then assertion is disabled.</p>
+<p><strong>Step 2</strong> is to unpack the compressed file.</p>
 
-<p>While assertions are quite convenient for testing the pre- and post-conditions of program routines or program invariants, there is one downside of putting them into your software: performance drag. Especially when the software is big and lots of assertions are embedded (and possibly within some complex data structures).</p>
+<p><strong>Step 3</strong> check the dependencies of Vim 7.3. For my case, I want <em>Huge version with GTK2-GNOME GUI</em> of Vim, which requires the build of GUI. In other words, that depends on a lot of <a href='http://vim.wikia.com/wiki/Building_Vim'>libraries</a>. After installing all the dependencies Vim needs, proceed to next step.</p>
 
-<p>Therefore, try to use assertions wisely, especially in places that do not hit program performance too much and conditions are easily checked.</p>
+<p><strong>Step 4</strong> go to the <code>src</code> directory in the upacked folder and type the following to build the Huge version:</p>
+
+<pre><code>$ make distclean
+$ ./configure --with-features=huge --enable-gui=gnome2 --enable-cscope --enable-multibyte
+$ make
+$ sudo make install</code></pre>
+
+<p><strong>Step 5</strong> installation should be finished by now. Type &#8221;<code>vim --version</code>&#8221; at your command prompt to check what version you&#8217;ve got.</p>
+
+<p>Here is the output of my &#8221;<code>vim --version</code>&#8221;:</p>
+
+<pre><code>VIM - Vi IMproved 7.3
+Included patches: 1-729
+
+Huge version with GTK2-GNOME GUI.  Features included (+) or not (-):
++arabic +autocmd +balloon_eval +browse ++builtin_terms +byte_offset +cindent 
++clientserver +clipboard +cmdline_compl +cmdline_hist +cmdline_info +comments 
++conceal +cryptv +cscope +cursorbind +cursorshape +dialog_con_gui +diff 
++digraphs +dnd -ebcdic +emacs_tags +eval +ex_extra +extra_search +farsi 
++file_in_path +find_in_path +float +folding -footer +fork() +gettext 
+-hangul_input +iconv +insert_expand +jumplist +keymap +langmap +libcall 
++linebreak +lispindent +listcmds +localmap -lua +menu +mksession +modify_fname 
++mouse +mouseshape +mouse_dec -mouse_gpm -mouse_jsbterm +mouse_netterm 
++mouse_sgr -mouse_sysmouse +mouse_urxvt +mouse_xterm +multi_byte +multi_lang 
+-mzscheme +netbeans_intg +path_extra -perl +persistent_undo +postscript 
++printer +profile -python -python3 +quickfix +reltime +rightleft -ruby 
++scrollbind +signs +smartindent -sniff +startuptime +statusline -sun_workshop 
++syntax +tag_binary +tag_old_static -tag_any_white -tcl +terminfo +termresponse
+ +textobjects +title +toolbar +user_commands +vertsplit +virtualedit +visual 
++visualextra +viminfo +vreplace +wildignore +wildmenu +windows +writebackup 
++X11 -xfontset +xim +xsmp_interact +xterm_clipboard -xterm_save 
+   system vimrc file: &quot;$VIM/vimrc&quot;
+     user vimrc file: &quot;$HOME/.vimrc&quot;
+      user exrc file: &quot;$HOME/.exrc&quot;
+  system gvimrc file: &quot;$VIM/gvimrc&quot;
+    user gvimrc file: &quot;$HOME/.gvimrc&quot;
+    system menu file: &quot;$VIMRUNTIME/menu.vim&quot;
+  fall-back for $VIM: &quot;/usr/local/share/vim&quot;</code></pre>
+
+<p>For me, the most important feature is <code>+xterm_clipboard</code>, <code>+clipboard</code>, <code>+multi_byte</code> and <code>+cscope</code>. With <strong><code>+xterm_clipboard</code></strong> and <strong><code> +clipboard</code></strong>, I can easily copy and paste texts among Vim and other applications with only mouse!</p>
+
+<p>Now sit back and relax and happy hacking with Vim!</p>
+
+<p>P.S. Huge version is basically the version that includes everything!</p>
 
   <footer>
   <ul class="tag_list">
@@ -104,13 +146,11 @@
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/debug">debug</a></li>
+    <li><a href="/tag/vim">vim</a></li>
     
-    <li><a href="/tag/debugging">debugging</a></li>
+    <li><a href="/tag/install">install</a></li>
     
-    <li><a href="/tag/assertions">assertions</a></li>
-    
-    <li><a href="/tag/programming">programming</a></li>
+    <li><a href="/tag/source">source</a></li>
     
   </ul>
 
@@ -121,10 +161,8 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/encodings" title="Some Words About Encodings">&larr; Older</a> -->
+<!--     <a id="left" href="/debugging-with-assertions" title="Debugging With Assertions">&larr; Older</a> -->
 <!--    -->
-<!--    -->
-<!--     <a id="right" href="/install-vim-7-3" title="Installing Vim 7.3 From Source">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
