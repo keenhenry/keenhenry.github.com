@@ -85,11 +85,11 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Some C++ review notes for myself:</p>
+  <p>Why virtual functions? And how to use them?</p>
 
-<p>When compiler tries to interpret function calls in C or C++, it binds function names with the particular block of code to be executed. This binding happens at compiler time and termed <em>static binding</em> (or <em>early binding</em>).</p>
+<p>When compiler tries to interpret function calls in C or C++, it binds function names with the particular block of code to be executed. This binding happens at compiler time and termed <strong>static binding</strong> (or <strong>early binding</strong>).</p>
 
-<p>However there are times when the types of objects or functions couldn&#8217;t be determined at compile time, therefore compiler has to generate code or do some extra processing to make correct function call at run-time, this is called <em>dynamic binding</em> (or <em>late binding</em>).</p>
+<p>However there are times when the types of objects or functions couldn&#8217;t be determined at compile time, therefore compiler has to generate code or do some extra processing to make correct function call at run-time, this is called <strong>dynamic binding</strong> (or <strong>late binding</strong>).</p>
 
 <p>Virtual member functions are the C++ answer to dynamic binding.</p>
 
@@ -99,17 +99,17 @@
 
 <p>Conceptual model - when you design a class, you may have member functions that you don&#8217;t want redefined in derived classes. By making this function non-virtual, you accomplish two things, first you make it more efficient; second, you announce that it is your intention that this function not be redefined. That also suggests reserving the virtual label just for methods you expect to be redefined.</p>
 
-<p>Rule of thumb: if a method in a base class will be redefined in a derived class, you should make it virtual. If the method should not be redefined, you should make it non-virtual.</p>
+<p><strong>Rule of thumb</strong>: if a method in a base class will be redefined in a derived class, you should make it virtual. If the method should not be redefined, you should make it non-virtual.</p>
 
-<p>How virtual function is implemented by compiler? &#8212;&gt; virtual function table (vtbl)</p>
+<p>Now comes to more interesting part: How is virtual function implemented by compiler? <strong>virtual function table (vtbl)</strong></p>
 
-<p>The usual way compilers handle virtual functions is to add a hidden member to each object. The hidden member holds a pointer to an array of function addresses. Such an array is usually termed a virtual function table. The vtbl holds the addresses of the virtual functions declared for objects of that class.</p>
+<p>The usual way compilers handle virtual functions is to add a hidden member to each object. The hidden member holds a pointer to an array of function addresses. Such an array is usually termed a <strong>virtual function table</strong>. The <code>vtbl</code> holds the addresses of the virtual functions declared for objects of that class.</p>
 
-<p>For example, ab object of a base class contains a pointer to a table of addresses of all the virtual functions for that class. And object of derived class contains a pointer to a separate table of addresses. If the derived class provides a new definition of a virtual function, the vtbl holds the address of the new function. If the derived class doesn&#8217;t redefine the virtual function, the vtbl holds the address of the original version of the function. If the derived class defines a new function and makes it virtual, its address is added to the vtbl.</p>
+<p>For example, an object of a base class contains a pointer to a table of addresses of all the virtual functions for that class. And object of derived class contains a pointer to a separate table of addresses. If the derived class provides a new definition of a virtual function, the <code>vtbl</code> holds the address of the new function. If the derived class doesn&#8217;t redefine the virtual function, the <code>vtbl</code> holds the address of the original version of that function. If the derived class defines a new function and makes it virtual, its address is added to the vtbl.</p>
 
-<p>For each function call, there is an extra step of going to a table to look up an address.</p>
+<p>As you can see, with this virtual function implementation, each (virtual) function call takes an extra step of going to a table to look up an address. Therefore it is less efficient than static binding but able to achieve dynamic binding.</p>
 
-<p>Some other notes about virtual function:</p>
+<p><strong>Addendum</strong></p>
 
 <ul>
 <li>
@@ -117,7 +117,7 @@
 </li>
 
 <li>
-<p>destructors should be virtual unless a class isn&#8217;t to be used as a base class. You should provide a base class with a virtual destructor, even if the class doesn&#8217;t need a destructor.</p>
+<p><strong>Destructors of a base class should be virtual</strong>. You should provide a base class with a virtual destructor, even if the class doesn&#8217;t need a destructor. The reason is, when you delete a derived object via a base-class pointer or reference to the object, the program uses the derived-class destructor followed by the base-class destructor rather than using only the base-class destructor.</p>
 </li>
 </ul>
 
