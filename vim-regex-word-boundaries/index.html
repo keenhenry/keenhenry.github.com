@@ -71,296 +71,55 @@
       </section>
     </div> 
 
-    <h1 class="ten columns offset-by-four">io posts</h1>
-<ul>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/cpp-io-concepts'>C++ IO Stream Concepts Review</a><span class="three columns gray">12 Jun 2012</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</ul>
+    <header class="ten columns offset-by-four">
+<h1>Vim Regex - Word Boundaries</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  27 Dec 2012
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Vim Regex - Word Boundaries" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Vim regex is different from many of other popular regex dialects out there, like Perl, Python etc. Therefore Vim beginners might find some of the regexs work perfectly in Python or Bash might not work as expected in Vim.</p>
+
+<p>The first gotcha is probably not knowing there are <a href='http://jeetworks.org/node/86'>some characters</a> needed to be escaped in Vim regex. Having that in mind, then you can now express word boundaries (beginning and end of a word) easily with regular expression like this:</p>
+
+<pre><code>\&lt;word\&gt;</code></pre>
+
+<p>With such expression, you can search and replace exactly that word (but not words that contain that string) accurately:</p>
+
+<pre><code>:%s/\&lt;oldword\&gt;/newword/g</code></pre>
+
+<p>This is an important tip for your Vim regex lesson.</p>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/vim">vim</a></li>
+    
+    <li><a href="/tag/regex">regex</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/git-tips" title="Git Tips">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>
