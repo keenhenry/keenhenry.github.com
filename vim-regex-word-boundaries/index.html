@@ -88,10 +88,10 @@
   <p>Vim regex is different from many of other popular regex dialects out there, like Perl, Python etc. Therefore Vim beginners might find some of the regexs work perfectly in Python or Bash might not work as expected in Vim.</p>
 
 <p>The first gotcha is probably not knowing there are <a href='http://jeetworks.org/node/86'>some characters</a> needed to be escaped in Vim regex. Having that in mind, then you can now express word boundaries (beginning and end of a word) easily with regular expression like this:</p>
-<div class='highlight'><pre><code class='vim'>    \<span class='p'>&lt;</span>word\<span class='p'>&gt;</span>
+<div class='highlight'><pre><code class='vim'>\<span class='p'>&lt;</span>word\<span class='p'>&gt;</span>
 </code></pre></div>
 <p><code>\&lt;</code> matches beginning of a word, <code>\&gt;</code> matches end of a word. With such expression, you can search and replace exactly that word (but not words that contain that string) accurately:</p>
-<div class='highlight'><pre><code class='vim'>    :%<span class='k'>s</span><span class='sr'>/\&lt;oldword\&gt;/</span>newword/<span class='k'>g</span>
+<div class='highlight'><pre><code class='vim'><span class='p'>:</span>%<span class='k'>s</span><span class='sr'>/\&lt;oldword\&gt;/</span>newword/<span class='k'>g</span>
 </code></pre></div>
 <p>This is an important tip for your Vim regex lesson.</p>
 
