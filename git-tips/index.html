@@ -76,7 +76,7 @@
 </header>
 
 <div class="five columns offset-by-four gray">
-  26 Dec 2012
+  06 Jan 2013
 </div>
 
 <div class='five columns' id='tweet'>
@@ -85,11 +85,29 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Recently I have been taking <a href='http://www.udacity.com/overview/Course/cs259/CourseRev/1'>debugging classes</a> myself, from which I learned a concept of delta debugging.</p>
+  <p>Personal note to myself:</p>
+<div class='highlight'><pre><code class='bash'><span class='c'># rename files and update index</span>
+<span class='nv'>$ </span>git mv old_filename new_filename
 
-<p>Interestingly, you can find such feature in <a href='http://git-scm.com/'><code>git</code></a>; try the following and see for yourself:</p>
+<span class='c'># removing a remote from your local repo</span>
+<span class='nv'>$ </span>git remote -v
+<span class='c'># View current remotes</span>
+origin  git@github.com:user/repo.git <span class='o'>(</span>fetch<span class='o'>)</span>
+origin  git@github.com:user/repo.git <span class='o'>(</span>push<span class='o'>)</span>
+destination  git@github.com:forker/repo.git <span class='o'>(</span>fetch<span class='o'>)</span>
+destination  git@github.com:forker/repo.git <span class='o'>(</span>push<span class='o'>)</span>
+<span class='nv'>$ </span>git remote rm destination
+<span class='nv'>$ </span>git remote -v
+origin  git@github.com:user/repo.git <span class='o'>(</span>fetch<span class='o'>)</span>
+origin  git@github.com:user/repo.git <span class='o'>(</span>push<span class='o'>)</span>
+</code></pre></div>
+<p><strong>Reference</strong></p>
 
-<pre><code>$ git bisect</code></pre>
+<ul>
+<li><a href='https://help.github.com/articles/removing-a-remote'>git remove remote</a></li>
+
+<li><a href='http://stackoverflow.com/questions/2641146/handling-file-renames-in-git'>git rename</a></li>
+</ul>
 
   <footer>
   <ul class="tag_list">
@@ -101,10 +119,6 @@
     
     <li><a href="/tag/version control system">version control system</a></li>
     
-    <li><a href="/tag/debug">debug</a></li>
-    
-    <li><a href="/tag/debugging">debugging</a></li>
-    
   </ul>
 
   <p id='follow'>
@@ -114,10 +128,10 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/install-vim-7-3" title="Installing Vim 7.3 From Source">&larr; Older</a> -->
+<!--     <a id="left" href="/geometry-ds-in-spatialite" title="Spatial Data Representations in Spatialite">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/vim-regex-word-boundaries" title="Vim Regex - Word Boundaries">Newer &rarr;</a> -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
