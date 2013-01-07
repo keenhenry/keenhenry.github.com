@@ -92,13 +92,14 @@
 <span class='c'># rename files and update index</span>
 <span class='nv'>$ </span>git mv old_filename new_filename
 
-<span class='c'># removing a remote from your local repo</span>
-<span class='nv'>$ </span>git remote -v
 <span class='c'># View current remotes</span>
+<span class='nv'>$ </span>git remote -v
 origin  git@github.com:user/repo.git <span class='o'>(</span>fetch<span class='o'>)</span>
 origin  git@github.com:user/repo.git <span class='o'>(</span>push<span class='o'>)</span>
 destination  git@github.com:forker/repo.git <span class='o'>(</span>fetch<span class='o'>)</span>
 destination  git@github.com:forker/repo.git <span class='o'>(</span>push<span class='o'>)</span>
+
+<span class='c'># removing a remote from your local repo</span>
 <span class='nv'>$ </span>git remote rm destination
 <span class='nv'>$ </span>git remote -v
 origin  git@github.com:user/repo.git <span class='o'>(</span>fetch<span class='o'>)</span>

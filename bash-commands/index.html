@@ -86,16 +86,15 @@
 
 <article class="ten columns offset-by-four">
   <p>There are some routines I do frequently with command line utilities on Linux. But I do not always remember them. Here are some notes for myself:</p>
+<div class='highlight'><pre><code class='bash'><span class='c'># rename every file with `.svg` suffix to `.xml` suffix </span>
+<span class='nv'>$ </span>find . -name <span class='s2'>&quot;*.txt&quot;</span> -print | xargs rename <span class='s1'>&#39;s/.svg/.xml/g&#39;</span>
 
-<p>How to rename every file with <code>.svg</code> suffix to <code>.xml</code> suffix in a directory?</p>
-<div class='highlight'><pre class='bc'>$ find . -name <span class='s'>&quot;*.txt&quot;</span> -print | xargs rename <span class='s'>&#39;s/.svg/.xml/g&#39;</span>
-</pre></div>
-<p>How to check CPU utilization?</p>
-<div class='highlight'><pre class='bc'>$ mpstat -P ALL
-</pre></div>
-<p>How to check disk capacity?</p>
-<div class='highlight'><pre class='bc'>$ df -h
-</pre></div>
+<span class='c'># check CPU utilization</span>
+<span class='nv'>$ </span>mpstat -P ALL
+
+<span class='c'># check disk capacity</span>
+<span class='nv'>$ </span>df -h
+</code></pre></div>
 
   <footer>
   <ul class="tag_list">
