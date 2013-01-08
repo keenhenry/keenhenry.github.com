@@ -10,7 +10,7 @@
 .highlight  { background: #000000; }
 .highlight .c { color: #ffa500; font-style: italic } /* Comment */
 .highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
-.highlight .k { font-weight: bold } /* Keyword */
+.highlight .k { color: #ff9900; font-weight: bold } /* Keyword */
 .highlight .n { color: #ffffff; } /* Ordinary code, not reserved keyword */
 .highlight .o { color: #ffffff; font-weight: bold } /* Operator */
 .highlight .p { color: #ffffff; } /* parenthesis, punctuations */
