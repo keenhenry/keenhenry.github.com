@@ -71,410 +71,80 @@
       </section>
     </div> 
 
-    <h1 class="ten columns offset-by-four">linux administration posts</h1>
+    <header class="ten columns offset-by-four">
+<h1>Basic Usage of Sed</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  28 Jan 2013
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Basic Usage of Sed" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p><code>sed</code> is <strong>s</strong>tream <strong>ed</strong>itor. It is a powerful command line utility you see often in bash scripts. In the &#8216;man&#8217; page, it says &#8220;it is sed&#8217;s ability to filter text in a pipeline which particularly distinguishes it from other types of editors.&#8221;</p>
+
+<p>Most important of all, it processes the input stream in ONE pass, which makes it very efficient. The basic (and most common) usage of <code>sed</code> is to substitue all occurrences of the regular expression into a new value. For example:</p>
+<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span><span class='nb'>echo </span>day | sed s/day/night
+night
+</code></pre></div>
+<p>The basic syntax of <code>sed</code> <code>s</code> command is:</p>
+<div class='highlight'><pre><code class='bash'><span class='c'># Change &quot;day&quot; in the &quot;old&quot; file to &quot;night&quot; in the &quot;new&quot; file</span>
+<span class='nv'>$ </span>sed s/day/night/ &lt;old &gt;new
+</code></pre></div>
+<p>To see the real power of <code>sed</code> with pipes:</p>
+<div class='highlight'><pre><code class='bash'><span class='c'># If you want to make two changes, you can pipe it together!</span>
+<span class='nv'>$ </span>sed <span class='s1'>&#39;s/BEGIN/begin/&#39;</span> &lt;old | sed <span class='s1'>&#39;s/END/end/&#39;</span> &gt;new
+
+<span class='c'># the command above created TWO processes instead of one </span>
+<span class='c'># below is a better alternative which combines multiple </span>
+<span class='c'># commands together without pipelining!</span>
+<span class='nv'>$ </span>sed -e <span class='s1'>&#39;s/BEGIN/begin/&#39;</span> -e <span class='s1'>&#39;s/END/end/&#39;</span> &lt;old &gt;new
+</code></pre></div>
+<p><strong>REFERENCE</strong></p>
+
 <ul>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="archive_list">
-    <a class="nine columns offset-by-four" href='/cronjobs'>Task Automation With Cron</a><span class="three columns gray">01 Jan 2013</span>
-  </li>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
+<li><a href='http://www.grymoire.com/Unix/Sed.html#uh-1'><code>sed</code> substitution</a></li>
+
+<li><a href='http://www.grymoire.com/Unix/Sed.html#uh-12'><code>sed</code> multiple changes with pipes</a></li>
+
+<li><a href='http://www.grymoire.com/Unix/Sed.html#uh-13'><code>sed</code> multiple changes with <code>-e</code></a></li>
 </ul>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/linux">linux</a></li>
+    
+    <li><a href="/tag/unix">unix</a></li>
+    
+    <li><a href="/tag/utility">utility</a></li>
+    
+    <li><a href="/tag/bash">bash</a></li>
+    
+    <li><a href="/tag/system administration">system administration</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/login-vs-nonlogin-shell" title="What Is The Difference Between Login Shell And Non-login Shell">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/learning-plan" title="Things I Want To Learn">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
 
 
   </div>
