@@ -72,120 +72,55 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Things I Want To Learn</h1>
+<h1>C++ Pure Virtual Functions v.s. Ordinary Virtual Functions</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  27 Dec 2020
+  31 Jan 2013
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Things I Want To Learn" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="C++ Pure Virtual Functions v.s. Ordinary Virtual Functions" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Here I list a few things I want to learn recently so that I can keep track of my progress:</p>
+  <p>A <strong>pure virtual function</strong> is a virtual function that has no definition (no body) at all. It simply acts as a placeholder that is meant to be redefined by the derived class.</p>
 
-<ul>
-<li>Understand GNU toolchain, especially GNU build system (autotools).</li>
+<p>To create a pure virtual function, rather than define a body for the function, we simply assign the function the value <code>0</code>.</p>
+<div class='highlight'><pre><code class='cpp'><span class='k'>class</span> <span class='nc'>Base</span>
+<span class='p'>{</span>
+    <span class='k'>public</span><span class='o'>:</span>
 
-<li>Review some graph algorithms and learn to use Boost Graph Library.</li>
+        <span class='c1'>// a normal non-virtual function    </span>
+        <span class='k'>const</span> <span class='kt'>char</span><span class='o'>*</span> <span class='n'>func1</span><span class='p'>()</span> <span class='p'>{</span> <span class='k'>return</span> <span class='s'>&quot;Hi&quot;</span><span class='p'>;</span> <span class='p'>}</span>        
 
-<li>Review Factory design pattern.</li>
+        <span class='c1'>// a normal virtual function</span>
+        <span class='k'>virtual</span> <span class='k'>const</span> <span class='kt'>char</span><span class='o'>*</span> <span class='n'>func2</span><span class='p'>()</span> <span class='p'>{</span> <span class='k'>return</span> <span class='s'>&quot;Base&quot;</span><span class='p'>;</span> <span class='p'>}</span>      
 
-<li>Study python geo-spatial development book chap 4.</li>
+        <span class='c1'>// a pure virtual function</span>
+        <span class='k'>virtual</span> <span class='kt'>int</span> <span class='n'>func3</span><span class='p'>()</span> <span class='o'>=</span> <span class='mi'>0</span><span class='p'>;</span>
+<span class='p'>};</span>
+</code></pre></div>
+<p>Using a pure virtual function has two main consequences: First, any class with one or more pure virtual functions becomes an <strong>abstract base class</strong>, which means that it can not be instantiated. Second, any derived class must define a body for this function, or that derived class will be considered an abstract base class as well.</p>
 
-<li>Learn how to write Vimscript.</li>
+<p>A &#8216;non-pure&#8217; normal virtual function, on the contrary, must have a body defined (although it could be empty in the body). If you don&#8217;t define the body and don&#8217;t make the virtual function &#8216;pure&#8217; (by assigning value <code>0</code>) either, you will get a linking error saying: <strong>Undefined reference to vtable for &#8230;</strong>. An example of normal virtual function is a <strong>virtual destructor</strong>, which appears frequently in various base classes.</p>
 
-<li>Write a cleanup bash script.</li>
-
-<li>Write a install bash script.</li>
-
-<li>Write a backup bash script.</li>
-
-<li>Learn to write a simple crawler and use it to crawl your own website to find dangling links.</li>
-
-<li>Learn how to use <code>cron</code> and <code>crontab</code>.</li>
-
-<li>Learn to use <code>tmux</code> to improve your work flow.</li>
-
-<li>Learn how to use vim cscope.</li>
-
-<li>Learn some geometry simplification algorithms.</li>
-
-<li>Study &#8216;longest common subsequence problem&#8217; by reading &#8216;An Algorithm for Differential File Comparison&#8217; paper.</li>
-
-<li>Improve your Linux system administrative skills.</li>
-
-<li>Learn how R-Tree is implemented in SQLite.</li>
-
-<li>Learn how B-Tree is implemented in SQLite.</li>
-</ul>
-
-<p>Books I wish to complete reading this year (2013):</p>
-
-<ul>
-<li>C++ Hackers Guide</li>
-
-<li>Python Geospatial Development</li>
-
-<li>Great Modern Buildings</li>
-
-<li>LCTHW (Learn C The Hard Way)</li>
-
-<li>LVSTHW (Learn Vimscript The Hard Way)</li>
-</ul>
-
-<p>The ultimate learning goal for this year (2013):</p>
-
-<ul>
-<li>Improve your C++ domain knowledge</li>
-
-<li>Improve your bash scripting capabilities</li>
-
-<li>Improve your Python domain knowledge</li>
-
-<li>Learn some more algorithms, any algorithms; but the ones related to work first</li>
-
-<li>Improve your Linux administration skills</li>
-
-<li>Improve your UNIX-like OS domain knowledge; this include C programming language and maybe network programming</li>
-
-<li>Improve your database domain knowledge, especially geospatial database</li>
-
-<li>Improve your workflow by mastering some more tools (vim, tmux, bash, cron)</li>
-
-<li>OS, Compiler and Algorithms.</li>
-</ul>
-
-<p>Time management plan (2013):</p>
-
-<ul>
-<li>Do studying, reading, learning work during weekdays.</li>
-
-<li>Do notes taking, ideas written down during weekdays.</li>
-
-<li>Write small scripts and small programs also during weekdays, if you feel capable.</li>
-
-<li>Do more extensive software development, or more complicated tasks, during weekends, if any.</li>
-
-<li>Do more extensive readings (including &#8216;extra-curriculum books&#8217;) also during weekend.</li>
-
-<li>Do photography work during weekends.</li>
-
-<li>Study Dutch during weekends.</li>
-</ul>
-
-<p>P.S. This list will grow and shrink over time.</p>
+<p>So, if you don&#8217;t provide any implementation for the virtual destructor, you get this error. Check out the <em>bottom</em> of <a href='http://gcc.gnu.org/faq.html#vtables'>this page</a> for such concept.</p>
 
   <footer>
   <ul class="tag_list">
     Tags for this post: 
     
-    <li><a href="/tag/thoughts">thoughts</a></li>
+    <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/learning">learning</a></li>
+    <li><a href="/tag/c++">c++</a></li>
+    
+    <li><a href="/tag/virtual functions">virtual functions</a></li>
+    
+    <li><a href="/tag/inheritance">inheritance</a></li>
+    
+    <li><a href="/tag/OOP">OOP</a></li>
     
   </ul>
 
@@ -196,8 +131,10 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/pure-virtual-function" title="C++ Pure Virtual Functions v.s. Ordinary Virtual Functions">&larr; Older</a> -->
+<!--     <a id="left" href="/factory-pattern" title="Factory Design Pattern">&larr; Older</a> -->
 <!--    -->
+<!--    -->
+<!--     <a id="right" href="/learning-plan" title="Things I Want To Learn">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
