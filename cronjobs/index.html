@@ -87,6 +87,19 @@
 <article class="ten columns offset-by-four">
   <p>A nice introductory tutorial about <a href='http://corenominal.org/howto-setup-a-crontab-file/'>setting up a crontab file</a>.</p>
 
+<p><code>cron</code> daemon can help you automate a lot of routine tasks. To tell <code>cron</code> <em>what</em> and <em>when</em> to do some routine, you use <code>crontab</code> to define the schedule and the task to run. Of course, inside the <code>crontab</code> file, you need to follow some specific grammars to define the scheduled tasks.</p>
+
+<p>To edit the <code>crontab</code> file, use:</p>
+<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>crontab -e
+</code></pre></div>
+<p>Or, alternatively, you can use a local file in any location you have write-access and edit this <code>crontab</code> file. However, you need to let <code>crontab</code> know that you are using this local file instead. To let it know, you need to activate it by:</p>
+<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>crontab &lt;the-file-name&gt;
+</code></pre></div>
+<p>To deactivate it, use:</p>
+<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>crontab -r
+</code></pre></div>
+<p>Happy automate your mundane routine tasks!</p>
+
   <footer>
   <ul class="tag_list">
     Tags for this post: 
