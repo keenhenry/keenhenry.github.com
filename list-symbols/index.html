@@ -97,6 +97,10 @@
 <span class='c'># objdump -t will also display debugging symbols </span>
 <span class='c'># if the program is compiled with -g flag</span>
 <span class='nv'>$ </span>objdump -t yourlib.a
+
+<span class='c'># show debugging symbols and sort symbols by address</span>
+<span class='c'># then feed it into c++filt to demangle all those symbols</span>
+<span class='nv'>$ </span>nm -an a.out | c++filt
 </code></pre></div>
 <p>According to the second reference link below, command line tool <code>readelf</code> is more suitable for displaying symbols for <code>ELF</code> format (which is a common format for executables, object code, shared libraries and core dumps on UNIX/LINUX systems) files. Do check this tool out as well.</p>
 
@@ -110,6 +114,8 @@
 <li><a href='http://www.cs.swarthmore.edu/~newhall/unixhelp/debuggingtips_C++.html'>Compiling, Linking and Debugging Tips for C++</a></li>
 
 <li><a href='http://stackoverflow.com/questions/34732/how-do-i-list-the-symbols-in-a-so-file'>How do I list the symbols in a <code>.so</code> file</a></li>
+
+<li><a href='http://stackoverflow.com/questions/1379533/how-can-i-see-symbols-of-c-and-c-binary-on-linux'>How can I see symbols of (C and C++) binary on linux?</a></li>
 </ul>
 
   <footer>
