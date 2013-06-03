@@ -91,7 +91,9 @@
 
 <p>This is because maps are typically implemented as <em>binary search tree</em>. If you need a real &#8216;hash table&#8217; structure, use <code>std::unordered_map</code>. The same concept applies to <code>std::set</code> and <code>std::unordered_set</code>.</p>
 
-<p>Therefore, you care the efficiency of accessing elements by their <em>key</em>, then using <code>std::unordered_map</code> would be a better choice.</p>
+<p>Therefore, if you care the efficiency of accessing elements by their <em>key</em>, then using <code>std::unordered_map</code> would be a better choice.</p>
+
+<p>However, sometimes a bit of ordering in a container could be quite useful. For example, if you want to find the largest member (according to key value) in a map, all you need to do is <code>mymap.rbegin()</code>.</p>
 
   <footer>
   <ul class="tag_list">
