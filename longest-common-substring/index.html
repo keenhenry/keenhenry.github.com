@@ -85,13 +85,41 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Finding the <a href='http://en.wikipedia.org/wiki/Longest_common_substring_problem'>longest common substring</a> or prefix or suffix of a group of strings is a common text processing problem. And it is a special case of <em>edit distance</em> problem.</p>
+  <p>Finding the <a href='http://en.wikipedia.org/wiki/Longest_common_substring_problem'>longest common substring</a> or common prefix or suffix of a group of strings is a common text processing problem. And it is a special case of <em>edit distance</em> problem.</p>
 
 <p>This problem has a wide range of applications in different areas, i.e. computation biology and information retrieval from texts, and so on. I encountered this problem at work and I would like to give an extensive survey to this problem.</p>
 
-<p>The key to this problem is to build a data structure called suffix tree over the texts or group of strings you want to work with.</p>
+<p>The key to this problem is to build a data structure called suffix tree over the text or group of strings you want to work with.</p>
 
-<p>Detailed explanation of the algorithm: <a href='http://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english/9513423#9513423'>statckoverflow post</a></p>
+<p>Suffix trees were first introduced by <a href='http://ieeexplore.ieee.org/xpl/login.jsp?tp=&amp;arnumber=4569722&amp;url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D4569722'>Weiner 1973</a>. However this paper was considered too difficult to understand and had little follow-on work.</p>
+
+<p><a href='http://dl.acm.org/citation.cfm?id=321946&amp;dl='>McCreight 1979</a> came along with another algorithm with better space efficiency. But this method is more difficult to extend for generalized suffix trees.</p>
+
+<p><a href='http://link.springer.com/article/10.1007%2FBF01206331'>Ukkonen 1992</a> then came up with an easy to understand algorithm, which is an on-line construction of suffix trees in linear-time. And this algorithm is currently also what most suffix tree implementations are based on.</p>
+
+<p>To understand Ukkonen&#8217;s paper, it takes some efforts to observe how suffix tree is grown from the text being processed from left to right. To gain some insights and detailed explanations, try to read the following links:</p>
+
+<ul>
+<li><a href='http://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english/9513423#9513423'>statckoverflow post about Ukkonen&#8217;s algorithm</a></li>
+
+<li><a href='http://marknelson.us/1996/08/01/suffix-trees/'>A clear explanation including C++ implementation</a></li>
+
+<li><a href='http://stackoverflow.com/questions/10097323/ukkonen-suffix-tree-procedure-canonize-unclear'>Explanation on <code>canonize</code> procedure</a></li>
+</ul>
+
+<p>Okay, so suffix tree can be constructed in time linear to the text size, but how can it be used to solve Longest Common Substring Problem? First, build a generalized suffix tree for a set of strings. Then do a tree traversal (in linear time) to find the deepest internal node which has leaf nodes from all the strings in the subtree below it.</p>
+
+<p>If you are interested in the implementation of suffix tree data structure, check out the following links:</p>
+
+<ul>
+<li><a href='https://gist.github.com/axefrog/2373868'>C# implementaion on Github</a></li>
+
+<li><a href='http://pastie.org/5925812'>Java implementaion</a></li>
+
+<li><a href='http://pastie.org/5925809'>Another C++ implementaion</a></li>
+</ul>
+
+<p>Feeling enthusiastic to roll out your own implementation of suffix tree?</p>
 
   <footer>
   <ul class="tag_list">
@@ -101,11 +129,11 @@
     
     <li><a href="/tag/algorithms">algorithms</a></li>
     
-    <li><a href="/tag/geospatial">geospatial</a></li>
-    
     <li><a href="/tag/data structures">data structures</a></li>
     
     <li><a href="/tag/combinatorial pattern matching">combinatorial pattern matching</a></li>
+    
+    <li><a href="/tag/information retrieval">information retrieval</a></li>
     
   </ul>
 
