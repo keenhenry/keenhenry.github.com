@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="/static/css/default.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="/static/css/home.css" /> -->
+  
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Spatialite Slow Queries</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  26 Jul 2013
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Spatialite Slow Queries" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>This week I created some query with <code>INTERSECTS</code> spatial operation in it, it is used to detect if some line segments &#8216;intersects&#8217; or &#8216;overlaps&#8217; a group of other line segments.</p>
+
+<p>That turned out to be a very slow query, although that wasn&#8217;t obvious when I ran query over map data of Wolfsburg (because this is a small data set). Why is it slow?</p>
+
+<p>The query looks like this:</p>
+<div class='highlight'><pre><code class='sqlite3'><span class='go'>SELECT col1,</span>
+<span class='go'>       col2,</span>
+<span class='go'>       /* &quot;geom&quot; is some geometry created outside of this </span>
+<span class='go'>           query beforehand */</span>
+<span class='go'>       INTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
+<span class='go'>  FROM tb1,</span>
+<span class='go'>       tb2 </span>
+<span class='go'> WHERE tb1.id = tb2.id</span>
+</code></pre></div>
+<p>This query doesn&#8217;t look gigantic in terms of text size. However, there is one lengthy operation in it: <code>INTERSECTS</code>. This is a spatial operation to calculate exact spatial relationship between two geometries. If the data set is big, like the map data of China, then all the line segments in China are run through this operation and the performance issue would be quite noticeable, which was what I encountered this week.</p>
+
+<p>So, Spatialite is slow, isn&#8217;t it? No, not really. The problem is spatialite does not use <em>spatial index</em> at all to perform such spatial operation unless you explicitly tell it to so.</p>
+
+<p>See <a href='http://gis.stackexchange.com/questions/34697/is-spatialite-really-slow'>this stackoverflow post</a>. Due to limitations in the SQLite design, using a spatial index in a query isn&#8217;t as invisible as it is in PostGIS.</p>
+
+<p>That said, what we can do to accelerate the query above is to build a spatial index over the geometries stored in <code>tb1</code> table, so the spatial opeartion <code>INTERSECTS</code> can make use of the spatial index to quickly find the answer. To build a spatial index, there are two ways in Spatialite/SQLite domain:</p>
+
+<ol>
+<li>build it explicitly within the query like <a href='http://www.gaia-gis.it/spatialite-3.0.0-BETA/spatialite-cookbook/html/neighbours.html'>this recipe</a>.</li>
+
+<li>use <a href='http://www.sqlite.org/rtree.html'>SQLite R*Tree module</a>, which is implemented as a virtual table in SQLite.</li>
+</ol>
+
+<p>The speedup should be quite dramatic with the help of spatial indexes. However, the trade-off is more code and less readibility (especially with the first method mentioned above). Can we do better?</p>
+
+<p>To answer this question, let&#8217;s have a closer look at the query again; what do we really want to achieve in this query? Do we really need to calculate the <strong>EXACT AND ACCURATE</strong> spatial relationship among geometries?</p>
+
+<p>If the answer is yes, then building a spatial index is necessary. If the answer is no, which means you only need some &#8216;approximation&#8217; on the spatial relation, then building spatial index could be overkill. And even if you really need the exact spatial relation, you can still use the approximation as a pre-filtering to avoid some unnecessary, expensive operations beforehand.</p>
+
+<p>So how to calculate <em>approximate</em> spatial relationships? Use Spatialite MBR (Minimum Bounding Rectangle) operations! <a href='http://www.gaia-gis.it/gaia-sins/spatialite-tutorial-2.3.1.html#t4.1'>See here</a>. MBR relationships are fast to evaluate, plus the MBR information is already embeded in every geometry which means no extra calculation is needed to obtain such information.</p>
+
+<p>In other words, if approximate spatial relation is already good enough, then the above query can become the following:</p>
+<div class='highlight'><pre><code class='sqlite3'><span class='go'>SELECT col1,</span>
+<span class='go'>       col2,</span>
+<span class='go'>       MBRINTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
+<span class='go'>  FROM tb1,</span>
+<span class='go'>       tb2 </span>
+<span class='go'> WHERE tb1.id = tb2.id</span>
+
+<span class='go'> /* Or use MBR relation as a prefiltering if exact spatial </span>
+<span class='go'>    relation is still required */</span>
+<span class='go'>SELECT col1,</span>
+<span class='go'>       col2,</span>
+<span class='go'>       /* assume spatial index has already been created </span>
+<span class='go'>          over tb1.geom1&#39;s; I do not explicitly show that </span>
+<span class='go'>          in this query for simplicity */</span>
+<span class='go'>       INTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
+<span class='go'>  FROM tb1,</span>
+<span class='go'>       tb2 </span>
+<span class='go'> WHERE tb1.id = tb2.id</span>
+<span class='go'>   AND NOT MBRDISJOINT(tb1.geom1, geom)</span>
+</code></pre></div>
+<p>See the difference? :)</p>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/database">database</a></li>
+    
+    <li><a href="/tag/spatialite">spatialite</a></li>
+    
+    <li><a href="/tag/sqlite">sqlite</a></li>
+    
+    <li><a href="/tag/geospatial">geospatial</a></li>
+    
+    <li><a href="/tag/gis">gis</a></li>
+    
+    <li><a href="/tag/performance">performance</a></li>
+    
+    <li><a href="/tag/optimization">optimization</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/binary-type-matters" title="Binary Type Matters">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/linux-crypto" title="Linux Crypto">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+
+  <!-- JS
+  ================================================== -->
+  <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+  <script src="javascripts/tabs.js"></script>
+  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
+  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
+  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
+
+<!-- End Document
+================================================== -->
+</body>
+</html> 
