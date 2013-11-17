@@ -87,7 +87,7 @@
 <article class="ten columns offset-by-four">
   <p><a href='http://rayninfo.co.uk/vimtips.html'>This</a> is indeed a great source of inspirations for useful vim tips; please do visit this page often.</p>
 
-<p>Today I found a few useful tips to me:</p>
+<p>A few useful tips to me:</p>
 <div class='highlight'><pre><code class='vim'><span class='c'>&quot; Line complete SUPER USEFUL</span>
 <span class='p'>&lt;</span>C<span class='p'>-</span><span class='k'>X</span><span class='p'>&gt;&lt;</span>C<span class='p'>-</span>L<span class='p'>&gt;</span>
 
@@ -103,7 +103,24 @@
 <span class='c'>&quot; Adjust width of splitted windows</span>
 <span class='p'>&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;&lt;</span>lessthan<span class='p'>(&lt;)|</span>greaterthan<span class='p'>(&gt;)&gt;</span>
 </code></pre></div>
-<p>And you might want to add some mappings for the key combinations above.</p>
+<p>One another issue with using vim is to you might want to execute an external command without exiting vim. How to do that?</p>
+
+<p>One way is to use <strong>Bang(!)</strong> to execute <em>non-interactice</em> commands. The other is to use <code>:sh</code> to drop to your defaulted shell (find it out by <code>:set shell?</code>), and go back to vim by <code>CTRL-D</code> or <code>exit</code>. <code>:sh</code> is more suitable for interactive commands.</p>
+
+<p>Let&#8217;s see some examples:</p>
+<div class='highlight'><pre><code class='vim'><span class='c'>&quot; count the number of words for current editing file (%)</span>
+<span class='p'>:!</span> <span class='nb'>wc</span> %
+
+<span class='c'>&quot; drop to interactive shell</span>
+<span class='p'>:</span><span class='k'>sh</span>
+</code></pre></div>
+<p>Reading in command output into current editing file might be another desired feature:</p>
+<div class='highlight'><pre><code class='vim'><span class='c'>&quot; inserts text from a specified file into the current buffer</span>
+<span class='p'>:</span><span class='k'>r</span> textfile
+
+<span class='c'>&quot; read in sorted order of file names</span>
+<span class='p'>:</span><span class='k'>r</span> <span class='p'>!</span> <span class='k'>ls</span> <span class='m'>-1</span> <span class='sr'>/home/</span>user/<span class='nb'>directory</span> <span class='p'>|</span> <span class='k'>sort</span> <span class='p'>-</span><span class='k'>r</span>
+</code></pre></div>
 
   <footer>
   <ul class="tag_list">
