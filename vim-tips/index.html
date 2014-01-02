@@ -76,7 +76,7 @@
 </header>
 
 <div class="five columns offset-by-four gray">
-  06 Jan 2013
+  25 Dec 2020
 </div>
 
 <div class='five columns' id='tweet'>
@@ -85,42 +85,47 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href='http://rayninfo.co.uk/vimtips.html'>This</a> is indeed a great source of inspirations for useful vim tips; please do visit this page often.</p>
+  <p><a href='http://rayninfo.co.uk/vimtips.html'>This page</a> is indeed a great source of inspirations for useful vim tips; please do visit this page often.</p>
 
-<p>A few useful tips to me:</p>
-<div class='highlight'><pre><code class='vim'><span class='c'>&quot; Line complete SUPER USEFUL</span>
-<span class='p'>&lt;</span>C<span class='p'>-</span><span class='k'>X</span><span class='p'>&gt;&lt;</span>C<span class='p'>-</span>L<span class='p'>&gt;</span>
+<p>Here is my own curated vim tips:</p>
 
-<span class='c'>&quot; Pull &lt;cword&gt; onto search/command line</span>
-/<span class='p'>&lt;</span>C<span class='p'>-</span>R<span class='p'>&gt;&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;</span>
-
-<span class='c'>&quot; Pull &lt;CWORD&gt; onto search/command line</span>
-/<span class='p'>&lt;</span>C<span class='p'>-</span>R<span class='p'>&gt;&lt;</span>C<span class='p'>-</span>A<span class='p'>&gt;</span>
-
-<span class='c'>&quot; Adjust height of splitted windows</span>
-<span class='p'>&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;&lt;+|-&gt;</span>
-
-<span class='c'>&quot; Adjust width of splitted windows</span>
-<span class='p'>&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;&lt;</span>lessthan<span class='p'>(&lt;)|</span>greaterthan<span class='p'>(&gt;)&gt;</span>
-</code></pre></div>
-<p>One another issue with using vim is to you might want to execute an external command without exiting vim. How to do that?</p>
-
-<p>One way is to use <strong>Bang(!)</strong> to execute <em>non-interactice</em> commands. The other is to use <code>:sh</code> to drop to your defaulted shell (find it out by <code>:set shell?</code>), and go back to vim by <code>CTRL-D</code> or <code>exit</code>. <code>:sh</code> is more suitable for interactive commands.</p>
-
-<p>Let&#8217;s see some examples:</p>
-<div class='highlight'><pre><code class='vim'><span class='c'>&quot; count the number of words for current editing file (%)</span>
-<span class='p'>:!</span> <span class='nb'>wc</span> %
-
-<span class='c'>&quot; drop to interactive shell</span>
-<span class='p'>:</span><span class='k'>sh</span>
-</code></pre></div>
-<p>Reading in command output into current editing file might be another desired feature:</p>
+<p><strong>Inserting Command Output Into Currently Editting File</strong></p>
 <div class='highlight'><pre><code class='vim'><span class='c'>&quot; inserts text from a specified file into the current buffer</span>
 <span class='p'>:</span><span class='k'>r</span> textfile
 
 <span class='c'>&quot; read in sorted order of file names</span>
 <span class='p'>:</span><span class='k'>r</span> <span class='p'>!</span> <span class='k'>ls</span> <span class='m'>-1</span> <span class='sr'>/home/</span>user/<span class='nb'>directory</span> <span class='p'>|</span> <span class='k'>sort</span> <span class='p'>-</span><span class='k'>r</span>
 </code></pre></div>
+<p><strong>Execute External Commands Without Quiting Vim</strong></p>
+<div class='highlight'><pre><code class='vim'><span class='c'>&quot; execute an NON-INTERACITVE command by Bang (!)</span>
+<span class='c'>&quot; below: count the number of words for current editing file (%)</span>
+<span class='p'>:!</span> <span class='nb'>wc</span> %
+
+<span class='c'>&quot; execute INTERACTIVE commands by dropping to interactive </span>
+<span class='c'>&quot; shell; you can always go back to vim by &#39;CTRL-D&#39; or &#39;exit&#39;</span>
+<span class='p'>:</span><span class='k'>sh</span>
+</code></pre></div>
+<p><strong>Line Completion</strong></p>
+<div class='highlight'><pre><code class='vim'><span class='c'>&quot; Line complete SUPER USEFUL</span>
+<span class='p'>&lt;</span>C<span class='p'>-</span><span class='k'>X</span><span class='p'>&gt;&lt;</span>C<span class='p'>-</span>L<span class='p'>&gt;</span>
+</code></pre></div>
+<p><strong>Search Words Completion</strong></p>
+<div class='highlight'><pre><code class='vim'><span class='c'>&quot; Pull &lt;cword&gt; onto search/command line</span>
+/<span class='p'>&lt;</span>C<span class='p'>-</span>R<span class='p'>&gt;&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;</span>
+
+<span class='c'>&quot; Pull &lt;CWORD&gt; onto search/command line</span>
+/<span class='p'>&lt;</span>C<span class='p'>-</span>R<span class='p'>&gt;&lt;</span>C<span class='p'>-</span>A<span class='p'>&gt;</span>
+</code></pre></div>
+<p><strong>Window Size Adjustment</strong></p>
+<div class='highlight'><pre><code class='vim'><span class='c'>&quot; Adjust height of splitted windows</span>
+<span class='p'>&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;&lt;+|-&gt;</span>
+
+<span class='c'>&quot; Adjust width of splitted windows</span>
+<span class='p'>&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;&lt;</span>lessthan<span class='p'>(&lt;)|</span>greaterthan<span class='p'>(&gt;)&gt;</span>
+</code></pre></div>
+<p><strong>Jump Among Functions By Function Browsers</strong></p>
+
+<p>By using Taglist plugin? Or some other better tools/plugins?</p>
 
   <footer>
   <ul class="tag_list">
@@ -141,10 +146,10 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/git-tips" title="Git Tips">&larr; Older</a> -->
+<!--     <a id="left" href="/python-packaging" title="Python Packaging Tools">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/union-polygons" title="How is GEOS UnaryUnion function implemented?">Newer &rarr;</a> -->
+<!--     <a id="right" href="/learning-plan" title="Things I Want To Learn">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
