@@ -72,45 +72,52 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>C++ Reorder Warning</h1>
+<h1>SQL EXISTS Operator</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  21 Jan 2014
+  06 Feb 2014
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="C++ Reorder Warning" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="SQL EXISTS Operator" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>If you have <code>-Wall</code> turned on for g++ compiler, that includes <code>-Wreorder</code> warning as well. What <code>-Wreorder</code> means is as follows:</p>
+  <p><code>EXISTS</code> operator returns value 0 or 1, depends on the right-hand side operand of it.</p>
 
-<pre><code>-Wreorder (C++ only)
- Warn when the order of member initializers given in the code does not
- match the order in which they must be executed.  For instance:
+<p>Theoretically, <code>EXISTS</code> should return as soon as there is one row found in the right-hand operand, which should be the correct behavior and avoiding unnecessary table scan as compared to using <code>COUNT()</code>.</p>
 
- struct A {
-     int i;
-     int j;
-     A(): j (0), i (1) { }
- };
+<p>However, the real behavior of <code>EXISTS</code> depends on the actual implementation of various database engine. For SQLite, it is not clear whether it deviates from standard behavior or not, according to an excerpt from SQLite&#8217;s website:</p>
 
- The compiler will rearrange the member initializers for i and j to
- match the declaration order of the members, emit-ting a warning to that
- effect.  This warning is enabled by -Wall.</code></pre>
+<blockquote>
+<p>The EXISTS operator</p>
+</blockquote>
 
-<p>Consider:</p>
-<div class='highlight'><pre><code class='cpp'><span class='k'>struct</span> <span class='n'>A</span> <span class='p'>{</span>
-    <span class='kt'>int</span> <span class='n'>i</span><span class='p'>;</span>
-    <span class='kt'>int</span> <span class='n'>j</span><span class='p'>;</span>
-    <span class='n'>A</span><span class='p'>()</span> <span class='o'>:</span> <span class='n'>j</span><span class='p'>(</span><span class='mi'>0</span><span class='p'>),</span> <span class='n'>i</span><span class='p'>(</span><span class='n'>j</span><span class='p'>)</span> <span class='p'>{</span> <span class='p'>}</span>
-<span class='p'>};</span>
-</code></pre></div>
-<p>Now i is initialized to some unknown value, not zero. So this warning can actually prevent incorrect/unwanted initialization! Alternatively, the initialization of <code>i</code> may have some side effects for which the order is important:</p>
-<div class='highlight'><pre><code class='cpp'><span class='n'>A</span><span class='p'>(</span><span class='kt'>int</span> <span class='n'>n</span><span class='p'>)</span> <span class='o'>:</span> <span class='n'>j</span><span class='p'>(</span><span class='n'>n</span><span class='o'>++</span><span class='p'>),</span> <span class='n'>i</span><span class='p'>(</span><span class='n'>n</span><span class='o'>++</span><span class='p'>)</span> <span class='p'>{</span> <span class='p'>}</span>
-</code></pre></div>
+<blockquote>
+<p>The EXISTS operator always evaluates to one of the integer values 0 and 1. If executing the SELECT statement specified as the right-hand operand of the EXISTS operator would return <strong>one or more rows</strong>, then the EXISTS operator evaluates to 1. If executing the SELECT would return no rows at all, then the EXISTS operator evaluates to 0.</p>
+</blockquote>
+
+<blockquote>
+<p>The number of columns in each row returned by the SELECT statement (if any) and the specific values returned have no effect on the results of the EXISTS operator. In particular, rows containing NULL values are not handled any differently from rows without NULL values.</p>
+</blockquote>
+
+<p>However, if the right-hand side operand is a <strong>SELECT scalar subquery</strong>, then SQLite&#8217;s <code>EXISTS</code> operator will definitely return as soon as there is already one row found in the right-hand side operand. This can be explained by another excerpt from SQLite&#8217;s website:</p>
+
+<blockquote>
+<p>Scalar Subqueries</p>
+</blockquote>
+
+<blockquote>
+<p>A SELECT statement enclosed in parentheses may appear as a scalar quantity. A SELECT used as a scalar quantity must return a result set with a <strong>single column</strong>. The result of the expression is the value of the only column in the <strong>first row</strong> returned by the SELECT statement. <em>If the SELECT yields more than one result row, all rows after the first are ignored</em>. If the SELECT yields no rows, then the value of the expression is NULL. The LIMIT of a scalar subquery is always 1. Any other LIMIT value given in the SQL text is ignored.</p>
+</blockquote>
+
+<blockquote>
+<p>All types of SELECT statement, including aggregate and compound SELECT queries (queries with keywords like UNION or EXCEPT) are allowed as scalar subqueries.</p>
+</blockquote>
+
+<p>In conclusion, in SQLite, a scalar subquery returns only one row, if there is any; and <code>EXISTS</code> operator will only see one row at most if the right-hand side operand is a scalar subquery!</p>
 
   <footer>
   <ul class="tag_list">
@@ -118,9 +125,13 @@
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/c++">c++</a></li>
+    <li><a href="/tag/SQL">SQL</a></li>
     
-    <li><a href="/tag/programming">programming</a></li>
+    <li><a href="/tag/sql">sql</a></li>
+    
+    <li><a href="/tag/SQLite">SQLite</a></li>
+    
+    <li><a href="/tag/databases">databases</a></li>
     
   </ul>
 
@@ -131,10 +142,10 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/traceroute-usages" title="Linux traceroute Utility">&larr; Older</a> -->
+<!--     <a id="left" href="/wreorder" title="C++ Reorder Warning">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/sql-exists-operator" title="SQL EXISTS Operator">Newer &rarr;</a> -->
+<!--     <a id="right" href="/python-switch-alternative" title="Python Switch Statement">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
