@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="/static/css/default.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="/static/css/home.css" /> -->
+  
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Python classmethod vs staticmethod</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  09 Feb 2014
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Python classmethod vs staticmethod" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <blockquote>
+<p><code>classmethod</code> must have a reference to a class object as the first parameter, whereas <code>staticmethod</code> can have no parameters at all.</p>
+</blockquote>
+
+<blockquote>
+<p><code>classmethod</code> are for when you need to have methods that aren&#8217;t specific to any particular instance, but still involve the class in some way. The most interesting thing about them is that they can be overridden by subclasses. Factory methods (alternative constructors) are indeed a classic example of class methods.</p>
+</blockquote>
+
+<blockquote>
+<p>If you have a class MyClass, and a module-level function that operates on <code>MyClass</code> (factory, dependency injection stub, etc), make it a <code>classmethod</code>.</p>
+</blockquote>
+
+<p>Here is some code example:</p>
+<div class='highlight'><pre><code class='python'><span class='k'>class</span> <span class='nc'>Date</span><span class='p'>(</span><span class='nb'>object</span><span class='p'>):</span>
+
+    <span class='n'>day</span> <span class='o'>=</span> <span class='mi'>0</span>
+    <span class='n'>month</span> <span class='o'>=</span> <span class='mi'>0</span>
+    <span class='n'>year</span> <span class='o'>=</span> <span class='mi'>0</span>
+
+    <span class='k'>def</span> <span class='nf'>__init__</span><span class='p'>(</span><span class='bp'>self</span><span class='p'>,</span> <span class='n'>day</span><span class='o'>=</span><span class='mi'>0</span><span class='p'>,</span> <span class='n'>month</span><span class='o'>=</span><span class='mi'>0</span><span class='p'>,</span> <span class='n'>year</span><span class='o'>=</span><span class='mi'>0</span><span class='p'>):</span>
+        <span class='bp'>self</span><span class='o'>.</span><span class='n'>day</span> <span class='o'>=</span> <span class='n'>day</span>
+        <span class='bp'>self</span><span class='o'>.</span><span class='n'>month</span> <span class='o'>=</span> <span class='n'>month</span>
+        <span class='bp'>self</span><span class='o'>.</span><span class='n'>year</span> <span class='o'>=</span> <span class='n'>year</span>
+
+    <span class='nd'>@staticmethod</span>
+    <span class='k'>def</span> <span class='nf'>is_date_valid</span><span class='p'>(</span><span class='n'>date_as_string</span><span class='p'>):</span>
+        <span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span> <span class='o'>=</span> <span class='nb'>map</span><span class='p'>(</span><span class='nb'>int</span><span class='p'>,</span> <span class='n'>date_as_string</span><span class='o'>.</span><span class='n'>split</span><span class='p'>(</span><span class='s'>&#39;-&#39;</span><span class='p'>))</span>
+        <span class='k'>return</span> <span class='n'>day</span> <span class='o'>&lt;=</span> <span class='mi'>31</span> <span class='ow'>and</span> <span class='n'>month</span> <span class='o'>&lt;=</span> <span class='mi'>12</span> <span class='ow'>and</span> <span class='n'>year</span> <span class='o'>&lt;=</span> <span class='mi'>3999</span>
+
+    <span class='nd'>@classmethod</span>
+    <span class='k'>def</span> <span class='nf'>from_string</span><span class='p'>(</span><span class='n'>cls</span><span class='p'>,</span> <span class='n'>date_as_string</span><span class='p'>):</span>
+        <span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span> <span class='o'>=</span> <span class='nb'>map</span><span class='p'>(</span><span class='nb'>int</span><span class='p'>,</span> <span class='n'>date_as_string</span><span class='o'>.</span><span class='n'>split</span><span class='p'>(</span><span class='s'>&#39;-&#39;</span><span class='p'>))</span>
+        <span class='n'>date1</span> <span class='o'>=</span> <span class='n'>cls</span><span class='p'>(</span><span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span><span class='p'>)</span>
+        <span class='k'>return</span> <span class='n'>date1</span>
+
+<span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span> <span class='o'>=</span> <span class='nb'>map</span><span class='p'>(</span><span class='nb'>int</span><span class='p'>,</span> <span class='n'>string_date</span><span class='o'>.</span><span class='n'>split</span><span class='p'>(</span><span class='s'>&#39;-&#39;</span><span class='p'>))</span>
+<span class='n'>date1</span> <span class='o'>=</span> <span class='n'>Date</span><span class='p'>(</span><span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span><span class='p'>)</span>
+<span class='n'>date2</span> <span class='o'>=</span> <span class='n'>Date</span><span class='o'>.</span><span class='n'>from_string</span><span class='p'>(</span><span class='s'>&#39;11-09-2012&#39;</span><span class='p'>)</span>
+
+<span class='k'>if</span> <span class='n'>is_date_valid</span><span class='p'>(</span><span class='s'>&#39;11-09-2012&#39;</span><span class='p'>):</span>
+    <span class='k'>print</span> <span class='s'>&#39;Valid Day!&#39;</span>
+</code></pre></div>
+<p>Pay attention to <code>cls</code> parameter in the example above; <code>cls</code> is an object that holds class itself, not an instance of the class. It&#8217;s pretty cool because if we inherit our <code>Date</code> class, all children will have from_string defined also.</p>
+
+<blockquote>
+<p><code>staticmethod</code> doesn&#8217;t have any access to what the class is- it&#8217;s basically just a function, called syntactically like a method, but <strong>without</strong> access to the object and it&#8217;s internals (fields and another methods), while <code>classmethod</code> does.</p>
+</blockquote>
+
+<p>So <code>staticmethod</code> is similar to C++ or Java&#8217;s static methods, which can be called without creating an instance of a class.</p>
+
+<p><a href='http://bit.ly/1bjXLke'>stackoverflow thread</a></p>
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/sql-exists-operator" title="SQL EXISTS Operator">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/python-switch-alternative" title="Python Switch Statement">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+
+  <!-- JS
+  ================================================== -->
+  <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+  <script src="javascripts/tabs.js"></script>
+  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
+  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
+  <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
+  <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
+
+<!-- End Document
+================================================== -->
+</body>
+</html> 
