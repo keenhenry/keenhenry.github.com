@@ -72,60 +72,40 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Vim Tips</h1>
+<h1>Check for Empty String in Bash</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  25 Dec 2020
+  10 Mar 2014
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Vim Tips" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Check for Empty String in Bash" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href='http://rayninfo.co.uk/vimtips.html'>This page</a> is indeed a great source of inspirations for useful vim tips; please do visit this page often.</p>
+  <p>A common task is to check if a string is empty in a programming language; with <code>bash</code>, you can do it easily, just be careful with its syntax and semantics.</p>
 
-<p>Here is my own curated vim tips:</p>
-
-<p><strong>Inserting Command Output Into Currently Editting File</strong></p>
-<div class='highlight'><pre><code class='vim'><span class='c'>&quot; inserts text from a specified file into the current buffer</span>
-<span class='p'>:</span><span class='k'>r</span> textfile
-
-<span class='c'>&quot; read in sorted order of file names</span>
-<span class='p'>:</span><span class='k'>r</span> <span class='p'>!</span> <span class='k'>ls</span> <span class='m'>-1</span> <span class='sr'>/home/</span>user/<span class='nb'>directory</span> <span class='p'>|</span> <span class='k'>sort</span> <span class='p'>-</span><span class='k'>r</span>
+<p><code>-n</code> or <code>-z</code> string comparison operators are created for such purpose; <code>-n</code> checks whether the string is not null (string), which returns <code>false</code> when it is an empty string. In addtion, the <em><code>-n</code> test requires that the string BE QUOTED within the test brackets</em>. As a better scripting practice, <strong>ALWAYS</strong> quote a tested string:</p>
+<div class='highlight'><pre><code class='bash'><span class='nv'>VAR</span><span class='o'>=</span><span class='s2'>&quot;hello&quot;</span>
+<span class='k'>if</span> <span class='o'>[</span> -n <span class='s2'>&quot;$VAR&quot;</span> <span class='o'>]</span>; <span class='k'>then</span>
+<span class='k'>    </span><span class='nb'>echo</span> <span class='s2'>&quot;VAR is not empty&quot;</span>
+<span class='k'>fi</span>
 </code></pre></div>
-<p><strong>Execute External Commands Without Quiting Vim</strong></p>
-<div class='highlight'><pre><code class='vim'><span class='c'>&quot; execute an NON-INTERACITVE command by Bang (!)</span>
-<span class='c'>&quot; below: count the number of words for current editing file (%)</span>
-<span class='p'>:!</span> <span class='nb'>wc</span> %
-
-<span class='c'>&quot; execute INTERACTIVE commands by dropping to interactive </span>
-<span class='c'>&quot; shell; you can always go back to vim by &#39;CTRL-D&#39; or &#39;exit&#39;</span>
-<span class='p'>:</span><span class='k'>sh</span>
+<p>Similarly, <code>-z</code> operator checks whether the string is <code>null</code> - the opposite of <code>-n</code>:</p>
+<div class='highlight'><pre><code class='bash'><span class='nv'>VAR</span><span class='o'>=</span><span class='s2'>&quot;&quot;</span>
+<span class='k'>if</span> <span class='o'>[</span> -z <span class='s2'>&quot;$VAR&quot;</span> <span class='o'>]</span>; <span class='k'>then</span>
+<span class='k'>    </span><span class='nb'>echo</span> <span class='s2'>&quot;VAR is empty&quot;</span>
+<span class='k'>fi</span>
 </code></pre></div>
-<p><strong>Line Completion</strong></p>
-<div class='highlight'><pre><code class='vim'><span class='c'>&quot; Line complete SUPER USEFUL</span>
-<span class='p'>&lt;</span>C<span class='p'>-</span><span class='k'>X</span><span class='p'>&gt;&lt;</span>C<span class='p'>-</span>L<span class='p'>&gt;</span>
-</code></pre></div>
-<p><strong>Search Words Completion</strong></p>
-<div class='highlight'><pre><code class='vim'><span class='c'>&quot; Pull &lt;cword&gt; onto search/command line</span>
-/<span class='p'>&lt;</span>C<span class='p'>-</span>R<span class='p'>&gt;&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;</span>
+<p><strong>REFERENCE</strong></p>
 
-<span class='c'>&quot; Pull &lt;CWORD&gt; onto search/command line</span>
-/<span class='p'>&lt;</span>C<span class='p'>-</span>R<span class='p'>&gt;&lt;</span>C<span class='p'>-</span>A<span class='p'>&gt;</span>
-</code></pre></div>
-<p><strong>Window Size Adjustment</strong></p>
-<div class='highlight'><pre><code class='vim'><span class='c'>&quot; Adjust height of splitted windows</span>
-<span class='p'>&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;&lt;+|-&gt;</span>
+<ul>
+<li><a href='http://bit.ly/1ely6Dl'>Checking empty string in Bash</a></li>
 
-<span class='c'>&quot; Adjust width of splitted windows</span>
-<span class='p'>&lt;</span>C<span class='p'>-</span>W<span class='p'>&gt;&lt;</span>lessthan<span class='p'>(&lt;)|</span>greaterthan<span class='p'>(&gt;)&gt;</span>
-</code></pre></div>
-<p><strong>Jump Among Functions By Function Browsers</strong></p>
-
-<p>By using Taglist plugin? Or some other better tools/plugins?</p>
+<li><a href='http://bit.ly/1d81blF'>bash string comparison operators</a></li>
+</ul>
 
   <footer>
   <ul class="tag_list">
@@ -133,9 +113,11 @@
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/vim">vim</a></li>
+    <li><a href="/tag/unix">unix</a></li>
     
-    <li><a href="/tag/vimscript">vimscript</a></li>
+    <li><a href="/tag/linux">linux</a></li>
+    
+    <li><a href="/tag/bash">bash</a></li>
     
   </ul>
 
@@ -146,10 +128,10 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/bash-test-empty-string" title="Check for Empty String in Bash">&larr; Older</a> -->
+<!--     <a id="left" href="/recursive-chmod" title="Recursive chmod">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/learning-plan" title="Things I Want To Learn">Newer &rarr;</a> -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
