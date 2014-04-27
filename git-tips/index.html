@@ -88,6 +88,50 @@
   <p>Personal note to myself:</p>
 
 <ul>
+<li>Creating tags (annotated tags not lightweight tags): tag specific points in history as being important. People generally use this functionality to mark release points (v1.0 and so on.)</li>
+</ul>
+<div class='highlight'><pre><code class='bash'><span class='c'># listing available tags</span>
+<span class='nv'>$ </span>git tag
+0.1.1
+0.1.2
+0.1.3
+0.1.4
+0.1.5
+0.1.6
+0.1.7
+0.1.8
+0.1.9
+
+<span class='c'># show tag data along with the commit that was tagged</span>
+<span class='nv'>$ </span>git show 0.1.9
+tag 0.1.9
+Tagger: Henry Huang &lt;keenhenry1109@gmail.com&gt;
+Date:   Sun Apr 27 11:17:35 2014 +0200
+
+version 0.1.9
+
+commit 19ae10aa2cf5f6890e831138e901494fa4e68c31
+Author: Henry Huang &lt;keenhenry1109@gmail.com&gt;
+Date:   Sun Apr 27 11:15:45 2014 +0200
+
+    upgraded to version 0.1.9
+
+<span class='c'># create a tag for the latest/current commit</span>
+<span class='nv'>$ </span>git tag -a 0.2.0
+
+<span class='c'># create a tag for previous commits</span>
+<span class='c'># first show commit checksum of previous commits</span>
+<span class='nv'>$ </span>git log --pretty<span class='o'>=</span>oneline
+2dea6fb9fc2638e4655a00e65167ec8be1e5228c updated tool version
+4e570bdf2fa00410fd271ad9fa740ba9782eb539 updated tool installation instruction
+
+<span class='c'># then tag one with a complete commit checksum of part of it</span>
+<span class='nv'>$ </span>git tag -a example -m <span class='s1'>&#39;an example release&#39;</span> 2dea6fb9f
+
+<span class='c'># push tags to remote, like github</span>
+<span class='nv'>$ </span>git push origin --tags
+</code></pre></div>
+<ul>
 <li>Do delta debugging with Git</li>
 </ul>
 <div class='highlight'><pre><code class='bash'><span class='c'># delta debugging using git bisect; try &#39;git help bisect&#39;</span>
@@ -132,6 +176,8 @@ origin  git@github.com:user/repo.git <span class='o'>(</span>push<span class='o'
 <li><a href='https://help.github.com/articles/removing-a-remote'>git remove remote</a></li>
 
 <li><a href='http://stackoverflow.com/questions/2641146/handling-file-renames-in-git'>git rename</a></li>
+
+<li><a href='http://git-scm.com/book/en/Git-Basics-Tagging'>git tag</a></li>
 </ul>
 
   <footer>
