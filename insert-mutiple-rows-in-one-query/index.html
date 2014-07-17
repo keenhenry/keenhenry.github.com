@@ -72,36 +72,50 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Two Days In Dubai</h1>
+<h1>Insert Multiple Rows In One SQLite Insert Query</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  22 Jun 2014
+  10 Jul 2014
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Two Days In Dubai" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Insert Multiple Rows In One SQLite Insert Query" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>2014年的長假我們選擇回故鄉過。</p>
-
-<p>搭阿聯酋A380，從阿姆斯特丹經杜拜轉台北，並在杜拜停留兩天。這兩天就成了與阿拉伯國家 的第一次接觸。</p>
-
-<p>A380的經濟艙空間的確比一般客機稍大，所以在飛行中的確稍舒適些。我們碰到機組人員的服務 和其他航空公司比較起來似乎更『隨興』了些，給人一種不夠專業的印象。但基本上空服員的態度 是友善的，人數上似乎也較其他機型多出許多；如果碰到乘客人數較少的班次，就可以明顯得 感受到空服員的工作氣氛比起其他航空公司要愉快許多。機組人員的國籍相當多元和國際化，機上 餐點吃得算適合我們口味，娛樂系統比起國泰還要再豐富些。</p>
-
-<p>班機抵達杜拜是當地時間凌晨。空蕩蕩的機場大廳顯得格外奢華：室內建了許多噴泉瀑布等造景。 沒過多久開始通關，碰到的是穿著阿拉伯傳統服飾的海關。通關一切順利，領了行李後搭計程車 前往下榻旅館。</p>
+  <p>Earlier this week, I found myself coming to an usecase of inserting multiple rows within one SQLite query. The idea is something like this in MySQL:</p>
+<div class='highlight'><pre><code class='sql'><span class='k'>INSERT</span> <span class='k'>INTO</span> <span class='s1'>&#39;tablename&#39;</span> <span class='p'>(</span><span class='s1'>&#39;column1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;column2&#39;</span><span class='p'>)</span> <span class='k'>VALUES</span>
+    <span class='p'>(</span><span class='s1'>&#39;data1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span><span class='p'>),</span>
+    <span class='p'>(</span><span class='s1'>&#39;data1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span><span class='p'>),</span>
+    <span class='p'>(</span><span class='s1'>&#39;data1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span><span class='p'>),</span>
+    <span class='p'>(</span><span class='s1'>&#39;data1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span><span class='p'>);</span>
+</code></pre></div>
+<p>The similar syntax is also available for <a href='http://www.sqlite.org/releaselog/3_7_11.html'>SQLite 3.7.11</a> and above; however for older versions of SQLite, this syntax won&#8217;t work. Fortunately, there is another way to do the same thing, with the help of <code>UNION</code> or <code>UNION ALL</code> operator:</p>
+<div class='highlight'><pre><code class='sql'><span class='k'>INSERT</span> <span class='k'>INTO</span> <span class='s1'>&#39;tablename&#39;</span>
+      <span class='k'>SELECT</span> <span class='s1'>&#39;data1&#39;</span> <span class='k'>AS</span> <span class='s1'>&#39;column1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span> <span class='k'>AS</span> <span class='s1'>&#39;column2&#39;</span>
+<span class='k'>UNION</span> <span class='k'>SELECT</span> <span class='s1'>&#39;data3&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data4&#39;</span>
+<span class='k'>UNION</span> <span class='k'>SELECT</span> <span class='s1'>&#39;data5&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data6&#39;</span>
+<span class='k'>UNION</span> <span class='k'>SELECT</span> <span class='s1'>&#39;data7&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data8&#39;</span>
+</code></pre></div>
+<p>Of course, the second way has backward compatibility for the older versions of SQLite. Also notice that there is no performance advantage one way or the other (between the above mentioned two syntaxes).</p>
 
   <footer>
   <ul class="tag_list">
     Tags for this post: 
     
-    <li><a href="/tag/journal">journal</a></li>
+    <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/travel">travel</a></li>
+    <li><a href="/tag/SQL">SQL</a></li>
     
-    <li><a href="/tag/middle east">middle east</a></li>
+    <li><a href="/tag/sql">sql</a></li>
+    
+    <li><a href="/tag/databases">databases</a></li>
+    
+    <li><a href="/tag/SQLite">SQLite</a></li>
+    
+    <li><a href="/tag/sqlite">sqlite</a></li>
     
   </ul>
 
@@ -112,10 +126,10 @@
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/dutch-speech" title="My Dutch Speech">&larr; Older</a> -->
+<!--     <a id="left" href="/dubai-trip" title="Two Days In Dubai">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/insert-mutiple-rows-in-one-query" title="Insert Multiple Rows In One SQLite Insert Query">Newer &rarr;</a> -->
+<!--     <a id="right" href="/suppress-stdout-in-unittest" title="Suppress STDOUT in unittest">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
