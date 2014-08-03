@@ -94,7 +94,8 @@
 <p>I tried to used:</p>
 <div class='highlight'><pre><code class='cpp'><span class='k'>template</span> <span class='o'>&lt;</span><span class='k'>class</span> <span class='nc'>Predicate</span><span class='o'>&gt;</span>
 <span class='kt'>void</span> <span class='n'>remove_edge_if</span><span class='p'>(</span><span class='n'>Predicate</span> <span class='n'>predicate</span><span class='p'>,</span> <span class='n'>adjacency_list</span><span class='o'>&amp;</span> <span class='n'>g</span><span class='p'>)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>template function in the graph library, and the <code>predicate</code> parameter is a functor object, see <a href='http://www.sgi.com/tech/stl/Predicate.html'>here</a>. Therefore I had to make a functor class before using such a function.</p>
 
 <p>To make a functor class in C++, you simply create an ordinary <code>class</code> (or a <code>struct</code>) that overloads <code>operator()</code>. To see some concrete examples, check out <a href='http://en.wikipedia.org/wiki/Function_object#In_C_and_C.2B.2B'>this wikipedia post</a>. To achieve something similar in C, you then make use of function pointers and pass them as parameters.</p>

@@ -115,9 +115,10 @@
     <span class='n'>std</span><span class='o'>::</span><span class='n'>auto_ptr</span><span class='o'>&lt;</span><span class='n'>index</span><span class='o'>::</span><span class='n'>strtree</span><span class='o'>::</span><span class='n'>ItemsList</span><span class='o'>&gt;</span> 
         <span class='n'>itemTree</span> <span class='p'>(</span><span class='n'>index</span><span class='p'>.</span><span class='n'>itemsTree</span><span class='p'>());</span>
 
-    <span class='k'>return</span> <span class='n'>unionTree</span><span class='p'>(</span><span class='n'>itemTree</span><span class='p'>.</span><span class='n'>get</span><span class='p'>());</span>
+    <span class='k'>return</span> <span class='nf'>unionTree</span><span class='p'>(</span><span class='n'>itemTree</span><span class='p'>.</span><span class='n'>get</span><span class='p'>());</span>
 <span class='p'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>So indeed, it uses a R-Tree to collect spatially neighboring polygons together and forms a tree! After the tree is built, it is flattened out into a list (<code>itemTree</code>; needs to be verified), which is then thrown to <code>unionTree()</code> to do the real union/merge work.</p>
 
 <p>Now let&#8217;s have a look of how unionTree is realized:</p>
@@ -131,7 +132,7 @@
 <span class='cm'>     * single geometries. The result is a list of Geometry&#39;s only</span>
 <span class='cm'>     */</span>
     <span class='n'>std</span><span class='o'>::</span><span class='n'>auto_ptr</span><span class='o'>&lt;</span><span class='n'>GeometryListHolder</span><span class='o'>&gt;</span> <span class='n'>geoms</span><span class='p'>(</span><span class='n'>reduceToGeometries</span><span class='p'>(</span><span class='n'>geomTree</span><span class='p'>));</span>
-    <span class='k'>return</span> <span class='n'>binaryUnion</span><span class='p'>(</span><span class='n'>geoms</span><span class='p'>.</span><span class='n'>get</span><span class='p'>());</span>
+    <span class='k'>return</span> <span class='nf'>binaryUnion</span><span class='p'>(</span><span class='n'>geoms</span><span class='p'>.</span><span class='n'>get</span><span class='p'>());</span>
 <span class='p'>}</span>
 
 <span class='cm'>/* reduceToGeometries() calls unionTree() from within; </span>
@@ -167,7 +168,7 @@
 
 <span class='cm'>/* Divide-and-conquer union of all the geometries */</span>
 <span class='n'>geom</span><span class='o'>::</span><span class='n'>Geometry</span><span class='o'>*</span> <span class='n'>CascadedPolygonUnion</span><span class='o'>::</span><span class='n'>binaryUnion</span><span class='p'>(</span><span class='n'>GeometryListHolder</span><span class='o'>*</span> <span class='n'>geoms</span><span class='p'>,</span> 
-    <span class='n'>std</span><span class='o'>::</span><span class='n'>size_t</span> <span class='n'>start</span><span class='p'>,</span> <span class='n'>std</span><span class='o'>::</span><span class='n'>size_t</span> <span class='n'>end</span><span class='p'>)</span>
+    <span class='n'>std</span><span class='o'>::</span><span class='kt'>size_t</span> <span class='n'>start</span><span class='p'>,</span> <span class='n'>std</span><span class='o'>::</span><span class='kt'>size_t</span> <span class='n'>end</span><span class='p'>)</span>
 <span class='p'>{</span>
     <span class='k'>if</span> <span class='p'>(</span><span class='n'>end</span> <span class='o'>-</span> <span class='n'>start</span> <span class='o'>&lt;=</span> <span class='mi'>1</span><span class='p'>)</span> <span class='p'>{</span>
         <span class='k'>return</span> <span class='n'>unionSafe</span><span class='p'>(</span><span class='n'>geoms</span><span class='o'>-&gt;</span><span class='n'>getGeometry</span><span class='p'>(</span><span class='n'>start</span><span class='p'>),</span> <span class='nb'>NULL</span><span class='p'>);</span>
@@ -177,13 +178,14 @@
     <span class='p'>}</span>
     <span class='k'>else</span> <span class='p'>{</span>
         <span class='c1'>// recurse on both halves of the list</span>
-        <span class='n'>std</span><span class='o'>::</span><span class='n'>size_t</span> <span class='n'>mid</span> <span class='o'>=</span> <span class='p'>(</span><span class='n'>end</span> <span class='o'>+</span> <span class='n'>start</span><span class='p'>)</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>;</span>
+        <span class='n'>std</span><span class='o'>::</span><span class='kt'>size_t</span> <span class='n'>mid</span> <span class='o'>=</span> <span class='p'>(</span><span class='n'>end</span> <span class='o'>+</span> <span class='n'>start</span><span class='p'>)</span> <span class='o'>/</span> <span class='mi'>2</span><span class='p'>;</span>
         <span class='n'>std</span><span class='o'>::</span><span class='n'>auto_ptr</span><span class='o'>&lt;</span><span class='n'>geom</span><span class='o'>::</span><span class='n'>Geometry</span><span class='o'>&gt;</span> <span class='n'>g0</span> <span class='p'>(</span><span class='n'>binaryUnion</span><span class='p'>(</span><span class='n'>geoms</span><span class='p'>,</span> <span class='n'>start</span><span class='p'>,</span> <span class='n'>mid</span><span class='p'>));</span>
         <span class='n'>std</span><span class='o'>::</span><span class='n'>auto_ptr</span><span class='o'>&lt;</span><span class='n'>geom</span><span class='o'>::</span><span class='n'>Geometry</span><span class='o'>&gt;</span> <span class='n'>g1</span> <span class='p'>(</span><span class='n'>binaryUnion</span><span class='p'>(</span><span class='n'>geoms</span><span class='p'>,</span> <span class='n'>mid</span><span class='p'>,</span> <span class='n'>end</span><span class='p'>));</span>
-        <span class='k'>return</span> <span class='n'>unionSafe</span><span class='p'>(</span><span class='n'>g0</span><span class='p'>.</span><span class='n'>get</span><span class='p'>(),</span> <span class='n'>g1</span><span class='p'>.</span><span class='n'>get</span><span class='p'>());</span>
+        <span class='k'>return</span> <span class='nf'>unionSafe</span><span class='p'>(</span><span class='n'>g0</span><span class='p'>.</span><span class='n'>get</span><span class='p'>(),</span> <span class='n'>g1</span><span class='p'>.</span><span class='n'>get</span><span class='p'>());</span>
     <span class='p'>}</span>
 <span class='p'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In conclusion, the implementation walks the tree in a depth-first fashion and merges geometries along the way with a divide-and-conquer operation - <code>binaryUnion()</code>. So this is it! Conceptually it&#8217;s quite simple, isn&#8217;t it?!</p>
 
 <p>to flatten a tree structure efficiently. In a follow-up to this post, you might want to figure out how actually a R-Tree is implemented and how</p>

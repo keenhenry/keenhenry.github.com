@@ -91,14 +91,16 @@
     <span class='p'>(</span><span class='s1'>&#39;data1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span><span class='p'>),</span>
     <span class='p'>(</span><span class='s1'>&#39;data1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span><span class='p'>),</span>
     <span class='p'>(</span><span class='s1'>&#39;data1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span><span class='p'>);</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>The similar syntax is also available for <a href='http://www.sqlite.org/releaselog/3_7_11.html'>SQLite 3.7.11</a> and above; however for older versions of SQLite, this syntax won&#8217;t work. Fortunately, there is another way to do the same thing, with the help of <code>UNION</code> or <code>UNION ALL</code> operator:</p>
 <div class='highlight'><pre><code class='sql'><span class='k'>INSERT</span> <span class='k'>INTO</span> <span class='s1'>&#39;tablename&#39;</span>
       <span class='k'>SELECT</span> <span class='s1'>&#39;data1&#39;</span> <span class='k'>AS</span> <span class='s1'>&#39;column1&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data2&#39;</span> <span class='k'>AS</span> <span class='s1'>&#39;column2&#39;</span>
 <span class='k'>UNION</span> <span class='k'>SELECT</span> <span class='s1'>&#39;data3&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data4&#39;</span>
 <span class='k'>UNION</span> <span class='k'>SELECT</span> <span class='s1'>&#39;data5&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data6&#39;</span>
 <span class='k'>UNION</span> <span class='k'>SELECT</span> <span class='s1'>&#39;data7&#39;</span><span class='p'>,</span> <span class='s1'>&#39;data8&#39;</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Of course, the second way has backward compatibility for the older versions of SQLite. Also notice that there is no performance advantage one way or the other (between the above mentioned two syntaxes).</p>
 
   <footer>

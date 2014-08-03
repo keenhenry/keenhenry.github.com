@@ -105,7 +105,8 @@
 <span class='p'>}</span>
 
 <span class='n'>free</span><span class='p'>(</span><span class='n'>pointer_to_a_object</span><span class='p'>);</span> <span class='c1'>// crashes the program!</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This code is already problematic because it doesn&#8217;t test if <code>pointer_to_a_object</code> is already being freed. To test it, one instinct would be using <code>if ( pointer_to_a_object != NULL )</code>, but this condition only holds when the pointer is explicitly set to <code>NULL</code>.</p>
 
 <p>So the biggest problem with this code is actually <strong>NOT ZEROING OUT POINTERS AFTER FREE/DELETE</strong>. This should be a standard practice when you write code. The following code solves the problem.</p>
@@ -130,7 +131,8 @@
     <span class='n'>free</span><span class='p'>(</span><span class='n'>pointer_to_a_object</span><span class='p'>);</span> <span class='c1'>// crashes the program!</span>
     <span class='n'>pointer_to_a_object</span> <span class='o'>=</span> <span class='nb'>NULL</span><span class='p'>;</span>
 <span class='p'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Because you always zero out pointers after you are done with them, you know for sure next time they are not freed yet when they are not <code>NULL</code>. Or, in other words, you only free pointers when they are still pointing to &#8216;something&#8217;. And this small tip can avoid pointers being reused. Safer code, higher assurance.</p>
 
   <footer>

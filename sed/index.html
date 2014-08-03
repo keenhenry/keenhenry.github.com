@@ -90,11 +90,13 @@
 <p>Most important of all, it processes the input stream in ONE pass, which makes it very efficient. The basic (and most common) usage of <code>sed</code> is to substitue all occurrences of the regular expression into a new value. For example:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span><span class='nb'>echo </span>day | sed s/day/night
 night
-</code></pre></div>
+</code></pre>
+</div>
 <p>The basic syntax of <code>sed</code> <code>s</code> command is:</p>
 <div class='highlight'><pre><code class='bash'><span class='c'># Change &quot;day&quot; in the &quot;old&quot; file to &quot;night&quot; in the &quot;new&quot; file</span>
 <span class='nv'>$ </span>sed s/day/night/ &lt;old &gt;new
-</code></pre></div>
+</code></pre>
+</div>
 <p>To see the real power of <code>sed</code> with pipes:</p>
 <div class='highlight'><pre><code class='bash'><span class='c'># If you want to make two changes, you can pipe it together!</span>
 <span class='nv'>$ </span>sed <span class='s1'>&#39;s/BEGIN/begin/&#39;</span> &lt;old | sed <span class='s1'>&#39;s/END/end/&#39;</span> &gt;new
@@ -103,7 +105,8 @@ night
 <span class='c'># below is a better alternative which combines multiple </span>
 <span class='c'># commands together without pipelining!</span>
 <span class='nv'>$ </span>sed -e <span class='s1'>&#39;s/BEGIN/begin/&#39;</span> -e <span class='s1'>&#39;s/END/end/&#39;</span> &lt;old &gt;new
-</code></pre></div>
+</code></pre>
+</div>
 <p><strong>REFERENCE</strong></p>
 
 <ul>

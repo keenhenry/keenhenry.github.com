@@ -91,14 +91,16 @@
 
 <p>To produce a patch file from current working code copy (you made some changes to the current working copy already) with <code>bazaar</code>, you do it like this:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>bzr diff &gt; filename.patch
-</code></pre></div>
+</code></pre>
+</div>
 <p>Then, you probably need to merge the patch to ANOTHER working copy of the repository later on (and you don&#8217;t want to manually type in all the changes you made again). What do you do?</p>
 
 <p>One way to do it is with &#8216;bzr patch&#8217;, see below:</p>
 <div class='highlight'><pre><code class='bash'><span class='c'># run this command within the working directory of </span>
 <span class='c'># the &quot;ANOTHER working code copy&quot;</span>
 <span class='nv'>$ </span>bzr patch filename.patch
-</code></pre></div>
+</code></pre>
+</div>
 <p>But this raises a question, shouldn&#8217;t <code>bzr merge</code> work the same as <code>bzr patch</code>?</p>
 
 <p>I will find that out later &#8230;</p>

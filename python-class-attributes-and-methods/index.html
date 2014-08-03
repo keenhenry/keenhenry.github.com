@@ -93,18 +93,21 @@
 
     <span class='k'>def</span> <span class='nf'>__init__</span><span class='p'>(</span><span class='bp'>self</span><span class='p'>,</span> <span class='n'>arg1</span><span class='p'>):</span>
         <span class='bp'>self</span><span class='o'>.</span><span class='n'>start</span> <span class='o'>=</span> <span class='n'>arg1</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>In the above example, <code>data</code> is the class attribute of <code>DummyClass</code> and <code>start</code> is the instance attribute which gets created when an instance of that class is created.</p>
 
 <p>To access the class attribute, use the class name followed by a dot and then attribute name:</p>
 <div class='highlight'><pre><code class='python'><span class='n'>DummyClass</span><span class='o'>.</span><span class='n'>data</span>
 <span class='c'>## 1</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>However, watch out:</p>
 <div class='highlight'><pre><code class='python'><span class='n'>a</span> <span class='o'>=</span> <span class='n'>DummyClass</span><span class='p'>(</span><span class='mi'>2</span><span class='p'>)</span>
 <span class='n'>a</span><span class='o'>.</span><span class='n'>data</span>
 <span class='c'>## 1</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>What&#8217;s going on? Is there an instance attribute named <code>data</code> for <code>DummyClass</code>? No, but the value of class attribute <code>data</code> is returned. This has something to do with <a href='http://bit.ly/1fKiPgq'>namespace resolution in python</a>. Due to this characteristic, you should be fully aware of the semantics of class attributes to read and modify them correctly. For more details, please read <a href='http://bit.ly/1f1StcI'>this blog post</a>; the details are not the main focus of this post. This post talks about <strong>when</strong> to use class attributes.</p>
 
 <p>From the above example, it is clear that class attribute value can be retrieved even by class instance, which is not what class attribute is designed for. So, what for then?</p>

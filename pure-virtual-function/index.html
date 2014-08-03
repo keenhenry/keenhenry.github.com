@@ -90,7 +90,7 @@
 <p>To create a pure virtual function, rather than define a body for the function, we simply assign the function the value <code>0</code>.</p>
 <div class='highlight'><pre><code class='cpp'><span class='k'>class</span> <span class='nc'>Base</span>
 <span class='p'>{</span>
-    <span class='k'>public</span><span class='o'>:</span>
+    <span class='nl'>public:</span>
 
         <span class='c1'>// a normal non-virtual function    </span>
         <span class='k'>const</span> <span class='kt'>char</span><span class='o'>*</span> <span class='n'>func1</span><span class='p'>()</span> <span class='p'>{</span> <span class='k'>return</span> <span class='s'>&quot;Hi&quot;</span><span class='p'>;</span> <span class='p'>}</span>        
@@ -101,7 +101,8 @@
         <span class='c1'>// a pure virtual function</span>
         <span class='k'>virtual</span> <span class='kt'>int</span> <span class='n'>func3</span><span class='p'>()</span> <span class='o'>=</span> <span class='mi'>0</span><span class='p'>;</span>
 <span class='p'>};</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Using a pure virtual function has two main consequences: First, any class with one or more pure virtual functions becomes an <strong>abstract base class</strong>, which means that it can not be instantiated. Second, any derived class must define a body for this function, or that derived class will be considered an abstract base class as well.</p>
 
 <p>A &#8216;non-pure&#8217; normal virtual function, on the contrary, must have a body defined (although it could be empty in the body). If you don&#8217;t define the body and don&#8217;t make the virtual function &#8216;pure&#8217; (by assigning value <code>0</code>) either, you will get a linking error saying: <strong>Undefined reference to vtable for &#8230;</strong>. An example of normal virtual function is a <strong>virtual destructor</strong>, which appears frequently in various base classes.</p>

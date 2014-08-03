@@ -89,11 +89,13 @@
 
 <p>But what would happen if you try that? If you are working on a ubuntu system, mostly likely a message will spit out:</p>
 <div class='highlight'><pre><code class='bash'>No such file or directory
-</code></pre></div>
+</code></pre>
+</div>
 <p>What you can do is to use <code>file</code> command to figure out the binary type:</p>
 <div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>file a.out
 a.out: ELF 32-bit LSB executable, Intel 80386, version 1 <span class='o'>(</span>SYSV<span class='o'>)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p><code>a.out: ELF 32-bit LSB executable</code> tells you that this is a 32-bit executable. Perhaps you want to read more about <a href='http://en.wikipedia.org/wiki/Executable_and_Linkable_Format'>ELF format</a>.</p>
 
   <footer>

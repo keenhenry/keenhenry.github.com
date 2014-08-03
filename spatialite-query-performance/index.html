@@ -98,7 +98,8 @@
 <span class='go'>  FROM tb1,</span>
 <span class='go'>       tb2 </span>
 <span class='go'> WHERE tb1.id = tb2.id</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>This query doesn&#8217;t look gigantic in terms of text size. However, there is one lengthy operation in it: <code>INTERSECTS</code>. This is a spatial operation to calculate exact spatial relationship between two geometries. If the data set is big, like the map data of China, then all the line segments in China are run through this operation and the performance issue would be quite noticeable, which was what I encountered this week.</p>
 
 <p>So, Spatialite is slow, isn&#8217;t it? No, not really. The problem is spatialite does not use <em>spatial index</em> at all to perform such spatial operation unless you explicitly tell it to so.</p>
@@ -141,7 +142,8 @@
 <span class='go'>       tb2 </span>
 <span class='go'> WHERE tb1.id = tb2.id</span>
 <span class='go'>   AND NOT MBRDISJOINT(tb1.geom1, geom)</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>See the difference? :)</p>
 
   <footer>

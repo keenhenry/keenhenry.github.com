@@ -95,11 +95,11 @@
 <span class='k'>struct</span> <span class='n'>Base</span> <span class='p'>{};</span>
 <span class='k'>struct</span> <span class='n'>Derived</span> <span class='o'>:</span> <span class='n'>Base</span> <span class='p'>{};</span>
 <span class='k'>struct</span> <span class='n'>Poly_Base</span> <span class='p'>{</span><span class='k'>virtual</span> <span class='kt'>void</span> <span class='n'>Member</span><span class='p'>(){}};</span>
-<span class='k'>struct</span> <span class='nl'>Poly_Derived:</span> <span class='n'>Poly_Base</span> <span class='p'>{};</span>
+<span class='k'>struct</span> <span class='n'>Poly_Derived</span><span class='o'>:</span> <span class='n'>Poly_Base</span> <span class='p'>{};</span>
 
 <span class='k'>typedef</span> <span class='kt'>int</span> <span class='n'>my_int_type</span><span class='p'>;</span>
 
-<span class='kt'>int</span> <span class='n'>main</span><span class='p'>()</span> <span class='p'>{</span>
+<span class='kt'>int</span> <span class='nf'>main</span><span class='p'>()</span> <span class='p'>{</span>
   <span class='n'>std</span><span class='o'>::</span><span class='n'>cout</span> <span class='o'>&lt;&lt;</span> <span class='n'>std</span><span class='o'>::</span><span class='n'>boolalpha</span><span class='p'>;</span>
 
   <span class='c1'>// fundamental types:</span>
@@ -124,13 +124,15 @@
 
   <span class='k'>return</span> <span class='mi'>0</span><span class='p'>;</span>
 <span class='p'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Possible output:</p>
-<div class='highlight'><pre><code class='cpp'><span class='kt'>int</span> <span class='n'>vs</span> <span class='nl'>my_int_type:</span> <span class='kc'>true</span>
-<span class='n'>Base</span> <span class='n'>vs</span> <span class='nl'>Derived:</span> <span class='kc'>false</span>
-<span class='n'>Base</span> <span class='n'>vs</span> <span class='o'>*</span><span class='nl'>pbase:</span> <span class='kc'>true</span>
-<span class='n'>Poly_Base</span> <span class='n'>vs</span> <span class='o'>*</span><span class='nl'>ppolybase:</span> <span class='kc'>false</span>
-</code></pre></div>
+<div class='highlight'><pre><code class='cpp'><span class='kt'>int</span> <span class='n'>vs</span> <span class='n'>my_int_type</span><span class='o'>:</span> <span class='nb'>true</span>
+<span class='n'>Base</span> <span class='n'>vs</span> <span class='n'>Derived</span><span class='o'>:</span> <span class='nb'>false</span>
+<span class='n'>Base</span> <span class='n'>vs</span> <span class='o'>*</span><span class='n'>pbase</span><span class='o'>:</span> <span class='nb'>true</span>
+<span class='n'>Poly_Base</span> <span class='n'>vs</span> <span class='o'>*</span><span class='n'>ppolybase</span><span class='o'>:</span> <span class='nb'>false</span>
+</code></pre>
+</div>
 
   <footer>
   <ul class="tag_list">

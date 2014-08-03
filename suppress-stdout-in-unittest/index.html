@@ -110,7 +110,8 @@
         <span class='c'># some other setup code</span>
         <span class='k'>with</span> <span class='n'>patch</span><span class='p'>(</span><span class='s'>&#39;sys.stdout&#39;</span><span class='p'>,</span> <span class='n'>new</span><span class='o'>=</span><span class='n'>MockDevice</span><span class='p'>())</span> <span class='k'>as</span> <span class='n'>fake_out</span><span class='p'>:</span>
             <span class='n'>func_to_be_tested</span><span class='p'>()</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p><a href='https://pypi.python.org/pypi/mock'><code>mock</code></a> is a library for testing in Python. It allows you to replace parts of your system under test with mock objects and makes assertions about how they have been used. In the above example, it is used to replace <code>std.stdout</code> temporarily ONLY within the <a href='https://docs.python.org/2/reference/compound_stmts.html#with'><code>with</code> statement</a> block, and restore it back afterwards.</p>
 
 <p>And of course, the result will be that the text &#8216;some message texts to stdout &#8230;&#8217; simply disappear while running unit test.</p>

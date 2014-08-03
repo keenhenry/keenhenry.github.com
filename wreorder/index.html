@@ -107,10 +107,12 @@
     <span class='kt'>int</span> <span class='n'>j</span><span class='p'>;</span>
     <span class='n'>A</span><span class='p'>()</span> <span class='o'>:</span> <span class='n'>j</span><span class='p'>(</span><span class='mi'>0</span><span class='p'>),</span> <span class='n'>i</span><span class='p'>(</span><span class='n'>j</span><span class='p'>)</span> <span class='p'>{</span> <span class='p'>}</span>
 <span class='p'>};</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>Now i is initialized to some unknown value, not zero. So this warning can actually prevent incorrect/unwanted initialization! Alternatively, the initialization of <code>i</code> may have some side effects for which the order is important:</p>
 <div class='highlight'><pre><code class='cpp'><span class='n'>A</span><span class='p'>(</span><span class='kt'>int</span> <span class='n'>n</span><span class='p'>)</span> <span class='o'>:</span> <span class='n'>j</span><span class='p'>(</span><span class='n'>n</span><span class='o'>++</span><span class='p'>),</span> <span class='n'>i</span><span class='p'>(</span><span class='n'>n</span><span class='o'>++</span><span class='p'>)</span> <span class='p'>{</span> <span class='p'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 
   <footer>
   <ul class="tag_list">

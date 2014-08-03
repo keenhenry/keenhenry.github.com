@@ -99,7 +99,7 @@
     <span class='p'>}</span>
 <span class='p'>};</span>
 
-<span class='k'>struct</span> <span class='nl'>B:</span> <span class='n'>A</span>
+<span class='k'>struct</span> <span class='n'>B</span><span class='o'>:</span> <span class='n'>A</span>
 <span class='p'>{</span>
     <span class='kt'>void</span> <span class='n'>f</span><span class='p'>()</span>
     <span class='p'>{</span>
@@ -107,7 +107,7 @@
     <span class='p'>}</span>
 <span class='p'>};</span>
 
-<span class='k'>struct</span> <span class='nl'>C:</span> <span class='n'>A</span>
+<span class='k'>struct</span> <span class='n'>C</span><span class='o'>:</span> <span class='n'>A</span>
 <span class='p'>{</span>
     <span class='kt'>void</span> <span class='n'>f</span><span class='p'>()</span>
     <span class='p'>{</span>
@@ -115,12 +115,12 @@
     <span class='p'>}</span>
 <span class='p'>};</span>
 
-<span class='kt'>void</span> <span class='n'>g</span><span class='p'>(</span><span class='n'>A</span> <span class='n'>func</span><span class='p'>)</span>
+<span class='kt'>void</span> <span class='nf'>g</span><span class='p'>(</span><span class='n'>A</span> <span class='n'>func</span><span class='p'>)</span>
 <span class='p'>{</span>
     <span class='n'>func</span><span class='p'>.</span><span class='n'>f</span><span class='p'>();</span>
 <span class='p'>}</span>
 
-<span class='kt'>int</span> <span class='n'>main</span><span class='p'>(</span><span class='kt'>int</span> <span class='n'>argc</span><span class='p'>,</span> <span class='kt'>char</span><span class='o'>**</span> <span class='n'>argv</span><span class='p'>)</span>
+<span class='kt'>int</span> <span class='nf'>main</span><span class='p'>(</span><span class='kt'>int</span> <span class='n'>argc</span><span class='p'>,</span> <span class='kt'>char</span><span class='o'>**</span> <span class='n'>argv</span><span class='p'>)</span>
 <span class='p'>{</span>
     <span class='n'>A</span> <span class='n'>a</span><span class='p'>;</span>
     <span class='n'>B</span> <span class='n'>b</span><span class='p'>;</span>
@@ -132,28 +132,30 @@
 
     <span class='k'>return</span> <span class='mi'>0</span><span class='p'>;</span>
 <span class='p'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>What will the output be after executing such a program?</p>
 <div class='highlight'><pre><code class='cpp'><span class='n'>This</span> <span class='n'>is</span> <span class='k'>class</span> <span class='nc'>A</span>
 <span class='n'>This</span> <span class='n'>is</span> <span class='k'>class</span> <span class='nc'>A</span>
 <span class='n'>This</span> <span class='n'>is</span> <span class='k'>class</span> <span class='nc'>A</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>It turns out that the &#8216;values&#8217; of objects are not copied over to the local variable <code>func</code> in function <code>g</code>. This is because they are class variables instead of primitive data types; the &#8216;values&#8217; of class variables cannot just be passed and copied over to the memory box of another class variable which is local to a function. Objects are constructed, not assigned by values.</p>
 
 <p>Therefore, C++ is pass-by-reference for object; or pass-by-value for pointers to objects. To fix the problem in the code above, see the following:</p>
 <div class='highlight'><pre><code class='cpp'><span class='c1'>// cleaner and prefered</span>
-<span class='kt'>void</span> <span class='n'>g</span><span class='p'>(</span><span class='n'>A</span><span class='o'>&amp;</span> <span class='n'>func</span><span class='p'>)</span>
+<span class='kt'>void</span> <span class='nf'>g</span><span class='p'>(</span><span class='n'>A</span><span class='o'>&amp;</span> <span class='n'>func</span><span class='p'>)</span>
 <span class='p'>{</span>
     <span class='n'>func</span><span class='p'>.</span><span class='n'>f</span><span class='p'>();</span>
 <span class='p'>}</span>
 
 <span class='c1'>// Or,</span>
-<span class='kt'>void</span> <span class='n'>g</span><span class='p'>(</span><span class='n'>A</span><span class='o'>*</span> <span class='n'>func</span><span class='p'>)</span>
+<span class='kt'>void</span> <span class='nf'>g</span><span class='p'>(</span><span class='n'>A</span><span class='o'>*</span> <span class='n'>func</span><span class='p'>)</span>
 <span class='p'>{</span>
     <span class='n'>func</span><span class='o'>-&gt;</span><span class='n'>f</span><span class='p'>();</span>
 <span class='p'>}</span>
 
-<span class='kt'>int</span> <span class='n'>main</span><span class='p'>(</span><span class='kt'>int</span> <span class='n'>argc</span><span class='p'>,</span> <span class='kt'>char</span><span class='o'>**</span> <span class='n'>argv</span><span class='p'>)</span>
+<span class='kt'>int</span> <span class='nf'>main</span><span class='p'>(</span><span class='kt'>int</span> <span class='n'>argc</span><span class='p'>,</span> <span class='kt'>char</span><span class='o'>**</span> <span class='n'>argv</span><span class='p'>)</span>
 <span class='p'>{</span>
     <span class='n'>A</span> <span class='n'>a</span><span class='p'>;</span>
     <span class='n'>B</span> <span class='n'>b</span><span class='p'>;</span>
@@ -165,7 +167,8 @@
 
     <span class='k'>return</span> <span class='mi'>0</span><span class='p'>;</span>
 <span class='p'>}</span>
-</code></pre></div>
+</code></pre>
+</div>
 <p>So far so good, these are just some review of pass-by-reference and pass-by-value concepts. How about Java and Python? Are they pass-by-value or pass-by-reference?</p>
 
 <p>For Java, it passes object references <em>by value</em>. That means the values of references are copied over. And, object variables are just varables (pointers!) that holds references to objects. To have more in depth, read <a href='http://www.javaworld.com/javaqa/2000-05/03-qa-0526-pass.html'>this</a>.</p>
