@@ -190,6 +190,8 @@ with open(&#39;README.txt&#39;) as file:
 
 <p>In that case, README.txt is a regular reStructuredText text file located in the root of the package besides setup.py.</p>
 
+<p>Please install <code>pip install docutils</code> to have a front-end tool <code>rst2html.py</code> tool installed before using it.</p>
+
 <p>To prevent registering broken reStructuredText content, you can use the rst2html program that is provided by the docutils package and check the long_description from the command line:</p>
 
 <pre><code>$ python setup.py --long-description | rst2html.py &gt; output.html</code></pre>
@@ -201,6 +203,8 @@ with open(&#39;README.txt&#39;) as file:
 <p>Further about generate documentation with Sphinx and reST:</p>
 
 <p>(Even Varnish project uses it!) https://www.varnish-cache.org/docs/trunk/phk/sphinx.html</p>
+
+<p><a href='https://github.com/kennethreitz/requests/issues/1882'>python 3 resourcewarning problem</a> <a href='http://python-future.org/compatible_idioms.html?utm_source=Python+Weekly+Newsletter&amp;utm_campaign=c2fdbf0fcc-Python_Weekly_Issue_152_August_14_2014&amp;utm_medium=email&amp;utm_term=0_9e26887fc5-c2fdbf0fcc-312661513'>python 2 to 3 porting cheatsheet</a></p>
 
   <footer>
   <ul class="tag_list">
