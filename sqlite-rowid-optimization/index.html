@@ -72,56 +72,46 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Visvalingam's Line Simplification Algorithm</h1>
+<h1>SQLite WITHOUT ROWID Optimization</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  26 Oct 2014
+  10 Dec 2014
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Visvalingam's Line Simplification Algorithm" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="SQLite WITHOUT ROWID Optimization" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Line simplification is a common problem in cartography because it determines how detailed a map looks. Digital maps have only finite resolution: high resolution map gives more details, but the data is bigger and takes more time for the renderer to process; low resolution makes map processing faster, but details are no longer preserved and the map might look ugly.</p>
+  <p><strong>What is <code>WITHOUT ROWID</code>?</strong></p>
 
-<p>There are two polular algorithms for line simplification: <a href='http://bit.ly/1lNGxME'>Douglas–Peucker</a> and <a href='http://bit.ly/1qkzZGG'>Visvalingam&#8217;s alogithm</a>. Today, I am going to talk about Visvalingam&#8217;s area-based algorithm (short for VSA algorithm).</p>
+<p>By default, every row in SQLite has a special column called <a href='http://www.sqlite.org/draft/lang_createtable.html#rowid'>rowid</a>. If the phrase <strong><code>WITHOUT ROWID</code></strong> is added to the end of a <code>CREATE TABLE</code> statement, then the special <strong>rowid</strong> column is dropped. That might give some space and performance advantages of omitting that column.</p>
 
-<p>VSA algorithm is very easy to understand: it repeatedly removes points (non-terminal) with the least <a href='#effectivearea'>effective area</a>.</p>
+<p><strong>What is its use?</strong></p>
 
-<p>Pseudo-algorithm:</p>
+<p>One advantage obviously is to save some space for tables created with <code>WITHOUT ROWID</code> phrase.</p>
 
-<pre><code>REPEAT
-- Compute the effective area of each point along a line.
-- Delete the point with the smallest effective area.
-- After removal, recompute the effective area of of neighboring 
-  points of the deleted one.
+<p>Another important optimization gained is search performance will improve especially for tables that have non-integer or composite (multi-column) PRIMARY KEYS and that do not store large strings or BLOBs.</p>
 
-UNTIL
-- The original line consists of only 2 points, or, all the 
-  remaining points have effective area larger than a predefined 
-  threshhold.</code></pre>
+<p>Before understanding why, we need to know SQLite internal implementations of rowid tables and <strong><code>WITHOUT ROWID</code></strong> tables: traditional rowid tables are implmented as <strong>B*-Trees</strong> whereas <code>WITHOUT ROWID</code> tables are using ordinary B-Trees. B*-Trees store all content in the leaves while B-Tree store content on both leaves and intermediate nodes. That means <code>WITHOUT ROWID</code> tables might take up more disk space than its rowid equivalent and thus reduces the fan-out, increasing the search cost (search depth increased).</p>
 
-<p>The algorithm is effective at producing minimal simplified and yet characteristic shapes. But it also has its limitations: as with point-based algorithm, it can also produdces crossing lines from complex shapes; and it is only area-based and not context-awared (manual generalisation considers size, shape, and geometric and geographic context of features).</p>
+<p>Also to keep in mind is, <strong><code>PRIMARY KEY</code></strong> in SQLite, including <code>INT PRIMARY KEY</code>, is really just a <code>UNIQUE</code> index in an ordinary rowid table. However, <code>INTEGER PRIMARY KEY</code> column in rowid table is an alias for the rowid and therefore is a true primary key. This indicates <code>INTEGER PRIMARY KEY</code> rowid table saves more space in intermediate nodes (compared to <code>WITHOUT ROWID</code> equivalent) AND has primary key also as the key to locate rows instead of needing another index tree to locate them.</p>
 
-<p><strong>Reference</strong></p>
+<p>In other words, <code>WITHOUT ROWID</code> optimization will only work under certain circumstances:</p>
+
+<ol>
+<li>For a single <strong><code>INTEGER PRIMARY KEY</code></strong> table, <code>WITHOUT ROWID</code> phrase will not out-perform the ordinary rowid tables: do NOT use <code>WITHOUT ROWID</code> on <strong><code>INTEGER PRIMARY KEY</code></strong> tables.</li>
+
+<li>For non-integer or composite primary key tables, if the primary key column(s) store large strings or BLOBs, this technique is more likely to loose its advantages due to the underlying B-Tree implementation. In other words, use it on non-integer or composite primary <strong>SMALL-SIZED</strong> key(s) tables.</li>
+</ol>
+
+<p><strong>REFERENCE</strong></p>
 
 <ul>
-<li><a href='http://stackoverflow.com/questions/10558299/visvalingam-whyatt-polyline-simplification-algorithm-clarification'>Stackoverflow discussion</a></li>
-
-<li><a href='http://bost.ocks.org/mike/simplify/simplify.js'>Javapscript Implementation</a></li>
-
-<li><a href='http://bost.ocks.org/mike/simplify/'>Blogpost explaining VSA</a></li>
-
-<li><a href='https://hydra.hull.ac.uk/resources/hull:8338'>The original paper</a></li>
+<li><a href='http://www.sqlite.org/draft/withoutrowid.html'>The WITHOUT ROWID Optimization</a></li>
 </ul>
-
-<p><strong>Note</strong></p>
-<a name='effectivearea'>Effective Area</a><pre>
-</pre>
-<p>Effective area is defined by an areal displacement which would occur is that point alone was omitted from the current line. In other words, it is area of triangles formed by successive triplets of points a long a line.</p>
 
   <footer>
   <ul class="tag_list">
@@ -129,11 +119,11 @@ UNTIL
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/cartography">cartography</a></li>
+    <li><a href="/tag/SQLite">SQLite</a></li>
     
-    <li><a href="/tag/algorithms">algorithms</a></li>
+    <li><a href="/tag/databases">databases</a></li>
     
-    <li><a href="/tag/line simplification">line simplification</a></li>
+    <li><a href="/tag/optimization">optimization</a></li>
     
   </ul>
 
@@ -144,10 +134,10 @@ UNTIL
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/cpp-floating-modulus-function" title="Floating-Point Modulus Operator In C/C++">&larr; Older</a> -->
+<!--     <a id="left" href="/vsa-simplification" title="Visvalingam's Line Simplification Algorithm">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/sqlite-rowid-optimization" title="SQLite WITHOUT ROWID Optimization">Newer &rarr;</a> -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
