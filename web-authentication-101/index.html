@@ -159,7 +159,17 @@
 <li>server verifies the cookie sent and determine if the client is a registered and valid user</li>
 </ol>
 
-<p>From the above protocol, it is clear that web server knows if a user is logged-in or signed-up by checking the validity of the cookie being sent by client brower!</p>
+<p>Here is what typically happens when a user tries to logout:</p>
+
+<ol>
+<li>client browser requests logout page (by method GET)</li>
+
+<li>server sends response to reset client cookie with <strong>Set-Cookie:</strong> header containing <strong>empty</strong> user-id information</li>
+
+<li>server redirects client brower to signup or login page of the website</li>
+</ol>
+
+<p>From the above protocol, it is clear that web server knows if a user is logged-in or signed-up or logged-out by checking the validity of the cookie being sent by client brower!</p>
 
 <h3 id='https'>HTTPS</h3>
 
