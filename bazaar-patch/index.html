@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -87,23 +88,27 @@
 <article class="ten columns offset-by-four">
   <p>What is a patch file? This is an important concept.</p>
 
-<p>A patch file is nothing more than a &#8216;diff&#8217; file. And the &#8216;merging&#8217; action in version control systems is nothing more than applying the &#8216;differences&#8217; from the diff file to the current working code copy.</p>
+<p>A patch file is nothing more than a ‘diff’ file. And the ‘merging’ action in version control systems 
+is nothing more than applying the ‘differences’ from the diff file to the current working code copy.</p>
 
-<p>To produce a patch file from current working code copy (you made some changes to the current working copy already) with <code>bazaar</code>, you do it like this:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>bzr diff &gt; filename.patch
-</code></pre>
-</div>
-<p>Then, you probably need to merge the patch to ANOTHER working copy of the repository later on (and you don&#8217;t want to manually type in all the changes you made again). What do you do?</p>
+<p>To produce a patch file from current working code copy (you made some changes to the current working 
+copy already) with <code>bazaar</code>, you do it like this:</p>
 
-<p>One way to do it is with &#8216;bzr patch&#8217;, see below:</p>
-<div class='highlight'><pre><code class='bash'><span class='c'># run this command within the working directory of </span>
-<span class='c'># the &quot;ANOTHER working code copy&quot;</span>
-<span class='nv'>$ </span>bzr patch filename.patch
-</code></pre>
-</div>
-<p>But this raises a question, shouldn&#8217;t <code>bzr merge</code> work the same as <code>bzr patch</code>?</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bzr diff &gt; filename.patch</code></pre></div>
 
-<p>I will find that out later &#8230;</p>
+<p>Then, you probably need to merge the patch to ANOTHER working copy of the repository later on (and 
+you don’t want to manually type in all the changes you made again). What do you do?</p>
+
+<p>One way to do it is with ‘bzr patch’, see below:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># run this command within the working directory of </span>
+<span class="c"># the &quot;ANOTHER working code copy&quot;</span>
+<span class="nv">$ </span>bzr patch filename.patch</code></pre></div>
+
+<p>But this raises a question, shouldn’t <code>bzr merge</code> work the same as <code>bzr patch</code>?</p>
+
+<p>I will find that out later …</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -137,9 +142,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

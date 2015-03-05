@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,43 +86,44 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>To get things straight, there are basically two spatial data <em>binary</em> (BLOB) representations supported by Spatialite: <strong>WKB</strong> and <em>internal</em>. And in the meantime, there are several spatial data <em>text</em> representations also supported, including <strong>WKT</strong>, <strong>GML</strong>, <strong>KML</strong> and <strong>GeoJSON</strong> and so on.</p>
+  <p>To get things straight, there are basically two spatial data <em>binary</em> (BLOB) representations supported by Spatialite: <strong>WKB</strong> and <em>internal</em>. 
+And in the meantime, there are several spatial data <em>text</em> representations also supported, including <strong>WKT</strong>, <strong>GML</strong>, <strong>KML</strong> and 
+<strong>GeoJSON</strong> and so on.</p>
 
-<p><strong>WKB</strong> (Well-Known Binary) and <strong>WKT</strong> (Well-Known Text) (see footnote 3) are <a href='http://www.opengeospatial.org/'>OGC</a> standards designed to be exchangeable across different platforms. The <em>internal</em> representation of any geometry within Spatialite is specific to Spatialite, therefore it is not intended to support data exchange between different platforms but for efficiency and robustness (See footnote 1).</p>
+<p><strong>WKB</strong> (Well-Known Binary) and <strong>WKT</strong> (Well-Known Text) (see footnote 3) are <a href="http://www.opengeospatial.org/">OGC</a> standards designed to be 
+exchangeable across different platforms. The <em>internal</em> representation of any geometry within Spatialite is specific to Spatialite, 
+therefore it is not intended to support data exchange between different platforms but for efficiency and robustness (See footnote 1).</p>
 
 <p>Whatever the representations they are, they are all representing geometries (see footnote 2) in space, which are detailed here:</p>
 
-<p><a href='http://www.gaia-gis.it/spatialite-2.3.1/spatialite-manual-2.3.1.html#t2'>The OpenGIS geometry model</a></p>
+<p><a href="http://www.gaia-gis.it/spatialite-2.3.1/spatialite-manual-2.3.1.html#t2">The OpenGIS geometry model</a></p>
 
-<p>One thing worth noticing in the model is <strong>Polygon</strong> is simply a set of <strong>LineString</strong>s, and one of the <strong>LineString</strong>s is the exterior ring (one and only!).</p>
+<p>One thing worth noticing in the model is <strong>Polygon</strong> is simply a set of __LineString__s, and one of the __LineString__s is the 
+exterior ring (one and only!).</p>
 
 <p>To know more concrete implementation details of the representations for <strong>WKT</strong>, <strong>WKB</strong> and Spatialite <em>internal</em> blob, see these links:</p>
 
 <ul>
-<li><a href='http://www.gaia-gis.it/spatialite-2.3.1/spatialite-manual-2.3.1.html#t3.1'>WKT</a></li>
-
-<li><a href='http://www.gaia-gis.it/spatialite-2.3.1/spatialite-manual-2.3.1.html#t3.2'>WKB</a></li>
-
-<li><a href='http://www.gaia-gis.it/spatialite-2.3.1/spatialite-manual-2.3.1.html#t3.3'><em>internal</em> blob</a></li>
+  <li><a href="http://www.gaia-gis.it/spatialite-2.3.1/spatialite-manual-2.3.1.html#t3.1">WKT</a></li>
+  <li><a href="http://www.gaia-gis.it/spatialite-2.3.1/spatialite-manual-2.3.1.html#t3.2">WKB</a></li>
+  <li><a href="http://www.gaia-gis.it/spatialite-2.3.1/spatialite-manual-2.3.1.html#t3.3"><em>internal</em> blob</a></li>
 </ul>
 
-<p>Another confusion when using Spatialite for me was seeing some coordinate encodings like this: <strong>XY</strong>, <strong>XYM</strong>, <strong>XYZ</strong> and <strong>XYZM</strong>. This is some standard defined by OGC and they are actually dimensional models:</p>
+<p>Another confusion when using Spatialite for me was seeing some coordinate encodings like this: <strong>XY</strong>, <strong>XYM</strong>, <strong>XYZ</strong> and <strong>XYZM</strong>. This 
+is some standard defined by OGC and they are actually dimensional models:</p>
 
 <ul>
-<li><strong>XY</strong> is 2D - two cartesian coordinates for each point / vertex.</li>
-
-<li><strong>XYM</strong> is also 2D, but plus a <em>measure value</em> <strong>M</strong> for each point / vertex.</li>
-
-<li><strong>XYZ</strong> is 3D, three cartesian coordinates for each point / vertex.</li>
-
-<li><strong>XYZM</strong> is also 3D with a <em>measure value</em> <strong>M</strong> for each point / vertex.</li>
+  <li><strong>XY</strong> is 2D - two cartesian coordinates for each point / vertex.</li>
+  <li><strong>XYM</strong> is also 2D, but plus a <em>measure value</em> <strong>M</strong> for each point / vertex.</li>
+  <li><strong>XYZ</strong> is 3D, three cartesian coordinates for each point / vertex.</li>
+  <li><strong>XYZM</strong> is also 3D with a <em>measure value</em> <strong>M</strong> for each point / vertex.</li>
 </ul>
 
 <p><strong>M</strong> is a relative measure that defines the scale of the geometry (like the scales in a map).</p>
 
 <p><strong>Other References</strong></p>
 
-<p><a href='http://en.wikipedia.org/wiki/Well-known_text'>Wikipeida Well Known Text</a></p>
+<p><a href="http://en.wikipedia.org/wiki/Well-known_text">Wikipeida Well Known Text</a></p>
 
 <p><strong>Footnotes</strong></p>
 
@@ -130,6 +132,7 @@
 <p>2 Points, Lines and Polygons</p>
 
 <p>3 WKT is in ASCII texts</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -169,9 +172,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

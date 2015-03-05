@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,66 +86,49 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Listed below are some documentation and references I collected over the course of developing tool <code>pda</code>:</p>
+  <p>Listed below are some documentation and references I collected over the course of
+developing tool <code>pda</code>:</p>
 
 <p>Python packing tools differences:</p>
 
 <ul>
-<li>
-<p><a href='http://bit.ly/NO6sII'>python distribution tools evolution and comparisons</a></p>
-</li>
-
-<li>
-<p><a href='http://pythonhosted.org/setuptools/setuptools.html'><code>setuptools</code></a></p>
-</li>
-
-<li>
-<p><a href='http://pythonhosted.org/setuptools/setuptools.html#develop'><code>python setup.py develop</code></a></p>
-</li>
-
-<li>
-<p><a href='http://bit.ly/1fXxDqp'>python packaging example</a></p>
-</li>
+  <li>
+    <p><a href="http://bit.ly/NO6sII">python distribution tools evolution and comparisons</a></p>
+  </li>
+  <li>
+    <p><a href="http://pythonhosted.org/setuptools/setuptools.html"><code>setuptools</code></a></p>
+  </li>
+  <li>
+    <p><a href="http://pythonhosted.org/setuptools/setuptools.html#develop"><code>python setup.py develop</code></a></p>
+  </li>
+  <li>
+    <p><a href="http://bit.ly/1fXxDqp">python packaging example</a></p>
+  </li>
 </ul>
 
-<p>Uninstall a python package you installed with python setup.py install? <a href='http://bit.ly/1oCZ1PR'>See this stackoverflow thread</a></p>
+<p>Uninstall a python package you installed with python setup.py install?
+<a href="http://bit.ly/1oCZ1PR">See this stackoverflow thread</a></p>
 
 <p>Python static code analyzing tool:</p>
 
 <ul>
-<li>
-<p><a href='http://docs.pylint.org/'>Pylint</a></p>
-</li>
-
-<li>
-<p><a href='http://doughellmann.com/2008/03/01/static-code-analizers-for-python.html'>Blog post on using pylint</a></p>
-</li>
-
-<li>
-<p><a href='http://www.pylint.org/'>Pylint project page</a></p>
-</li>
-
-<li>
-<p>message codes =&gt; http://pylint-messages.wikidot.com/all-codes</p>
-</li>
-
-<li>
-<p>blog about using pylint =&gt; http://nedbatchelder.com/blog/200806/pylint.html</p>
-</li>
-
-<li>
-<p>pylint not supporting property decorator: http://www.logilab.org/52020 http://stackoverflow.com/questions/9631666/pylint-e0202-false-positive-or-is-this-piece-of-code-wrong</p>
-</li>
-
-<li>
-<p>generate pylintrc file: <code>pylint --generate-rcfile</code></p>
-</li>
+  <li><a href="http://docs.pylint.org/">Pylint</a></li>
+  <li><a href="http://doughellmann.com/2008/03/01/static-code-analizers-for-python.html">Blog post on using pylint</a></li>
+  <li><a href="http://www.pylint.org/">Pylint project page</a></li>
+  <li>message codes =&gt; http://pylint-messages.wikidot.com/all-codes</li>
+  <li>blog about using pylint =&gt; http://nedbatchelder.com/blog/200806/pylint.html</li>
+  <li>
+    <p>pylint not supporting property decorator: 
+http://www.logilab.org/52020
+http://stackoverflow.com/questions/9631666/pylint-e0202-false-positive-or-is-this-piece-of-code-wrong</p>
+  </li>
+  <li>generate pylintrc file: <code>pylint --generate-rcfile</code></li>
 </ul>
 
 <p>Python Standard Coding Style:</p>
 
 <ul>
-<li><a href='http://legacy.python.org/dev/peps/pep-0008/'>PEP 8</a></li>
+  <li><a href="http://legacy.python.org/dev/peps/pep-0008/">PEP 8</a></li>
 </ul>
 
 <p><strong>Updating your distribution</strong></p>
@@ -152,11 +136,10 @@
 <p>Down the road, after you’ve made updates to your distribution and wish to make a new release:</p>
 
 <ul>
-<li>increment the version number in your setup.py file,</li>
-
-<li>update your CHANGES.txt file,</li>
-
-<li>if necessary, update the “Contributors” and “Thanks also to” sections of your README.txt file. run python setup.py sdist upload again.</li>
+  <li>increment the version number in your setup.py file,</li>
+  <li>update your CHANGES.txt file,</li>
+  <li>if necessary, update the “Contributors” and “Thanks also to” sections of your README.txt file.
+run python setup.py sdist upload again.</li>
 </ul>
 
 <p>http://guide.python-distribute.org/creation.html#arranging-your-file-and-directory-structure</p>
@@ -168,11 +151,13 @@
 <p><code>twine</code> error:</p>
 
 <pre><code>(py27_venv)&gt; twine upload ../dist/*
-KeyError: Missing &#39;None&#39; section from the configuration file</code></pre>
+KeyError: Missing 'None' section from the configuration file
+</code></pre>
 
 <p>https://github.com/dstufft/twine/issues/33</p>
 
-<p>how to make gnu make ignore/continue after errors? http://stackoverflow.com/questions/2188376/how-to-have-gnu-make-continue-after-error</p>
+<p>how to make gnu make ignore/continue after errors?
+http://stackoverflow.com/questions/2188376/how-to-have-gnu-make-continue-after-error</p>
 
 <p>To leave a python virtualenv:</p>
 
@@ -182,33 +167,45 @@ KeyError: Missing &#39;None&#39; section from the configuration file</code></pre
 
 <pre><code>from distutils.core import setup
 
-with open(&#39;README.txt&#39;) as file:
+with open('README.txt') as file:
     long_description = file.read()
 
-    setup(name=&#39;Distutils&#39;,
-          long_description=long_description)</code></pre>
+    setup(name='Distutils',
+          long_description=long_description)
+</code></pre>
 
-<p>In that case, README.txt is a regular reStructuredText text file located in the root of the package besides setup.py.</p>
+<p>In that case, README.txt is a regular reStructuredText text file located in the root 
+of the package besides setup.py.</p>
 
 <p>Please install <code>pip install docutils</code> to have a front-end tool <code>rst2html.py</code> tool installed before using it.</p>
 
-<p>To prevent registering broken reStructuredText content, you can use the rst2html program that is provided by the docutils package and check the long_description from the command line:</p>
+<p>To prevent registering broken reStructuredText content, you can use the rst2html 
+program that is provided by the docutils package and check the long_description 
+from the command line:</p>
 
-<pre><code>$ python setup.py --long-description | rst2html.py &gt; output.html</code></pre>
+<pre><code>$ python setup.py --long-description | rst2html.py &gt; output.html
+</code></pre>
 
-<p>docutils will display a warning if there’s something wrong with your syntax. Because PyPI applies additional checks (e.g. by passing &#8211;no-raw to rst2html.py in the command above), being able to run the command above without warnings does not guarantee that PyPI will convert the content successfully.</p>
+<p>docutils will display a warning if there’s something wrong with your syntax. 
+Because PyPI applies additional checks (e.g. by passing –no-raw to rst2html.py 
+in the command above), being able to run the command above without warnings does 
+not guarantee that PyPI will convert the content successfully.</p>
 
 <p>Sphinx reST syntax for various code blocks: http://sphinx-doc.org/markup/code.html</p>
 
 <p>Further about generate documentation with Sphinx and reST:</p>
 
-<p>(Even Varnish project uses it!) https://www.varnish-cache.org/docs/trunk/phk/sphinx.html</p>
+<p>(Even Varnish project uses it!)
+https://www.varnish-cache.org/docs/trunk/phk/sphinx.html</p>
 
-<p><a href='https://github.com/kennethreitz/requests/issues/1882'>python 3 resourcewarning problem</a> <a href='http://python-future.org/compatible_idioms.html?utm_source=Python+Weekly+Newsletter&amp;utm_campaign=c2fdbf0fcc-Python_Weekly_Issue_152_August_14_2014&amp;utm_medium=email&amp;utm_term=0_9e26887fc5-c2fdbf0fcc-312661513'>python 2 to 3 porting cheatsheet</a></p>
+<p><a href="https://github.com/kennethreitz/requests/issues/1882">python 3 resourcewarning problem</a>
+<a href="http://python-future.org/compatible_idioms.html?utm_source=Python+Weekly+Newsletter&amp;utm_campaign=c2fdbf0fcc-Python_Weekly_Issue_152_August_14_2014&amp;utm_medium=email&amp;utm_term=0_9e26887fc5-c2fdbf0fcc-312661513">python 2 to 3 porting cheatsheet</a></p>
 
 <ul>
-<li><a href='https://pypip.in/'>python pins/shields</a></li>
+  <li><a href="https://pypip.in/">python pins/shields</a></li>
 </ul>
+
+
 
   <footer>
   <ul class="tag_list">
@@ -244,9 +241,6 @@ with open(&#39;README.txt&#39;) as file:
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

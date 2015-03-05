@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,39 +86,48 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Python <a href='https://docs.python.org/2/library/configparser.html'>ConfigParser</a> module is useful when you want to set the defaults in a configuration file and have your application read the file, parse it and behave based on its contents. <code>ConfigParser</code> takes care of the reading and parsing part.</p>
+  <p>Python <a href="https://docs.python.org/2/library/configparser.html">ConfigParser</a> module is useful
+when you want to set the defaults in a configuration file and have your application read 
+the file, parse it and behave based on its contents. <code>ConfigParser</code> takes care of the reading 
+and parsing part.</p>
 
 <p>It accepts configuration files with structure similiar to <strong>INI</strong> files.</p>
 
 <p>Some gotchas for using <code>ConfigParser</code>:</p>
 
 <blockquote>
-<p><code>SafeConfigParser</code> does not make any attempt to understand the option type. The application is expected to use the correct method to fetch the value as the desired type. <code>get()</code> always returns a string. Use <code>getint()</code> for integers, <code>getfloat()</code> for floating point numbers, and <code>getboolean()</code> for boolean values.</p>
+  <p><code>SafeConfigParser</code> does not make any attempt to understand the option type. 
+The application is expected to use the correct method to fetch the value as the 
+desired type. <code>get()</code> always returns a string. Use <code>getint()</code> for integers, 
+<code>getfloat()</code> for floating point numbers, and <code>getboolean()</code> for boolean values.</p>
 </blockquote>
 
-<p>Also, mind the <code>ConfigParser</code> API differences (especially constructors) between python 2.6 and python 2.7.</p>
+<p>Also, mind the <code>ConfigParser</code> API differences (especially constructors) between 
+python 2.6 and python 2.7.</p>
 
-<p>For your own interests, the value searching algorithm for those parsers (<code>SafeConfigParser</code>, <code>RawConfigParser</code>, <code>ConfigParser</code>) is like this:</p>
+<p>For your own interests, the value searching algorithm for those parsers 
+(<code>SafeConfigParser</code>, <code>RawConfigParser</code>, <code>ConfigParser</code>) is like this:</p>
 
 <ol>
-<li>Before starting the option search, the section name is tested. If the section does not exist, and the name is not the special value DEFAULT, then <code>NoSectionError</code> is raised.</li>
-
-<li>If the option name appears in the vars dictionary passed to <code>get()</code>, the value from vars is returned.</li>
-
-<li>If the option name appears in the specified section, the value from that section is returned.</li>
-
-<li>If the option name appears in the DEFAULT section, that value is returned.</li>
-
-<li>If the option name appears in the defaults dictionary passed to the constructor, that value is returned.</li>
-
-<li>If the name is not found in any of those locations, NoOptionError is raised.</li>
+  <li>Before starting the option search, the section name is tested. If the section 
+does not exist, and the name is not the special value DEFAULT, then <code>NoSectionError</code>
+is raised.</li>
+  <li>If the option name appears in the vars dictionary passed to <code>get()</code>, the value 
+from vars is returned.</li>
+  <li>If the option name appears in the specified section, the value from that section 
+is returned.</li>
+  <li>If the option name appears in the DEFAULT section, that value is returned.</li>
+  <li>If the option name appears in the defaults dictionary passed to the constructor, 
+that value is returned.</li>
+  <li>If the name is not found in any of those locations, NoOptionError is raised.</li>
 </ol>
 
 <p>For more details, please check out <strong>PyMOTW</strong>:</p>
 
 <ul>
-<li><a href='http://pymotw.com/2/ConfigParser/'>Working with <code>ConfigParser</code></a></li>
+  <li><a href="http://pymotw.com/2/ConfigParser/">Working with <code>ConfigParser</code></a></li>
 </ul>
+
 
   <footer>
   <ul class="tag_list">
@@ -155,9 +165,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

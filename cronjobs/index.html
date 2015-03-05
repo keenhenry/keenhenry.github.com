@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,23 +86,27 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>A nice introductory tutorial about <a href='http://corenominal.org/howto-setup-a-crontab-file/'>setting up a crontab file</a>.</p>
+  <p>A nice introductory tutorial about <a href="http://corenominal.org/howto-setup-a-crontab-file/">setting up a crontab file</a>.</p>
 
-<p><code>cron</code> daemon can help you automate a lot of routine tasks. To tell <code>cron</code> <em>what</em> and <em>when</em> to do some routine, you use <code>crontab</code> to define the schedule and the task to run. Of course, inside the <code>crontab</code> file, you need to follow some specific grammars to define the scheduled tasks.</p>
+<p><code>cron</code> daemon can help you automate a lot of routine tasks. To tell <code>cron</code> <em>what</em> and <em>when</em> to do some routine, you use 
+<code>crontab</code> to define the schedule and the task to run. Of course, inside the <code>crontab</code> file, you need to follow 
+some specific grammars to define the scheduled tasks.</p>
 
 <p>To edit the <code>crontab</code> file, use:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>crontab -e
-</code></pre>
-</div>
-<p>Or, alternatively, you can use a local file in any location you have write-access and edit this <code>crontab</code> file. However, you need to let <code>crontab</code> know that you are using this local file instead. To let it know, you need to activate it by:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>crontab &lt;the-file-name&gt;
-</code></pre>
-</div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>crontab -e</code></pre></div>
+
+<p>Or, alternatively, you can use a local file in any location you have write-access and edit this <code>crontab</code> file. However, 
+you need to let <code>crontab</code> know that you are using this local file instead. To let it know, you need to activate it by:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>crontab &lt;the-file-name&gt;</code></pre></div>
+
 <p>To deactivate it, use:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>crontab -r
-</code></pre>
-</div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>crontab -r</code></pre></div>
+
 <p>Happy automate your mundane routine tasks!</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -141,9 +146,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

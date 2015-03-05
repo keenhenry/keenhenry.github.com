@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,17 +86,22 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Vim regex is different from many of other popular regex dialects out there, like Perl, Python etc. Therefore Vim beginners might find some of the regexs work perfectly in Python or Bash might not work as expected in Vim.</p>
+  <p>Vim regex is different from many of other popular regex dialects out there, like Perl, Python etc. Therefore 
+Vim beginners might find some of the regexs work perfectly in Python or Bash might not work as expected in 
+Vim.</p>
 
-<p>The first gotcha is probably not knowing there are <a href='http://jeetworks.org/node/86'>some characters</a> needed to be escaped in Vim regex. Having that in mind, then you can now express word boundaries (beginning and end of a word) easily with regular expression like this:</p>
-<div class='highlight'><pre><code class='vim'>\<span class='p'>&lt;</span>word\<span class='p'>&gt;</span>
-</code></pre>
-</div>
-<p><code>\&lt;</code> matches beginning of a word, <code>\&gt;</code> matches end of a word. With such expression, you can search and replace exactly that word (but not words that contain that string) accurately:</p>
-<div class='highlight'><pre><code class='vim'><span class='p'>:</span>%<span class='k'>s</span><span class='sr'>/\&lt;oldword\&gt;/</span>newword/<span class='k'>g</span>
-</code></pre>
-</div>
+<p>The first gotcha is probably not knowing there are <a href="http://jeetworks.org/node/86">some characters</a> needed to be escaped in Vim regex. 
+Having that in mind, then you can now express word boundaries (beginning and end of a word) easily with regular expression like this:</p>
+
+<div class="highlight"><pre><code class="language-vim" data-lang="vim">\<span class="p">&lt;</span>word\<span class="p">&gt;</span></code></pre></div>
+
+<p><code>\&lt;</code> matches beginning of a word, <code>\&gt;</code> matches end of a word. With such expression, you can search and replace exactly that word 
+(but not words that contain that string) accurately:</p>
+
+<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="p">:</span>%<span class="k">s</span><span class="sr">/\&lt;oldword\&gt;/</span>newword/<span class="k">g</span></code></pre></div>
+
 <p>This is an important tip for your Vim regex lesson.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -129,9 +135,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

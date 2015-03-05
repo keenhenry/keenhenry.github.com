@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -89,15 +90,18 @@
 
 <p>To achieve switch-like statement, one direct way is to use <code>if - elif - else</code> block.</p>
 
-<p>However, there are other alternatives than just plain, and possibly a bit more verbose <code>if - elif - else</code> way. You can use python dictionary to do that, here is an example:</p>
-<div class='highlight'><pre><code class='python'><span class='k'>def</span> <span class='nf'>f</span><span class='p'>(</span><span class='n'>x</span><span class='p'>):</span>
-    <span class='k'>return</span> <span class='p'>{</span>
-        <span class='s'>&#39;a&#39;</span><span class='p'>:</span> <span class='mi'>1</span><span class='p'>,</span>
-        <span class='s'>&#39;b&#39;</span><span class='p'>:</span> <span class='mi'>2</span><span class='p'>,</span>
-        <span class='p'>}</span><span class='o'>.</span><span class='n'>get</span><span class='p'>(</span><span class='n'>x</span><span class='p'>,</span> <span class='mi'>9</span><span class='p'>)</span>    <span class='c'># 9 is default if x not found</span>
-</code></pre>
-</div>
-<p>Personally I think it is more elegant and succinct code than plain <strong>if-else</strong>. See this <a href='http://bit.ly/1nmlWy5'>stackoverflow thread</a>.</p>
+<p>However, there are other alternatives than just plain, and possibly a bit more verbose
+<code>if - elif - else</code> way. You can use python dictionary to do that, here is an example:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s">&#39;a&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="s">&#39;b&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>    <span class="c"># 9 is default if x not found</span></code></pre></div>
+
+<p>Personally I think it is more elegant and succinct code than plain <strong>if-else</strong>. See this 
+<a href="http://bit.ly/1nmlWy5">stackoverflow thread</a>.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -131,9 +135,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

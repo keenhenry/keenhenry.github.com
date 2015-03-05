@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -87,9 +88,13 @@
 <article class="ten columns offset-by-four">
   <p>How do you share symbolic constants across different files and modules in C++?</p>
 
-<p>The best practice would be using <code>enum</code> to do that. The first thing you do is to put all your enum declarations/definitions in a dedicated <code>namespace</code> inside a header file. The second step would be including the header file in your source file(s) whenever you need it.</p>
+<p>The best practice would be using <code>enum</code> to do that. The first thing you do is to put 
+all your enum declarations/definitions in a dedicated <code>namespace</code> inside a header file. 
+The second step would be including the header file in your source file(s) whenever you 
+need it.</p>
 
 <p>Simple and easy. Forget about scoping and name conflicts.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -125,9 +130,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,17 +86,25 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>At work, I accidently created some memory leaks in one of my previous tasks; but it is only discovered today (no <code>valgrind</code> run before checking in my codes!) because of a program that used to finish in 30 hours now finished in 2 to 3 days.</p>
+  <p>At work, I accidently created some memory leaks in one of my previous tasks; but it is only discovered today 
+(no <code>valgrind</code> run before checking in my codes!) because of a program that used to finish in 30 hours now finished 
+in 2 to 3 days.</p>
 
 <p>So what does memory leak has to do with program performance then?</p>
 
-<p>In a computer system, data are stored both in memory and a secondary storage (such as hard drive) during a program run. For sake of maximum CPU usage, active data is usually kept in main memory &#8216;pages&#8217; as much as possible, and non-active, or currently-not-in-use data is pushed out to secondary storage to make room, if necessary.</p>
+<p>In a computer system, data are stored both in memory and a secondary storage (such as hard drive) during a program run. 
+For sake of maximum CPU usage, active data is usually kept in main memory ‘pages’ as much as possible, and non-active, 
+or currently-not-in-use data is pushed out to secondary storage to make room, if necessary.</p>
 
-<p>If the active data of a program cannot be held effectively within physical memory, which could be the case when lots of memory leaks take up significant amount of space in memory, then constant data swapping, i.e. <a href='http://en.wikipedia.org/wiki/Thrashing_(computer_science'>thrashing</a>), may occur. This in turn slows down the system performance significantly.</p>
+<p>If the active data of a program cannot be held effectively within physical memory, which could be the case when lots of 
+memory leaks take up significant amount of space in memory, then constant data swapping, i.e. 
+<a href="http://en.wikipedia.org/wiki/Thrashing_(computer_science)">thrashing</a>, may occur. This in turn slows down the system 
+performance significantly.</p>
 
-<p>To read more about memory leaks? Check <a href='http://en.wikipedia.org/wiki/Memory_leak'>this post</a>.</p>
+<p>To read more about memory leaks? Check <a href="http://en.wikipedia.org/wiki/Memory_leak">this post</a>.</p>
 
 <p>The next question would be: how to detect memory leaks before running the program? And how to avoid it?</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -131,9 +140,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

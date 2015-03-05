@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -88,29 +89,29 @@
   <p>Ever wonder how to examine data within a <code>gzip</code> compressed text files without uncompressed the compressed file?</p>
 
 <p>Zcommands are your friends:</p>
-<div class='highlight'><pre><code class='bash'><span class='c'># the old way ...</span>
-<span class='nv'>$ </span>gzip -d data.txt.gz
-<span class='nv'>$ </span>cat data.txt
-<span class='nv'>$ </span>less data.txt
 
-<span class='c'># the new way ...</span>
-<span class='nv'>$ </span>zless data.txt.gz
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># the old way ...</span>
+<span class="nv">$ </span>gzip -d data.txt.gz
+<span class="nv">$ </span>cat data.txt
+<span class="nv">$ </span>less data.txt
 
-<span class='c'># concatenate compressed files and print on the screen:</span>
-<span class='nv'>$ </span>zcat file.gz
+<span class="c"># the new way ...</span>
+<span class="nv">$ </span>zless data.txt.gz
 
-<span class='c'># Search compressed files for a regular expression:</span>
-<span class='nv'>$ </span>zegrep -w <span class='s1'>&#39;^word1|word2&#39;</span> file.gz
-<span class='nv'>$ </span>zgrep <span class='s1'>&#39;word&#39;</span> file.gz
-</code></pre>
-</div>
+<span class="c"># concatenate compressed files and print on the screen:</span>
+<span class="nv">$ </span>zcat file.gz
+
+<span class="c"># Search compressed files for a regular expression:</span>
+<span class="nv">$ </span>zegrep -w <span class="s1">&#39;^word1|word2&#39;</span> file.gz
+<span class="nv">$ </span>zgrep <span class="s1">&#39;word&#39;</span> file.gz</code></pre></div>
+
 <p><strong>REFERENCE</strong></p>
 
 <ul>
-<li><a href='http://www.thegeekstuff.com/2009/05/zcat-zless-zgrep-zdiff-zcmp-zmore-gzip-file-operations-on-the-compressed-files/'>The power of Z commands</a></li>
-
-<li><a href='http://stackoverflow.com/questions/1253816/find-string-inside-a-gzipped-file-in-a-folder'>Stackoverflow discussion on Z commands</a></li>
+  <li><a href="http://www.thegeekstuff.com/2009/05/zcat-zless-zgrep-zdiff-zcmp-zmore-gzip-file-operations-on-the-compressed-files/">The power of Z commands</a></li>
+  <li><a href="http://stackoverflow.com/questions/1253816/find-string-inside-a-gzipped-file-in-a-folder">Stackoverflow discussion on Z commands</a></li>
 </ul>
+
 
   <footer>
   <ul class="tag_list">
@@ -148,9 +149,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

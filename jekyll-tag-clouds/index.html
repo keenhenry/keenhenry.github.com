@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,11 +86,19 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>In <a href='http://keenhenry.me/tags-in-jekyll/'>this post</a>, I used a Jekyll plugin to create tags for my website; however, those tags were rendered as a list of tags on the web page, and it was not a visually pleasant design.</p>
+  <p>In <a href="http://keenhenry.me/tags-in-jekyll/">this post</a>, I used a Jekyll plugin to create tags for my website; however, 
+those tags were rendered as a list of tags on the web page, and it was not a visually pleasant design.</p>
 
-<p>Therefore, just this morning, I installed <a href='https://gist.github.com/2290195#file-jekyll-tag-cloud-rb'>another plugin</a> and tweaked it a little bit to collect all the tags in my blog posts into one big tag cloud. The plugin is well-written and well-documented, which makes it easy to use. It is basically creating a &#8217;<code>tag_cloud</code>&#8217; tag in the <strong>Liquid</strong> template system.</p>
+<p>Therefore, just this morning, I installed <a href="https://gist.github.com/2290195#file-jekyll-tag-cloud-rb">another plugin</a> 
+and tweaked it a little bit to collect all the tags in my blog posts into one big tag cloud. The plugin is well-written 
+and well-documented, which makes it easy to use. It is basically creating a ‘<code>tag_cloud</code>’ tag in the <strong>Liquid</strong> template 
+system.</p>
 
-<p>The resulting tag cloud can be found <a href='http://keenhenry.me/blog.html'>here</a>. And, through tweaking this <em>Ruby</em> plugin, I actually learned a bit of Ruby, especially about <a href='http://www.ruby-doc.org/core-1.9.3/Array.html#method-i-sort_by-21'>how to sort</a> an <code>Array</code>, and also the <a href='http://brandon.dimcheff.com/2009/11/18/rubys-sort-vs-sort-by.html'>differences</a> between <code>sort</code> and <code>sort_by</code>.</p>
+<p>The resulting tag cloud can be found <a href="http://keenhenry.me/blog.html">here</a>. And, through tweaking this <em>Ruby</em> plugin, 
+I actually learned a bit of Ruby, especially about <a href="http://www.ruby-doc.org/core-1.9.3/Array.html#method-i-sort_by-21">how to sort</a> 
+an <code>Array</code>, and also the <a href="http://brandon.dimcheff.com/2009/11/18/rubys-sort-vs-sort-by.html">differences</a> between 
+<code>sort</code> and <code>sort_by</code>.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -125,9 +134,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

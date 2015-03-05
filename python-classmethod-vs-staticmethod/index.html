@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -86,57 +87,69 @@
 
 <article class="ten columns offset-by-four">
   <blockquote>
-<p><code>classmethod</code> must have a reference to a class object as the first parameter, whereas <code>staticmethod</code> can have no parameters at all.</p>
+  <p><code>classmethod</code> must have a reference to a class object as the first parameter, 
+whereas <code>staticmethod</code> can have no parameters at all.</p>
 </blockquote>
 
 <blockquote>
-<p><code>classmethod</code> are for when you need to have methods that aren&#8217;t specific to any particular instance, but still involve the class in some way. The most interesting thing about them is that they can be overridden by subclasses. Factory methods (alternative constructors) are indeed a classic example of class methods.</p>
+  <p><code>classmethod</code> are for when you need to have methods that aren’t specific to 
+any particular instance, but still involve the class in some way. The most 
+interesting thing about them is that they can be overridden by subclasses.
+Factory methods (alternative constructors) are indeed a classic example of 
+class methods.</p>
 </blockquote>
 
 <blockquote>
-<p>If you have a class MyClass, and a module-level function that operates on <code>MyClass</code> (factory, dependency injection stub, etc), make it a <code>classmethod</code>.</p>
+  <p>If you have a class MyClass, and a module-level function that operates on 
+<code>MyClass</code> (factory, dependency injection stub, etc), make it a <code>classmethod</code>.</p>
 </blockquote>
 
 <p>Here is some code example:</p>
-<div class='highlight'><pre><code class='python'><span class='k'>class</span> <span class='nc'>Date</span><span class='p'>(</span><span class='nb'>object</span><span class='p'>):</span>
 
-    <span class='n'>day</span> <span class='o'>=</span> <span class='mi'>0</span>
-    <span class='n'>month</span> <span class='o'>=</span> <span class='mi'>0</span>
-    <span class='n'>year</span> <span class='o'>=</span> <span class='mi'>0</span>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Date</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class='k'>def</span> <span class='nf'>__init__</span><span class='p'>(</span><span class='bp'>self</span><span class='p'>,</span> <span class='n'>day</span><span class='o'>=</span><span class='mi'>0</span><span class='p'>,</span> <span class='n'>month</span><span class='o'>=</span><span class='mi'>0</span><span class='p'>,</span> <span class='n'>year</span><span class='o'>=</span><span class='mi'>0</span><span class='p'>):</span>
-        <span class='bp'>self</span><span class='o'>.</span><span class='n'>day</span> <span class='o'>=</span> <span class='n'>day</span>
-        <span class='bp'>self</span><span class='o'>.</span><span class='n'>month</span> <span class='o'>=</span> <span class='n'>month</span>
-        <span class='bp'>self</span><span class='o'>.</span><span class='n'>year</span> <span class='o'>=</span> <span class='n'>year</span>
+    <span class="n">day</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">month</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">year</span> <span class="o">=</span> <span class="mi">0</span>
 
-    <span class='nd'>@staticmethod</span>
-    <span class='k'>def</span> <span class='nf'>is_date_valid</span><span class='p'>(</span><span class='n'>date_as_string</span><span class='p'>):</span>
-        <span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span> <span class='o'>=</span> <span class='nb'>map</span><span class='p'>(</span><span class='nb'>int</span><span class='p'>,</span> <span class='n'>date_as_string</span><span class='o'>.</span><span class='n'>split</span><span class='p'>(</span><span class='s'>&#39;-&#39;</span><span class='p'>))</span>
-        <span class='k'>return</span> <span class='n'>day</span> <span class='o'>&lt;=</span> <span class='mi'>31</span> <span class='ow'>and</span> <span class='n'>month</span> <span class='o'>&lt;=</span> <span class='mi'>12</span> <span class='ow'>and</span> <span class='n'>year</span> <span class='o'>&lt;=</span> <span class='mi'>3999</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">=</span> <span class="n">day</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">month</span> <span class="o">=</span> <span class="n">month</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">year</span> <span class="o">=</span> <span class="n">year</span>
 
-    <span class='nd'>@classmethod</span>
-    <span class='k'>def</span> <span class='nf'>from_string</span><span class='p'>(</span><span class='n'>cls</span><span class='p'>,</span> <span class='n'>date_as_string</span><span class='p'>):</span>
-        <span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span> <span class='o'>=</span> <span class='nb'>map</span><span class='p'>(</span><span class='nb'>int</span><span class='p'>,</span> <span class='n'>date_as_string</span><span class='o'>.</span><span class='n'>split</span><span class='p'>(</span><span class='s'>&#39;-&#39;</span><span class='p'>))</span>
-        <span class='n'>date1</span> <span class='o'>=</span> <span class='n'>cls</span><span class='p'>(</span><span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span><span class='p'>)</span>
-        <span class='k'>return</span> <span class='n'>date1</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_date_valid</span><span class="p">(</span><span class="n">date_as_string</span><span class="p">):</span>
+        <span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">date_as_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">day</span> <span class="o">&lt;=</span> <span class="mi">31</span> <span class="ow">and</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">12</span> <span class="ow">and</span> <span class="n">year</span> <span class="o">&lt;=</span> <span class="mi">3999</span>
 
-<span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span> <span class='o'>=</span> <span class='nb'>map</span><span class='p'>(</span><span class='nb'>int</span><span class='p'>,</span> <span class='n'>string_date</span><span class='o'>.</span><span class='n'>split</span><span class='p'>(</span><span class='s'>&#39;-&#39;</span><span class='p'>))</span>
-<span class='n'>date1</span> <span class='o'>=</span> <span class='n'>Date</span><span class='p'>(</span><span class='n'>day</span><span class='p'>,</span> <span class='n'>month</span><span class='p'>,</span> <span class='n'>year</span><span class='p'>)</span>
-<span class='n'>date2</span> <span class='o'>=</span> <span class='n'>Date</span><span class='o'>.</span><span class='n'>from_string</span><span class='p'>(</span><span class='s'>&#39;11-09-2012&#39;</span><span class='p'>)</span>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_string</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">date_as_string</span><span class="p">):</span>
+        <span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">date_as_string</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">))</span>
+        <span class="n">date1</span> <span class="o">=</span> <span class="n">cls</span><span class="p">(</span><span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">date1</span>
 
-<span class='k'>if</span> <span class='n'>is_date_valid</span><span class='p'>(</span><span class='s'>&#39;11-09-2012&#39;</span><span class='p'>):</span>
-    <span class='k'>print</span> <span class='s'>&#39;Valid Day!&#39;</span>
-</code></pre>
-</div>
-<p>Pay attention to <code>cls</code> parameter in the example above; <code>cls</code> is an object that holds class itself, not an instance of the class. It&#8217;s pretty cool because if we inherit our <code>Date</code> class, all children will have from_string defined also.</p>
+<span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">string_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">))</span>
+<span class="n">date1</span> <span class="o">=</span> <span class="n">Date</span><span class="p">(</span><span class="n">day</span><span class="p">,</span> <span class="n">month</span><span class="p">,</span> <span class="n">year</span><span class="p">)</span>
+<span class="n">date2</span> <span class="o">=</span> <span class="n">Date</span><span class="o">.</span><span class="n">from_string</span><span class="p">(</span><span class="s">&#39;11-09-2012&#39;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">is_date_valid</span><span class="p">(</span><span class="s">&#39;11-09-2012&#39;</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;Valid Day!&#39;</span></code></pre></div>
+
+<p>Pay attention to <code>cls</code> parameter in the example above; <code>cls</code> is an object that holds 
+class itself, not an instance of the class. It’s pretty cool because if we inherit our 
+<code>Date</code> class, all children will have from_string defined also.</p>
 
 <blockquote>
-<p><code>staticmethod</code> doesn&#8217;t have any access to what the class is- it&#8217;s basically just a function, called syntactically like a method, but <strong>without</strong> access to the object and it&#8217;s internals (fields and another methods), while <code>classmethod</code> does.</p>
+  <p><code>staticmethod</code> doesn’t have any access to what the class is- it’s basically just 
+a function, called syntactically like a method, but <strong>without</strong> access to the object 
+and it’s internals (fields and another methods), while <code>classmethod</code> does.</p>
 </blockquote>
 
-<p>So <code>staticmethod</code> is similar to C++ or Java&#8217;s static methods, which can be called without creating an instance of a class.</p>
+<p>So <code>staticmethod</code> is similar to C++ or Java’s static methods, which can be called 
+without creating an instance of a class.</p>
 
-<p><a href='http://bit.ly/1bjXLke'>stackoverflow thread</a></p>
+<p><a href="http://bit.ly/1bjXLke">stackoverflow thread</a></p>
+
 
   <footer>
   <ul class="tag_list">
@@ -170,9 +183,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

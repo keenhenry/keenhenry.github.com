@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -86,14 +87,15 @@
 
 <article class="ten columns offset-by-four">
   <p>The easiest way to read a file line-by-line is to use the following pattern:</p>
-<div class='highlight'><pre><code class='bash'><span class='c'>#!/bin/bash</span>
 
-<span class='k'>while </span><span class='nb'>read </span>line
-<span class='k'>do</span>
-<span class='k'>  </span><span class='nb'>echo</span> -e <span class='s2'>&quot;$line \n&quot;</span>
-<span class='k'>done</span> &lt;file.txt
-</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c">#!/bin/bash</span>
+
+<span class="k">while</span> <span class="nb">read </span>line
+<span class="k">do</span>
+  <span class="nb">echo</span> -e <span class="s2">&quot;$line \n&quot;</span>
+<span class="k">done</span> &lt;file.txt</code></pre></div>
+
+
 
   <footer>
   <ul class="tag_list">
@@ -133,9 +135,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

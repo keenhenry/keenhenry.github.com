@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -90,30 +91,29 @@
 <p>It depends on the following factors:</p>
 
 <ul>
-<li>Size of all non-static data members</li>
-
-<li>Order of data members</li>
-
-<li>Byte alignment or byte padding</li>
-
-<li>Size of its immediate base class</li>
-
-<li>The existence of virtual function(s)</li>
-
-<li>Compiler being used</li>
-
-<li>Mode of inheritance (virtual inheritance)</li>
+  <li>Size of all non-static data members</li>
+  <li>Order of data members</li>
+  <li>Byte alignment or byte padding</li>
+  <li>Size of its immediate base class</li>
+  <li>The existence of virtual function(s)</li>
+  <li>Compiler being used</li>
+  <li>Mode of inheritance (virtual inheritance)</li>
 </ul>
 
-<p>For non-static data members, it is basically similar to C <code>struct</code>, the order in which you declare the data members of a class is the order they will be put/align in the memory.</p>
+<p>For non-static data members, it is basically similar to C <code>struct</code>, the order in which you 
+declare the data members of a class is the order they will be put/align in the memory.</p>
 
-<p>This concept is important for debugging memory problems. The first and last data member are stored firstly and lastly in the memory space of a Class object, so they can be served as sentinels to protect the data integrity of a class. Check them often (in member functions) then you can get more clear picture of when data in a Class is being modified.</p>
+<p>This concept is important for debugging memory problems. The first and last data member are 
+stored firstly and lastly in the memory space of a Class object, so they can be served as 
+sentinels to protect the data integrity of a class. Check them often (in member functions) 
+then you can get more clear picture of when data in a Class is being modified.</p>
 
 <p><strong>REFERENCE</strong></p>
 
 <ul>
-<li><a href='http://www.cprogramming.com/tutorial/size_of_class_object.html'>Determining the Size of a Class Object</a></li>
+  <li><a href="http://www.cprogramming.com/tutorial/size_of_class_object.html">Determining the Size of a Class Object</a></li>
 </ul>
+
 
   <footer>
   <ul class="tag_list">
@@ -151,9 +151,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

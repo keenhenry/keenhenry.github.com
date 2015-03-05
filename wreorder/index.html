@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,7 +86,8 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>If you have <code>-Wall</code> turned on for g++ compiler, that includes <code>-Wreorder</code> warning as well. What <code>-Wreorder</code> means is as follows:</p>
+  <p>If you have <code>-Wall</code> turned on for g++ compiler, that includes <code>-Wreorder</code> warning
+as well. What <code>-Wreorder</code> means is as follows:</p>
 
 <pre><code>-Wreorder (C++ only)
  Warn when the order of member initializers given in the code does not
@@ -99,20 +101,24 @@
 
  The compiler will rearrange the member initializers for i and j to
  match the declaration order of the members, emit-ting a warning to that
- effect.  This warning is enabled by -Wall.</code></pre>
+ effect.  This warning is enabled by -Wall.
+</code></pre>
 
 <p>Consider:</p>
-<div class='highlight'><pre><code class='cpp'><span class='k'>struct</span> <span class='n'>A</span> <span class='p'>{</span>
-    <span class='kt'>int</span> <span class='n'>i</span><span class='p'>;</span>
-    <span class='kt'>int</span> <span class='n'>j</span><span class='p'>;</span>
-    <span class='n'>A</span><span class='p'>()</span> <span class='o'>:</span> <span class='n'>j</span><span class='p'>(</span><span class='mi'>0</span><span class='p'>),</span> <span class='n'>i</span><span class='p'>(</span><span class='n'>j</span><span class='p'>)</span> <span class='p'>{</span> <span class='p'>}</span>
-<span class='p'>};</span>
-</code></pre>
-</div>
-<p>Now i is initialized to some unknown value, not zero. So this warning can actually prevent incorrect/unwanted initialization! Alternatively, the initialization of <code>i</code> may have some side effects for which the order is important:</p>
-<div class='highlight'><pre><code class='cpp'><span class='n'>A</span><span class='p'>(</span><span class='kt'>int</span> <span class='n'>n</span><span class='p'>)</span> <span class='o'>:</span> <span class='n'>j</span><span class='p'>(</span><span class='n'>n</span><span class='o'>++</span><span class='p'>),</span> <span class='n'>i</span><span class='p'>(</span><span class='n'>n</span><span class='o'>++</span><span class='p'>)</span> <span class='p'>{</span> <span class='p'>}</span>
-</code></pre>
-</div>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">struct</span> <span class="n">A</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+    <span class="kt">int</span> <span class="n">j</span><span class="p">;</span>
+    <span class="n">A</span><span class="p">()</span> <span class="o">:</span> <span class="n">j</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">i</span><span class="p">(</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">};</span></code></pre></div>
+
+<p>Now i is initialized to some unknown value, not zero. So this warning can actually
+prevent incorrect/unwanted initialization! Alternatively, the initialization of <code>i</code> 
+may have some side effects for which the order is important:</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="n">A</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="o">:</span> <span class="n">j</span><span class="p">(</span><span class="n">n</span><span class="o">++</span><span class="p">),</span> <span class="n">i</span><span class="p">(</span><span class="n">n</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+
+
 
   <footer>
   <ul class="tag_list">
@@ -146,9 +152,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

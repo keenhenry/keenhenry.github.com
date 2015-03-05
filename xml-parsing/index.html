@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,17 +86,30 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Recently I had the chance to parse XML (in C++) using several libraries, I would like to make a note about it. There are many XML parsing libraries out there and I guess each one has its own pros and cons. You just have to pick the one that is most suitable for your use cases.</p>
+  <p>Recently I had the chance to parse XML (in C++) using several libraries, I would like to make a note about it. There are many XML parsing 
+libraries out there and I guess each one has its own pros and cons. You just have to pick the one that is most suitable for your use cases.</p>
 
-<p>The first library I tried to use is <a href='http://www.boost.org/doc/libs/1_42_0/doc/html/boost_propertytree/tutorial.html'><em>boost property tree</em></a>. This library is only introduced after boost version 1.40. It is very suitable for parsing small, simple structured XML files, like configuration files. However, boost property tree is still powerful enough to accomplish some complex parsing if you really want to, it&#8217;s just that the interface is not intuitive and convenient for you to do complicated things, since it is not designed solely for parsing XML data.</p>
+<p>The first library I tried to use is <a href="http://www.boost.org/doc/libs/1_42_0/doc/html/boost_propertytree/tutorial.html"><em>boost property tree</em></a>. 
+This library is only introduced after boost version 1.40. It is very suitable for parsing small, simple structured XML files, 
+like configuration files. However, boost property tree is still powerful enough to accomplish some complex parsing if you really want to, 
+it’s just that the interface is not intuitive and convenient for you to do complicated things, since it is not designed solely for parsing XML data.</p>
 
-<p><a href='http://bit.ly/LfaoN6'>Here</a> is a great blog post (containing some code examples) about using boost property tree.</p>
+<p><a href="http://bit.ly/LfaoN6">Here</a> is a great blog post (containing some code examples) about using boost property tree.</p>
 
-<p>A friend of mine introduced <a href='http://www.grinninglizard.com/tinyxmldocs/tutorial0.html'>TinyXml</a> to me, which is yet another XML parser. I&#8217;ve never tried it, but I presume it to be an easy-to-use DOM parser.</p>
+<p>A friend of mine introduced <a href="http://www.grinninglizard.com/tinyxmldocs/tutorial0.html">TinyXml</a> to me, which is yet another XML parser. 
+I’ve never tried it, but I presume it to be an easy-to-use DOM parser.</p>
 
-<p>Finally, I settled with <a href='http://www.codesynthesis.com/projects/xsd/'>XSD</a> XML data binding approach. This is an approach I&#8217;ve never heard of in school before. In this approach, XSD compiler will generate the object data model interface (c++ code) for your XML data, according to the <a href='http://www.w3schools.com/schema/schema_intro.asp'>XML Schema Definition</a> file of your XML data. Every element, attribute in your XML data is a data type or <code>class</code> in the generated C++ interface; the interface provides setter and getter methods for every data type, so you access or modify the XML document through such interface.</p>
+<p>Finally, I settled with <a href="http://www.codesynthesis.com/projects/xsd/">XSD</a> XML data binding approach. This is an approach I’ve never heard of 
+in school before. In this approach, XSD compiler will generate the object data model interface (c++ code) for your XML data, according to the 
+<a href="http://www.w3schools.com/schema/schema_intro.asp">XML Schema Definition</a> file of your XML data. Every element, attribute in your XML data is 
+a data type or <code>class</code> in the generated C++ interface; the interface provides setter and getter methods for every data type, so you access or 
+modify the XML document through such interface.</p>
 
-<p>The static data binding approach is very schema dependent, so if your XML data is changed in the future, your code has to be rewritten against a new generated interface. <a href='ww.codesynthesis.com/projects/xsd/documentation/cxx/tree/guide/'>This</a> is the tutorial for using the generated interface, and <a href='http://www.codesynthesis.com/projects/xsd/documentation/xsd.xhtml'>this</a> is the manual of the command line tool for generating the C++ interface. Also, <a href='http://www.artima.com/cppsource/xml_data_binding.html'>some</a> code examples of using the generated interface.</p>
+<p>The static data binding approach is very schema dependent, so if your XML data is changed in the future, your code has to be rewritten against 
+a new generated interface. <a href="ww.codesynthesis.com/projects/xsd/documentation/cxx/tree/guide/">This</a> is the tutorial for using the generated 
+interface, and <a href="http://www.codesynthesis.com/projects/xsd/documentation/xsd.xhtml">this</a> is the manual of the command line tool for generating 
+the C++ interface. Also, <a href="http://www.artima.com/cppsource/xml_data_binding.html">some</a> code examples of using the generated interface.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -131,9 +145,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

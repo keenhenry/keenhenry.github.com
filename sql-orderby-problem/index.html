@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -87,13 +88,23 @@
 <article class="ten columns offset-by-four">
   <p>I encountered an SQL error today:</p>
 
-<p>&#8220;1st ORDER BY term does not match any column in the result set&#8221;</p>
+<p>“1st ORDER BY term does not match any column in the result set”</p>
 
 <p>What caused this error?</p>
 
-<p>What I did is I <code>UNION</code>ed two <code>SELECT</code> clauses and did an <code>ORDER BY</code> on the union of the two result sets. Obviously, the term(s) you used in the <code>ORDER BY</code> clause does not appear in the result sets it is applying to, which is the &#8216;unioned&#8217; result sets. That is what gives this error.</p>
+<p>What I did is I <code>UNION</code>ed two <code>SELECT</code> clauses and did an <code>ORDER BY</code> 
+on the union of the two result sets. Obviously, the term(s) you used in
+the <code>ORDER BY</code> clause does not appear in the result sets it is applying to, 
+which is the ‘unioned’ result sets. That is what gives this error.</p>
 
-<p>Pay attention in the error: <code>ORDER BY</code> operates on the unioned result sets because <code>ORDER BY</code> executed AFTER the unioned result sets is created. If there is no <code>UNION</code> in the query, and <code>ORDER BY</code> only operates on the table being query, and if the terms in <code>ORDER BY</code> clause appear in the columns of the table but not in the columns being selected in the <code>SELECT</code> statement, then the same error will NOT occur because here <code>ORDER BY</code> operates on the table, and the terms exist in the table.</p>
+<p>Pay attention in the error: <code>ORDER BY</code> operates on the unioned result sets 
+because <code>ORDER BY</code> executed AFTER the unioned result sets is created. If 
+there is no <code>UNION</code> in the query, and <code>ORDER BY</code> only operates on the table 
+being query, and if the terms in <code>ORDER BY</code> clause appear in the columns of 
+the table but not in the columns being selected in the <code>SELECT</code> statement, 
+then the same error will NOT occur because here <code>ORDER BY</code> operates on the 
+table, and the terms exist in the table.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -129,9 +140,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

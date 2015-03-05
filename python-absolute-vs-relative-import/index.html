@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,33 +86,53 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>When to use absolute imports and relative imports? Which one is the standard practice in Python programming?</p>
+  <p>When to use absolute imports and relative imports? Which one is the standard practice 
+in Python programming?</p>
 
 <p>The rationale is to <em>use absolute import</em> and <strong>EXPLICIT relative import</strong>.</p>
 
-<p>Intra-packages reference needs to be unambiguous to avoid package/module name collisions, however, it has become more and more difficult to implement since the number of Python libraries keeps growing and more and more existing packages&#8217;s internal modules shadow standard libary. Therefore it has been decided (see <a href='http://bit.ly/1lw3Ka3'>PEP328</a>) that from python 3 (or 2.7?), absolute import is the default behavior when you write import statements like this:</p>
-<div class='highlight'><pre><code class='python'><span class='kn'>import</span> <span class='nn'>foo</span>
-</code></pre>
-</div>
-<p>This import tells Python that <code>foo</code> will always be a module or package reachable from <code>sys.path</code>. This is called an absolute import.</p>
+<p>Intra-packages reference needs to be unambiguous to avoid package/module name collisions, 
+however, it has become more and more difficult to implement since the number of Python 
+libraries keeps growing and more and more existing packages’s internal modules shadow 
+standard libary. Therefore it has been decided (see <a href="http://bit.ly/1lw3Ka3">PEP328</a>) that 
+from python 3 (or 2.7?), absolute import is the default behavior when you write import 
+statements like this:</p>
 
-<p>Keep in mind: <code>import &lt;&gt;</code> is always absolute, relative import must always use <code>from &lt;&gt; import</code>. In addition, absolute imports can <em>also</em> use <code>from &lt;&gt; import</code> by omitting the leading dots.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">foo</span></code></pre></div>
 
-<p>That means, absolute imports could provide all the functionalities of relative (intra-package) imports, while relative imports have only intra-package use and had better be explicit.</p>
+<p>This import tells Python that <code>foo</code> will always be a module or package reachable from 
+<code>sys.path</code>. This is called an absolute import.</p>
 
-<p>Notice that although absolute imports provide ALL the functionalities of import statements, relative imports have advantages for intra-package usecase and have <a href='http://bit.ly/RFJWUG'>reasons</a> to stay in Python.</p>
+<p>Keep in mind: <code>import &lt;&gt;</code> is always absolute, relative import must always use <code>from &lt;&gt; import</code>. 
+In addition, absolute imports can <em>also</em> use <code>from &lt;&gt; import</code> by omitting the leading dots.</p>
 
-<p>For some historical backgrounds; the above import statement was ambiguous in Python 2.4 or earlier, which might refer to a top-level module or to another module inside the same package as the importing module. And, in Python 2.4 (and earlier), absolute imports were not introduced and relative imports were discouraged since the syntax wasn&#8217;t finalized yet. For Python 2.5 and 2.6, absolute imports introduced and can be &#8216;turned on&#8217; through the use of:</p>
-<div class='highlight'><pre><code class='python'><span class='kn'>from</span> <span class='nn'>__future__</span> <span class='kn'>import</span> <span class='n'>absolute_import</span>
-</code></pre>
-</div>
-<p>In conclusion, relative imports makes your life easier when rearranging packages/modules (so that you don&#8217;t need to change dozens of internal imports) and it is NOT discouraged anymore since the syntax has been finalized and approved by BDFL. Use it for intra-package references and use it with explicit syntax (<strong>with leading dots</strong>); <code>Pylint</code> actually complains when not using relative imports for intra-package references.</p>
+<p>That means, absolute imports could provide all the functionalities of relative (intra-package) 
+imports, while relative imports have only intra-package use and had better be explicit.</p>
 
-<p>Python <a href='https://github.com/keenhenry/pda'><code>pda</code></a> project provides good examples for this standard pratice. To see some more examples of intra-package imports:</p>
+<p>Notice that although absolute imports provide ALL the functionalities of import statements, 
+relative imports have advantages for intra-package usecase and have <a href="http://bit.ly/RFJWUG">reasons</a> to stay in Python.</p>
+
+<p>For some historical backgrounds; the above import statement was ambiguous in Python 2.4 
+or earlier, which might refer to a top-level module or to another module inside the same 
+package as the importing module. And, in Python 2.4 (and earlier), absolute imports were 
+not introduced and relative imports were discouraged since the syntax wasn’t finalized yet.
+For Python 2.5 and 2.6, absolute imports introduced and can be ‘turned on’ through the use of:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span></code></pre></div>
+
+<p>In conclusion, relative imports makes your life easier when rearranging packages/modules 
+(so that you don’t need to change dozens of internal imports) and it is NOT discouraged 
+anymore since the syntax has been finalized and approved by BDFL. Use it for intra-package 
+references and use it with explicit syntax (<strong>with leading dots</strong>); <code>Pylint</code> actually complains 
+when not using relative imports for intra-package references.</p>
+
+<p>Python <a href="https://github.com/keenhenry/pda"><code>pda</code></a> project provides good examples for this 
+standard pratice. To see some more examples of intra-package imports:</p>
 
 <ul>
-<li><a href='http://docs.python.org/2/tutorial/modules.html'>python module</a></li>
+  <li><a href="http://docs.python.org/2/tutorial/modules.html">python module</a></li>
 </ul>
+
 
   <footer>
   <ul class="tag_list">
@@ -149,9 +170,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,13 +86,24 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>From <a href='http://keenhenry.me/merging-polygons/'>previous post</a>, I described the algorithm for merging a group of polygons in a planar space. Now let&#8217;s talk about its implementation.</p>
+  <p>From <a href="http://keenhenry.me/merging-polygons/">previous post</a>, I described the algorithm for merging a group of polygons in a planar space. 
+Now let’s talk about its implementation.</p>
 
-<p>First thing before running a graph algorithm is to build a graph data structure. Common graph data structures are: <code>adjacency list</code> and <code>adjacency matrix</code>. Say you have chosen adjacency list, and you have no priori-knowledge about the spatial relationship of those polygons you are processing, then you need <code>O(|V|^2)</code> worst-case time to build an adjacency list for those polygons, since for each node you need to scan the node list to find out its neighbors.</p>
+<p>First thing before running a graph algorithm is to build a graph data structure. Common graph data structures are: <code>adjacency list</code> and <code>adjacency matrix</code>. 
+Say you have chosen adjacency list, and you have no priori-knowledge about the spatial relationship of those polygons you are processing, 
+then you need <code>O(|V|^2)</code> worst-case time to build an adjacency list for those polygons, since for each node you need to scan the node list to find 
+out its neighbors.</p>
 
-<p>However, if the polygons (nodes) are geometry objects in <a href='http://www.sqlite.org/rtree.html'>SQLite</a>, then you can use SQLite <a href='http://www.sqlite.org/rtree.html'><code>R*Tree</code> module</a> to help you search for adjacent polygons around a bounding box, which can speed up the process of building adjacency list quite a bit.</p>
+<p>However, if the polygons (nodes) are geometry objects in <a href="http://www.sqlite.org/rtree.html">SQLite</a>, then you can use SQLite 
+<a href="http://www.sqlite.org/rtree.html"><code>R*Tree</code> module</a> to help you search for adjacent polygons around a bounding box, which can speed up 
+the process of building adjacency list quite a bit.</p>
 
-<p><a href='http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/table_of_contents.html'>Boost Graph Library</a> is also what we need for the task described above. It has <a href='http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/using_adjacency_list.html'><code>adjacency list</code></a> and numerous algorithm templates ready for use. For our purpose here, we only need the algorithm to find connected components in an undirected graph, and <a href='http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/connected_components.html'>here</a> it is! There is even <a href='http://www.boost.org/doc/libs/1_45_0/libs/graph/example/connected_components.cpp'>an example</a> showing how to use such template functions.</p>
+<p><a href="http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/table_of_contents.html">Boost Graph Library</a> is also what we need for the task described above. It 
+has <a href="http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/using_adjacency_list.html"><code>adjacency list</code></a> and numerous algorithm templates ready for 
+use. For our purpose here, we only need the algorithm to find connected components in an undirected graph, and 
+<a href="http://www.boost.org/doc/libs/1_45_0/libs/graph/doc/connected_components.html">here</a> it is! There is even 
+<a href="http://www.boost.org/doc/libs/1_45_0/libs/graph/example/connected_components.cpp">an example</a> showing how to use such template functions.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -135,9 +147,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

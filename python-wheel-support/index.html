@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,21 +86,23 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href='http://pythonwheels.com/'>Wheels</a> are new Python binary distribution format, they are intended to replace eggs.</p>
+  <p><a href="http://pythonwheels.com/">Wheels</a> are new Python binary distribution format, they are intended to replace eggs.</p>
 
 <p>To support distributing <code>wheel</code>, there are a few things you need to do, first, <strong>make sure wheel is installed</strong>:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>pip install wheel
-</code></pre>
-</div>
-<p>Secondly, for a python-only and a 2-and-3 compatible project, you will need a <code>setup.cfg</code> file in the same directory as <code>setup.py</code>, with its contents as following:</p>
-<div class='highlight'><pre><code class='cfg'><span class='k'>[bdist_wheel]</span>
-<span class='na'>universal</span> <span class='o'>=</span> <span class='s'>1</span>
-</code></pre>
-</div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>pip install wheel</code></pre></div>
+
+<p>Secondly, for a python-only and a 2-and-3 compatible project, you will need a <code>setup.cfg</code> file in the same directory as
+<code>setup.py</code>, with its contents as following:</p>
+
+<div class="highlight"><pre><code class="language-cfg" data-lang="cfg"><span class="k">[bdist_wheel]</span>
+<span class="na">universal</span> <span class="o">=</span> <span class="s">1</span></code></pre></div>
+
 <p>Lastly, build your project with the following command:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>python setup.py sdist bdist_wheel
-</code></pre>
-</div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>python setup.py sdist bdist_wheel</code></pre></div>
+
+
 
   <footer>
   <ul class="tag_list">
@@ -139,9 +142,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

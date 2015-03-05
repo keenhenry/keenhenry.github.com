@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -87,37 +88,59 @@
 <article class="ten columns offset-by-four">
   <p><code>EXISTS</code> operator returns value 0 or 1, depends on the right-hand side operand of it.</p>
 
-<p>Theoretically, <code>EXISTS</code> should return as soon as there is one row found in the right-hand operand, which should be the correct behavior and avoiding unnecessary table scan as compared to using <code>COUNT()</code>.</p>
+<p>Theoretically, <code>EXISTS</code> should return as soon as there is one row found in the right-hand 
+operand, which should be the correct behavior and avoiding unnecessary table scan as 
+compared to using <code>COUNT()</code>.</p>
 
-<p>However, the real behavior of <code>EXISTS</code> depends on the actual implementation of various database engine. For SQLite, it is not clear whether it deviates from standard behavior or not, according to an excerpt from SQLite&#8217;s website:</p>
+<p>However, the real behavior of <code>EXISTS</code> depends on the actual implementation of various
+database engine. For SQLite, it is not clear whether it deviates from standard behavior 
+or not, according to an excerpt from SQLite’s website:</p>
 
 <blockquote>
-<p>The EXISTS operator</p>
+  <p>The EXISTS operator</p>
 </blockquote>
 
 <blockquote>
-<p>The EXISTS operator always evaluates to one of the integer values 0 and 1. If executing the SELECT statement specified as the right-hand operand of the EXISTS operator would return <strong>one or more rows</strong>, then the EXISTS operator evaluates to 1. If executing the SELECT would return no rows at all, then the EXISTS operator evaluates to 0.</p>
+  <p>The EXISTS operator always evaluates to one of the integer values 0 and 1. If executing 
+the SELECT statement specified as the right-hand operand of the EXISTS operator would 
+return <strong>one or more rows</strong>, then the EXISTS operator evaluates to 1. If executing the 
+SELECT would return no rows at all, then the EXISTS operator evaluates to 0.</p>
 </blockquote>
 
 <blockquote>
-<p>The number of columns in each row returned by the SELECT statement (if any) and the specific values returned have no effect on the results of the EXISTS operator. In particular, rows containing NULL values are not handled any differently from rows without NULL values.</p>
+  <p>The number of columns in each row returned by the SELECT statement (if any) and the 
+specific values returned have no effect on the results of the EXISTS operator. In 
+particular, rows containing NULL values are not handled any differently from rows 
+without NULL values.</p>
 </blockquote>
 
-<p>However, if the right-hand side operand is a <strong>SELECT scalar subquery</strong>, then SQLite&#8217;s <code>EXISTS</code> operator will definitely return as soon as there is already one row found in the right-hand side operand. This can be explained by another excerpt from SQLite&#8217;s website:</p>
+<p>However, if the right-hand side operand is a <strong>SELECT scalar subquery</strong>, then SQLite’s 
+<code>EXISTS</code> operator will definitely return as soon as there is already one row found in 
+the right-hand side operand. This can be explained by another excerpt from SQLite’s website:</p>
 
 <blockquote>
-<p>Scalar Subqueries</p>
+  <p>Scalar Subqueries</p>
 </blockquote>
 
 <blockquote>
-<p>A SELECT statement enclosed in parentheses may appear as a scalar quantity. A SELECT used as a scalar quantity must return a result set with a <strong>single column</strong>. The result of the expression is the value of the only column in the <strong>first row</strong> returned by the SELECT statement. <em>If the SELECT yields more than one result row, all rows after the first are ignored</em>. If the SELECT yields no rows, then the value of the expression is NULL. The LIMIT of a scalar subquery is always 1. Any other LIMIT value given in the SQL text is ignored.</p>
+  <p>A SELECT statement enclosed in parentheses may appear as a scalar quantity. A SELECT used 
+as a scalar quantity must return a result set with a <strong>single column</strong>. The result of the 
+expression is the value of the only column in the <strong>first row</strong> returned by the SELECT 
+statement. <em>If the SELECT yields more than one result row, all rows after the first are 
+ignored</em>. If the SELECT yields no rows, then the value of the expression is NULL. The 
+LIMIT of a scalar subquery is always 1. Any other LIMIT value given in the SQL text is 
+ignored.</p>
 </blockquote>
 
 <blockquote>
-<p>All types of SELECT statement, including aggregate and compound SELECT queries (queries with keywords like UNION or EXCEPT) are allowed as scalar subqueries.</p>
+  <p>All types of SELECT statement, including aggregate and compound SELECT queries (queries 
+with keywords like UNION or EXCEPT) are allowed as scalar subqueries.</p>
 </blockquote>
 
-<p>In conclusion, in SQLite, a scalar subquery returns only one row, if there is any; and <code>EXISTS</code> operator will only see one row at most if the right-hand side operand is a scalar subquery!</p>
+<p>In conclusion, in SQLite, a scalar subquery returns only one row, if there is any; and 
+<code>EXISTS</code> operator will only see one row at most if the right-hand side operand is a scalar 
+subquery!</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -155,9 +178,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

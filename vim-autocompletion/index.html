@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -86,15 +87,19 @@
 
 <article class="ten columns offset-by-four">
   <p>Ever wonder how to do words auto-completion in Vim? Here is how:</p>
-<div class='highlight'>
+
+<div class="highlight">
 <pre>
-<span class='kr'>set</span> <span class='nb'>wildmode</span><span class='o'>=</span><span class='n'>longest</span><span class='p'>,</span><span class='n'>list</span><span class='p'>,</span><span class='n'>full</span>  <span class='c'>&quot; match the longest common string</span>
-<span class='kr'>set</span> <span class='nb'>wildmenu</span>                               <span class='c'>&quot; turn on tab completion in Vim</span>
+<span class="kr">set</span> <span class="nb">wildmode</span><span class="o">=</span><span class="n">longest</span><span class="p">,</span><span class="n">list</span><span class="p">,</span><span class="n">full</span>  <span class="c">&quot; match the longest common string</span>
+<span class="kr">set</span> <span class="nb">wildmenu</span>                               <span class="c">&quot; turn on tab completion in Vim</span>
 </pre>
 </div>
-<p>Having above settings in your <code>.vimrc</code> file, you will magically be able to do words auto-completion with a single <strong>Tab</strong> keystroke.</p>
+
+<p>Having above settings in your <code>.vimrc</code> file, you will magically be able to do words auto-completion with a 
+single <strong>Tab</strong> keystroke.</p>
 
 <p>To find out more, try <code>:help wildmenu</code> in Vim.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -130,9 +135,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

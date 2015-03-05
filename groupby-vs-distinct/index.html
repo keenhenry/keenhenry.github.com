@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -87,49 +88,53 @@
 <article class="ten columns offset-by-four">
   <p>Which one is faster? And what are the differences?</p>
 
-<p>According to <a href='http://stackoverflow.com/questions/581521/whats-faster-select-distinct-or-group-by-in-mysql'>this stackoverflow thread</a>, these two expressions are identical and <code>DISTINCT</code> is actually implemented by <code>GROUP BY</code>. If one of them is faster, it&#8217;s going to be <code>DISTINCT</code>. However, this thread is discussing MySQL.</p>
+<p>According to <a href="http://stackoverflow.com/questions/581521/whats-faster-select-distinct-or-group-by-in-mysql">this stackoverflow thread</a>, 
+these two expressions are identical and <code>DISTINCT</code> is actually implemented by <code>GROUP BY</code>. If one of them is faster, it’s going to be 
+<code>DISTINCT</code>. However, this thread is discussing MySQL.</p>
 
 <p>For SQLite, you can use <code>EXPLAIN QUERY PLAN</code> to show how each query is executed:</p>
 
 <p><strong>sort on a column having no index</strong></p>
-<div class='highlight'><pre><code class='sql'><span class='n'>sqlite</span><span class='o'>&gt;</span> <span class='k'>EXPLAIN</span> <span class='n'>QUERY</span> <span class='n'>PLAN</span> <span class='k'>select</span> <span class='k'>distinct</span> <span class='n'>geomarea</span> <span class='k'>from</span> <span class='n'>bmd</span><span class='p'>;</span>
-<span class='n'>selectid</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span><span class='k'>order</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span> <span class='k'>from</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='n'>detail</span> <span class='o'>=</span> <span class='n'>SCAN</span> <span class='k'>TABLE</span> <span class='n'>bmd_layer_tiles</span> <span class='k'>USING</span> <span class='n'>COVERING</span> <span class='k'>INDEX</span> <span class='n'>idx_tfg</span> <span class='p'>(</span><span class='o'>~</span><span class='mi'>1000000</span> <span class='k'>rows</span><span class='p'>)</span>
-<span class='err'> </span>
-<span class='n'>selectid</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span><span class='k'>order</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span> <span class='k'>from</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='n'>detail</span> <span class='o'>=</span> <span class='n'>USE</span> <span class='n'>TEMP</span> <span class='n'>B</span><span class='o'>-</span><span class='n'>TREE</span> <span class='k'>FOR</span> <span class='k'>DISTINCT</span>
 
-<span class='n'>sqlite</span><span class='o'>&gt;</span> <span class='k'>EXPLAIN</span> <span class='n'>QUERY</span> <span class='n'>PLAN</span> <span class='k'>select</span> <span class='n'>geomarea</span> <span class='k'>from</span> <span class='n'>bmd</span> <span class='k'>group</span> <span class='k'>by</span> <span class='n'>GeomArea</span><span class='p'>;</span>
-<span class='n'>selectid</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span><span class='k'>order</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span> <span class='k'>from</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='n'>detail</span> <span class='o'>=</span> <span class='n'>SCAN</span> <span class='k'>TABLE</span> <span class='n'>bmd_layer_tiles</span> <span class='k'>USING</span> <span class='n'>COVERING</span> <span class='k'>INDEX</span> <span class='n'>idx_tfg</span> <span class='p'>(</span><span class='o'>~</span><span class='mi'>1000000</span> <span class='k'>rows</span><span class='p'>)</span>
-<span class='err'> </span>
-<span class='n'>selectid</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span><span class='k'>order</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span> <span class='k'>from</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='n'>detail</span> <span class='o'>=</span> <span class='n'>USE</span> <span class='n'>TEMP</span> <span class='n'>B</span><span class='o'>-</span><span class='n'>TREE</span> <span class='k'>FOR</span> <span class='k'>GROUP</span> <span class='k'>BY</span>
-</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">sqlite</span><span class="o">&gt;</span> <span class="k">EXPLAIN</span> <span class="n">QUERY</span> <span class="n">PLAN</span> <span class="k">select</span> <span class="k">distinct</span> <span class="n">geomarea</span> <span class="k">from</span> <span class="n">bmd</span><span class="p">;</span>
+<span class="n">selectid</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span><span class="k">order</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">from</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="n">detail</span> <span class="o">=</span> <span class="n">SCAN</span> <span class="k">TABLE</span> <span class="n">bmd_layer_tiles</span> <span class="k">USING</span> <span class="n">COVERING</span> <span class="k">INDEX</span> <span class="n">idx_tfg</span> <span class="p">(</span><span class="o">~</span><span class="mi">1000000</span> <span class="k">rows</span><span class="p">)</span>
+<span class="err"> </span>
+<span class="n">selectid</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span><span class="k">order</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">from</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="n">detail</span> <span class="o">=</span> <span class="n">USE</span> <span class="n">TEMP</span> <span class="n">B</span><span class="o">-</span><span class="n">TREE</span> <span class="k">FOR</span> <span class="k">DISTINCT</span>
+
+<span class="n">sqlite</span><span class="o">&gt;</span> <span class="k">EXPLAIN</span> <span class="n">QUERY</span> <span class="n">PLAN</span> <span class="k">select</span> <span class="n">geomarea</span> <span class="k">from</span> <span class="n">bmd</span> <span class="k">group</span> <span class="k">by</span> <span class="n">GeomArea</span><span class="p">;</span>
+<span class="n">selectid</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span><span class="k">order</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">from</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="n">detail</span> <span class="o">=</span> <span class="n">SCAN</span> <span class="k">TABLE</span> <span class="n">bmd_layer_tiles</span> <span class="k">USING</span> <span class="n">COVERING</span> <span class="k">INDEX</span> <span class="n">idx_tfg</span> <span class="p">(</span><span class="o">~</span><span class="mi">1000000</span> <span class="k">rows</span><span class="p">)</span>
+<span class="err"> </span>
+<span class="n">selectid</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span><span class="k">order</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">from</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="n">detail</span> <span class="o">=</span> <span class="n">USE</span> <span class="n">TEMP</span> <span class="n">B</span><span class="o">-</span><span class="n">TREE</span> <span class="k">FOR</span> <span class="k">GROUP</span> <span class="k">BY</span></code></pre></div>
+
 <p><strong>sort on a column having index</strong></p>
-<div class='highlight'><pre><code class='sql'><span class='n'>sqlite</span><span class='o'>&gt;</span> <span class='k'>EXPLAIN</span> <span class='n'>QUERY</span> <span class='n'>PLAN</span> <span class='k'>select</span> <span class='k'>distinct</span> <span class='n'>contourelevation</span> <span class='k'>from</span> <span class='n'>bmd</span><span class='p'>;</span>
-<span class='n'>selectid</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span><span class='k'>order</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span> <span class='k'>from</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='n'>detail</span> <span class='o'>=</span> <span class='n'>SCAN</span> <span class='k'>TABLE</span> <span class='n'>bmd</span> <span class='k'>USING</span> <span class='n'>COVERING</span> <span class='k'>INDEX</span> <span class='n'>idx_contourelevation</span> <span class='p'>(</span><span class='o'>~</span><span class='mi'>1000000</span> <span class='k'>rows</span><span class='p'>)</span>
 
-<span class='n'>sqlite</span><span class='o'>&gt;</span> <span class='k'>EXPLAIN</span> <span class='n'>QUERY</span> <span class='n'>PLAN</span> <span class='k'>select</span> <span class='o'>*</span> <span class='k'>from</span> <span class='n'>bmd</span> <span class='k'>group</span> <span class='k'>by</span> <span class='n'>contourelevation</span><span class='p'>;</span>
-<span class='n'>selectid</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span><span class='k'>order</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='err'> </span> <span class='k'>from</span> <span class='o'>=</span> <span class='mi'>0</span>
-<span class='err'> </span> <span class='n'>detail</span> <span class='o'>=</span> <span class='n'>SCAN</span> <span class='k'>TABLE</span> <span class='n'>bmd</span> <span class='k'>USING</span> <span class='k'>INDEX</span> <span class='n'>idx_contourelevation</span> <span class='p'>(</span><span class='o'>~</span><span class='mi'>1000000</span> <span class='k'>rows</span><span class='p'>)</span>
-</code></pre>
-</div>
-<p>From their query plans above, they are exactly the same! Actually, you can find out the answer from <a href='http://www.sqlite.org/eqp.html#section_1_2'>this link</a>, where it explains that both <code>GROUP BY</code> and <code>DISTINCT</code> use a temporary B-Tree to sort the output rows when there are no indexes created!</p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">sqlite</span><span class="o">&gt;</span> <span class="k">EXPLAIN</span> <span class="n">QUERY</span> <span class="n">PLAN</span> <span class="k">select</span> <span class="k">distinct</span> <span class="n">contourelevation</span> <span class="k">from</span> <span class="n">bmd</span><span class="p">;</span>
+<span class="n">selectid</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span><span class="k">order</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">from</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="n">detail</span> <span class="o">=</span> <span class="n">SCAN</span> <span class="k">TABLE</span> <span class="n">bmd</span> <span class="k">USING</span> <span class="n">COVERING</span> <span class="k">INDEX</span> <span class="n">idx_contourelevation</span> <span class="p">(</span><span class="o">~</span><span class="mi">1000000</span> <span class="k">rows</span><span class="p">)</span>
+
+<span class="n">sqlite</span><span class="o">&gt;</span> <span class="k">EXPLAIN</span> <span class="n">QUERY</span> <span class="n">PLAN</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">bmd</span> <span class="k">group</span> <span class="k">by</span> <span class="n">contourelevation</span><span class="p">;</span>
+<span class="n">selectid</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span><span class="k">order</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="err"> </span> <span class="k">from</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="err"> </span> <span class="n">detail</span> <span class="o">=</span> <span class="n">SCAN</span> <span class="k">TABLE</span> <span class="n">bmd</span> <span class="k">USING</span> <span class="k">INDEX</span> <span class="n">idx_contourelevation</span> <span class="p">(</span><span class="o">~</span><span class="mi">1000000</span> <span class="k">rows</span><span class="p">)</span></code></pre></div>
+
+<p>From their query plans above, they are exactly the same! Actually, you can find out the answer from <a href="http://www.sqlite.org/eqp.html#section_1_2">this link</a>, 
+where it explains that both <code>GROUP BY</code> and <code>DISTINCT</code> use a temporary B-Tree to sort the output rows when there are no indexes created!</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -167,9 +172,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,13 +86,21 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>The desktop computer I have in office is running Ubuntu 10.04, I have tried to set up its locale several times through <code>.bashrc</code> with something like this: <code>LANG=&quot;en_US.UTF-8&quot;</code>, and yet Gnome Terminal just couldn&#8217;t understand Chinese characters (it display <code>???</code> when I type in Chinese characters).</p>
+  <p>The desktop computer I have in office is running Ubuntu 10.04, I have tried to set up its locale 
+several times through <code>.bashrc</code> with something like this: <code>LANG="en_US.UTF-8"</code>, and yet Gnome Terminal 
+just couldn’t understand Chinese characters (it display <code>???</code> when I type in Chinese characters).</p>
 
-<p>My problem is exactly <a href='https://bbs.archlinux.org/viewtopic.php?id=52306'>this one</a>. From that thread I found this <a href='https://wiki.archlinux.org/index.php/Configuring_locales#Gnome-terminal_or_rxvt-unicode_doesn.27t_support_UTF-8'>instruction</a> and solved this problem afterwards.</p>
+<p>My problem is exactly <a href="https://bbs.archlinux.org/viewtopic.php?id=52306">this one</a>. From that thread I found 
+this <a href="https://wiki.archlinux.org/index.php/Configuring_locales#Gnome-terminal_or_rxvt-unicode_doesn.27t_support_UTF-8">instruction</a> 
+and solved this problem afterwards.</p>
 
-<p>It seems to me that the problem is Gnome Terminal is always taking the system-wide locale setting every time it launches, or settings somewhere else that are set much earlier than your <code>.bashrc</code> is read. As a result, setting per user locale is not enough.</p>
+<p>It seems to me that the problem is Gnome Terminal is always taking the system-wide locale setting every time 
+it launches, or settings somewhere else that are set much earlier than your <code>.bashrc</code> is read. As a result, 
+setting per user locale is not enough.</p>
 
-<p>Therefore, after you set up your system-wide locale by following the instruction above or by <a href='http://bitprison.net/gnome-terminal_character_encoding_utf-8'>trying this</a>, remember to reboot your system to make the setting take effects for the whole system.</p>
+<p>Therefore, after you set up your system-wide locale by following the instruction above or by <a href="http://bitprison.net/gnome-terminal_character_encoding_utf-8">trying this</a>, 
+remember to reboot your system to make the setting take effects for the whole system.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -127,9 +136,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

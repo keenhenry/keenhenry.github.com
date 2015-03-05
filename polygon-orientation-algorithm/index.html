@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,15 +86,27 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>In <a href='http://keenhenry.me/polygon-area-algorithm/'>this</a> article, I explained the by-product of calculating area is an indication of polygon orientation. However, if you only want to calculate orientation, calculating area to obtain polygon orientation is overkill and not efficient, since it computes the area of every triangle formed by each edge of the polygon. That is at least <code>O( |E| * |time to calculate triangular area| )</code>.</p>
+  <p>In <a href="http://keenhenry.me/polygon-area-algorithm/">this</a> article, I explained the by-product of calculating area is
+an indication of polygon orientation. However, if you only want to calculate orientation, calculating area to obtain
+polygon orientation is overkill and not efficient, since it computes the area of every triangle formed by each edge 
+of the polygon. That is at least <code>O( |E| * |time to calculate triangular area| )</code>.</p>
 
 <p>How can we do better?</p>
 
-<p>The concept is fairly simple. You only need two edges (they are vectors in <strong>vector</strong> <strong>graphics</strong>) of a polygon to determine its orientation. However, you can&#8217;t just pick any two edges; they have to be neighbors and the vertex that connects them has to be either the highest, lowest, rightmost, or leftmost point on the polygon. This is because, a local orientation pattern cannot represent the orientation of the polygon as a whole. Make an example to convince yourself this is true.</p>
+<p>The concept is fairly simple. You only need two edges (they are vectors in <strong>vector</strong> <strong>graphics</strong>) of a polygon to 
+determine its orientation. However, you can’t just pick any two edges; they have to be neighbors and the vertex that
+connects them has to be either the highest, lowest, rightmost, or leftmost point on the polygon. This is because, a
+local orientation pattern cannot represent the orientation of the polygon as a whole. Make an example to convince
+yourself this is true.</p>
 
-<p>Therefore, the algorithm is to find the highest point first, which is <code>O( |V-1| )</code>. Then, test the orientation of the entering and leaving edges at this highest point. If the end vertex of the leaving edge is to the left of the entering edge, then this polygon is counterclockwise. In addition, the test can be easily performed by some simple matrix arithmetics (this is where linear algebra comes handy).</p>
+<p>Therefore, the algorithm is to find the highest point first, which is <code>O( |V-1| )</code>. Then, test the orientation of the
+entering and leaving edges at this highest point. If the end vertex of the leaving edge is to the left of the entering
+edge, then this polygon is counterclockwise. In addition, the test can be easily performed by some simple matrix arithmetics
+(this is where linear algebra comes handy).</p>
 
-<p>The time complexity then reduces to <code>O( |V-1| ) + |time to calculate orientation|</code>. If the implementation of calculating orientation of two vectors is careful, it could be a lot faster.</p>
+<p>The time complexity then reduces to <code>O( |V-1| ) + |time to calculate orientation|</code>. If the implementation of calculating 
+orientation of two vectors is careful, it could be a lot faster.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -125,9 +138,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

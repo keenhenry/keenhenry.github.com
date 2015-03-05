@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,29 +86,33 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>A common task is to check if a string is empty in a programming language; with <code>bash</code>, you can do it easily, just be careful with its syntax and semantics.</p>
+  <p>A common task is to check if a string is empty in a programming language; with <code>bash</code>,
+you can do it easily, just be careful with its syntax and semantics.</p>
 
-<p><code>-n</code> or <code>-z</code> string comparison operators are created for such purpose; <code>-n</code> checks whether the string is not null (string), which returns <code>false</code> when it is an empty string. In addtion, the <em><code>-n</code> test requires that the string BE QUOTED within the test brackets</em>. As a better scripting practice, <strong>ALWAYS</strong> quote a tested string:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>VAR</span><span class='o'>=</span><span class='s2'>&quot;hello&quot;</span>
-<span class='k'>if</span> <span class='o'>[</span> -n <span class='s2'>&quot;$VAR&quot;</span> <span class='o'>]</span>; <span class='k'>then</span>
-<span class='k'>    </span><span class='nb'>echo</span> <span class='s2'>&quot;VAR is not empty&quot;</span>
-<span class='k'>fi</span>
-</code></pre>
-</div>
+<p><code>-n</code> or <code>-z</code> string comparison operators are created for such purpose; <code>-n</code> checks whether 
+the string is not null (string), which returns <code>false</code> when it is an empty string. In addtion, 
+the <em><code>-n</code> test requires that the string BE QUOTED within the test brackets</em>. As a better 
+scripting practice, <strong>ALWAYS</strong> quote a tested string:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">VAR</span><span class="o">=</span><span class="s2">&quot;hello&quot;</span>
+<span class="k">if</span> <span class="o">[</span> -n <span class="s2">&quot;$VAR&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;VAR is not empty&quot;</span>
+<span class="k">fi</span></code></pre></div>
+
 <p>Similarly, <code>-z</code> operator checks whether the string is <code>null</code> - the opposite of <code>-n</code>:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>VAR</span><span class='o'>=</span><span class='s2'>&quot;&quot;</span>
-<span class='k'>if</span> <span class='o'>[</span> -z <span class='s2'>&quot;$VAR&quot;</span> <span class='o'>]</span>; <span class='k'>then</span>
-<span class='k'>    </span><span class='nb'>echo</span> <span class='s2'>&quot;VAR is empty&quot;</span>
-<span class='k'>fi</span>
-</code></pre>
-</div>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">VAR</span><span class="o">=</span><span class="s2">&quot;&quot;</span>
+<span class="k">if</span> <span class="o">[</span> -z <span class="s2">&quot;$VAR&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;VAR is empty&quot;</span>
+<span class="k">fi</span></code></pre></div>
+
 <p><strong>REFERENCE</strong></p>
 
 <ul>
-<li><a href='http://bit.ly/1ely6Dl'>Checking empty string in Bash</a></li>
-
-<li><a href='http://bit.ly/1d81blF'>bash string comparison operators</a></li>
+  <li><a href="http://bit.ly/1ely6Dl">Checking empty string in Bash</a></li>
+  <li><a href="http://bit.ly/1d81blF">bash string comparison operators</a></li>
 </ul>
+
 
   <footer>
   <ul class="tag_list">
@@ -143,9 +148,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

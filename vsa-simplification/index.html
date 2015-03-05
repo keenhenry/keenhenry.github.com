@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,11 +86,15 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Line simplification is a common problem in cartography because it determines how detailed a map looks. Digital maps have only finite resolution: high resolution map gives more details, but the data is bigger and takes more time for the renderer to process; low resolution makes map processing faster, but details are no longer preserved and the map might look ugly.</p>
+  <p>Line simplification is a common problem in cartography because it determines how detailed a map looks. Digital
+maps have only finite resolution: high resolution map gives more details, but the data is bigger and takes more
+time for the renderer to process; low resolution makes map processing faster, but details are no longer preserved
+and the map might look ugly.</p>
 
-<p>There are two polular algorithms for line simplification: <a href='http://bit.ly/1lNGxME'>Douglas–Peucker</a> and <a href='http://bit.ly/1qkzZGG'>Visvalingam&#8217;s alogithm</a>. Today, I am going to talk about Visvalingam&#8217;s area-based algorithm (short for VSA algorithm).</p>
+<p>There are two polular algorithms for line simplification: <a href="http://bit.ly/1lNGxME">Douglas–Peucker</a> and <a href="http://bit.ly/1qkzZGG">Visvalingam’s alogithm</a>.
+Today, I am going to talk about Visvalingam’s area-based algorithm (short for VSA algorithm).</p>
 
-<p>VSA algorithm is very easy to understand: it repeatedly removes points (non-terminal) with the least <a href='#effectivearea'>effective area</a>.</p>
+<p>VSA algorithm is very easy to understand: it repeatedly removes points (non-terminal) with the least <a href="#effectivearea">effective area</a>.</p>
 
 <p>Pseudo-algorithm:</p>
 
@@ -102,26 +107,32 @@
 UNTIL
 - The original line consists of only 2 points, or, all the 
   remaining points have effective area larger than a predefined 
-  threshhold.</code></pre>
+  threshhold.
+</code></pre>
 
-<p>The algorithm is effective at producing minimal simplified and yet characteristic shapes. But it also has its limitations: as with point-based algorithm, it can also produdces crossing lines from complex shapes; and it is only area-based and not context-awared (manual generalisation considers size, shape, and geometric and geographic context of features).</p>
+<p>The algorithm is effective at producing minimal simplified and yet characteristic shapes. But it also has its limitations: as with point-based algorithm,
+it can also produdces crossing lines from complex shapes; and it is only area-based and not context-awared (manual generalisation considers size, 
+shape, and geometric and geographic context of features).</p>
 
 <p><strong>Reference</strong></p>
 
 <ul>
-<li><a href='http://stackoverflow.com/questions/10558299/visvalingam-whyatt-polyline-simplification-algorithm-clarification'>Stackoverflow discussion</a></li>
-
-<li><a href='http://bost.ocks.org/mike/simplify/simplify.js'>Javapscript Implementation</a></li>
-
-<li><a href='http://bost.ocks.org/mike/simplify/'>Blogpost explaining VSA</a></li>
-
-<li><a href='https://hydra.hull.ac.uk/resources/hull:8338'>The original paper</a></li>
+  <li><a href="http://stackoverflow.com/questions/10558299/visvalingam-whyatt-polyline-simplification-algorithm-clarification">Stackoverflow discussion</a></li>
+  <li><a href="http://bost.ocks.org/mike/simplify/simplify.js">Javapscript Implementation</a></li>
+  <li><a href="http://bost.ocks.org/mike/simplify/">Blogpost explaining VSA</a></li>
+  <li><a href="https://hydra.hull.ac.uk/resources/hull:8338">The original paper</a></li>
 </ul>
 
 <p><strong>Note</strong></p>
-<a name='effectivearea'>Effective Area</a><pre>
+
+<p><a name="effectivearea">Effective Area</a></p>
+
+<pre>
 </pre>
-<p>Effective area is defined by an areal displacement which would occur is that point alone was omitted from the current line. In other words, it is area of triangles formed by successive triplets of points a long a line.</p>
+
+<p>Effective area is defined by an areal displacement which would occur is that point alone was omitted from the current line.
+In other words, it is area of triangles formed by successive triplets of points a long a line.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -157,9 +168,6 @@ UNTIL
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

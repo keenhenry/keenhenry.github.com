@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -87,42 +88,51 @@
 <article class="ten columns offset-by-four">
   <p><strong>Problem</strong></p>
 
-<p>You are testing a function in unit test using python. The function emits some text output to <code>sys.stdout</code>, but you want to suppress the output during unit testing (simply because the output is irrelevant during testing).</p>
+<p>You are testing a function in unit test using python. The function emits some text output
+to <code>sys.stdout</code>, but you want to suppress the output during unit testing (simply because
+the output is irrelevant during testing).</p>
 
 <p><strong>Solution</strong></p>
 
-<p>Using the <code>mock</code> module’s <code>patch()</code> function, it’s pretty simple to mock out <code>sys.stdout</code> for just a single test, and put it back again, without messy temporary variables or leaking mocked-out state between test cases. For example:</p>
-<div class='highlight'><pre><code class='python'><span class='kn'>from</span> <span class='nn'>mock</span> <span class='kn'>import</span> <span class='n'>patch</span>
-<span class='kn'>import</span> <span class='nn'>unittest</span>
+<p>Using the <code>mock</code> module’s <code>patch()</code> function, it’s pretty simple to mock out 
+<code>sys.stdout</code> for just a single test, and put it back again, without messy temporary variables 
+or leaking mocked-out state between test cases. For example:</p>
 
-<span class='k'>def</span> <span class='nf'>func_to_be_tested</span><span class='p'>():</span>
-    <span class='k'>print</span> <span class='s'>&#39;some message texts to stdout ...&#39;</span>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">patch</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
 
-<span class='k'>class</span> <span class='nc'>MockDevice</span><span class='p'>():</span>
-    <span class='sd'>&quot;&quot;&quot;A mock device to temporarily suppress output to stdout</span>
-<span class='sd'>    Similar to UNIX /dev/null.</span>
-<span class='sd'>    &quot;&quot;&quot;</span>
+<span class="k">def</span> <span class="nf">func_to_be_tested</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;some message texts to stdout ...&#39;</span>
 
-    <span class='k'>def</span> <span class='nf'>write</span><span class='p'>(</span><span class='bp'>self</span><span class='p'>,</span> <span class='n'>s</span><span class='p'>):</span> <span class='k'>pass</span>
+<span class="k">class</span> <span class="nc">MockDevice</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;A mock device to temporarily suppress output to stdout</span>
+<span class="sd">    Similar to UNIX /dev/null.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-<span class='k'>class</span> <span class='nc'>TestFunctionToBeTested</span><span class='p'>(</span><span class='n'>unittest</span><span class='o'>.</span><span class='n'>TestCase</span><span class='p'>):</span>
-    <span class='k'>def</span> <span class='nf'>test_function_to_be_tested</span><span class='p'>():</span>
-        <span class='c'># some other setup code</span>
-        <span class='k'>with</span> <span class='n'>patch</span><span class='p'>(</span><span class='s'>&#39;sys.stdout&#39;</span><span class='p'>,</span> <span class='n'>new</span><span class='o'>=</span><span class='n'>MockDevice</span><span class='p'>())</span> <span class='k'>as</span> <span class='n'>fake_out</span><span class='p'>:</span>
-            <span class='n'>func_to_be_tested</span><span class='p'>()</span>
-</code></pre>
-</div>
-<p><a href='https://pypi.python.org/pypi/mock'><code>mock</code></a> is a library for testing in Python. It allows you to replace parts of your system under test with mock objects and makes assertions about how they have been used. In the above example, it is used to replace <code>std.stdout</code> temporarily ONLY within the <a href='https://docs.python.org/2/reference/compound_stmts.html#with'><code>with</code> statement</a> block, and restore it back afterwards.</p>
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span> <span class="k">pass</span>
 
-<p>And of course, the result will be that the text &#8216;some message texts to stdout &#8230;&#8217; simply disappear while running unit test.</p>
+<span class="k">class</span> <span class="nc">TestFunctionToBeTested</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_function_to_be_tested</span><span class="p">():</span>
+        <span class="c"># some other setup code</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s">&#39;sys.stdout&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="n">MockDevice</span><span class="p">())</span> <span class="k">as</span> <span class="n">fake_out</span><span class="p">:</span>
+            <span class="n">func_to_be_tested</span><span class="p">()</span></code></pre></div>
+
+<p><a href="https://pypi.python.org/pypi/mock"><code>mock</code></a> is a library for testing in Python. 
+It allows you to replace parts of your system under test with mock objects and makes 
+assertions about how they have been used. In the above example, it is used to replace 
+<code>std.stdout</code> temporarily ONLY within the <a href="https://docs.python.org/2/reference/compound_stmts.html#with"><code>with</code> statement</a> 
+block, and restore it back afterwards.</p>
+
+<p>And of course, the result will be that the text ‘some message texts to stdout …’ simply 
+disappear while running unit test.</p>
 
 <p>The above idea is inspired by the following web resources:</p>
 
 <ol>
-<li><a href='http://bit.ly/1kWvdvO'>Redirect or Turn Off STDOUT and STDERR</a></li>
-
-<li><a href='http://chimera.labs.oreilly.com/books/1230000000393/ch14.html'>Python Cookbook Chapter 14</a></li>
+  <li><a href="http://bit.ly/1kWvdvO">Redirect or Turn Off STDOUT and STDERR</a></li>
+  <li><a href="http://chimera.labs.oreilly.com/books/1230000000393/ch14.html">Python Cookbook Chapter 14</a></li>
 </ol>
+
 
   <footer>
   <ul class="tag_list">
@@ -162,9 +172,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

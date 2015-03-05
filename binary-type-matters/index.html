@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -87,16 +88,19 @@
 <article class="ten columns offset-by-four">
   <p>A 32-bit machine CANNOT execute a 64-bit binary and this statements also holds the other way around.</p>
 
-<p>But what would happen if you try that? If you are working on a ubuntu system, mostly likely a message will spit out:</p>
-<div class='highlight'><pre><code class='bash'>No such file or directory
-</code></pre>
-</div>
+<p>But what would happen if you try that? If you are working on a ubuntu system, mostly likely a message will 
+spit out:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">No such file or directory</code></pre></div>
+
 <p>What you can do is to use <code>file</code> command to figure out the binary type:</p>
-<div class='highlight'><pre><code class='bash'><span class='nv'>$ </span>file a.out
-a.out: ELF 32-bit LSB executable, Intel 80386, version 1 <span class='o'>(</span>SYSV<span class='o'>)</span>
-</code></pre>
-</div>
-<p><code>a.out: ELF 32-bit LSB executable</code> tells you that this is a 32-bit executable. Perhaps you want to read more about <a href='http://en.wikipedia.org/wiki/Executable_and_Linkable_Format'>ELF format</a>.</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>file a.out
+a.out: ELF 32-bit LSB executable, Intel 80386, version <span class="m">1</span> <span class="o">(</span>SYSV<span class="o">)</span></code></pre></div>
+
+<p><code>a.out: ELF 32-bit LSB executable</code> tells you that this is a 32-bit executable. Perhaps you want to read more 
+about <a href="http://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF format</a>.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -130,9 +134,6 @@ a.out: ELF 32-bit LSB executable, Intel 80386, version 1 <span class='o'>(</span
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,29 +86,37 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>A <strong>pure virtual function</strong> is a virtual function that has no definition (no body) at all. It simply acts as a placeholder that is meant to be redefined by the derived class.</p>
+  <p>A <strong>pure virtual function</strong> is a virtual function that has no definition (no body) at all. It simply acts as a placeholder 
+that is meant to be redefined by the derived class.</p>
 
 <p>To create a pure virtual function, rather than define a body for the function, we simply assign the function the value <code>0</code>.</p>
-<div class='highlight'><pre><code class='cpp'><span class='k'>class</span> <span class='nc'>Base</span>
-<span class='p'>{</span>
-    <span class='nl'>public:</span>
 
-        <span class='c1'>// a normal non-virtual function    </span>
-        <span class='k'>const</span> <span class='kt'>char</span><span class='o'>*</span> <span class='n'>func1</span><span class='p'>()</span> <span class='p'>{</span> <span class='k'>return</span> <span class='s'>&quot;Hi&quot;</span><span class='p'>;</span> <span class='p'>}</span>        
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">class</span> <span class="nc">Base</span>
+<span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
 
-        <span class='c1'>// a normal virtual function</span>
-        <span class='k'>virtual</span> <span class='k'>const</span> <span class='kt'>char</span><span class='o'>*</span> <span class='n'>func2</span><span class='p'>()</span> <span class='p'>{</span> <span class='k'>return</span> <span class='s'>&quot;Base&quot;</span><span class='p'>;</span> <span class='p'>}</span>      
+        <span class="c1">// a normal non-virtual function    </span>
+        <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">func1</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;Hi&quot;</span><span class="p">;</span> <span class="p">}</span>        
 
-        <span class='c1'>// a pure virtual function</span>
-        <span class='k'>virtual</span> <span class='kt'>int</span> <span class='n'>func3</span><span class='p'>()</span> <span class='o'>=</span> <span class='mi'>0</span><span class='p'>;</span>
-<span class='p'>};</span>
-</code></pre>
-</div>
-<p>Using a pure virtual function has two main consequences: First, any class with one or more pure virtual functions becomes an <strong>abstract base class</strong>, which means that it can not be instantiated. Second, any derived class must define a body for this function, or that derived class will be considered an abstract base class as well.</p>
+        <span class="c1">// a normal virtual function</span>
+        <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">func2</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;Base&quot;</span><span class="p">;</span> <span class="p">}</span>      
 
-<p>A &#8216;non-pure&#8217; normal virtual function, on the contrary, must have a body defined (although it could be empty in the body). If you don&#8217;t define the body and don&#8217;t make the virtual function &#8216;pure&#8217; (by assigning value <code>0</code>) either, you will get a linking error saying: <strong>Undefined reference to vtable for &#8230;</strong>. An example of normal virtual function is a <strong>virtual destructor</strong>, which appears frequently in various base classes.</p>
+        <span class="c1">// a pure virtual function</span>
+        <span class="k">virtual</span> <span class="kt">int</span> <span class="n">func3</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">};</span></code></pre></div>
 
-<p>So, if you don&#8217;t provide any implementation for the virtual destructor, you get this error. Check out the <em>bottom</em> of <a href='http://gcc.gnu.org/faq.html#vtables'>this page</a> for such concept.</p>
+<p>Using a pure virtual function has two main consequences: First, any class with one or more pure virtual functions becomes 
+an <strong>abstract base class</strong>, which means that it can not be instantiated. Second, any derived class must define a body for 
+this function, or that derived class will be considered an abstract base class as well.</p>
+
+<p>A ‘non-pure’ normal virtual function, on the contrary, must have a body defined (although it could be empty in the body). If 
+you don’t define the body and don’t make the virtual function ‘pure’ (by assigning value <code>0</code>) either, you will get a linking 
+error saying: <strong>Undefined reference to vtable for …</strong>. An example of normal virtual function is a <strong>virtual destructor</strong>, which 
+appears frequently in various base classes.</p>
+
+<p>So, if you don’t provide any implementation for the virtual destructor, you get this error. Check out the <em>bottom</em> of 
+<a href="http://gcc.gnu.org/faq.html#vtables">this page</a> for such concept.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -145,9 +154,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

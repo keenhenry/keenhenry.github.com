@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,33 +86,43 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href='http://json.org/'>JSON</a> is a commonly used data exchange format over the Web. For Python programming language, JSON data format is already very similar to Python <a href='https://docs.python.org/2/library/stdtypes.html#mapping-types-dict'>dictionary</a>, which makes parsing JSON in Python very convenient.</p>
+  <p><a href="http://json.org/">JSON</a> is a commonly used data exchange format over the Web. For Python programming language, JSON data format
+is already very similar to Python <a href="https://docs.python.org/2/library/stdtypes.html#mapping-types-dict">dictionary</a>, which makes
+parsing JSON in Python very convenient.</p>
 
-<p>A handy Python module <a href='https://docs.python.org/2/library/json.html'><code>json</code></a> already exists for such purpose. For basic usage, the most important methods are <a href='https://docs.python.org/2/library/json.html#json.dumps'><code>dumps</code></a> and <a href='https://docs.python.org/2/library/json.html#json.loads'><code>loads</code></a>. <code>dumps</code> means dumping python object into JSON <strong><code>string</code></strong> representation; <code>loads</code> is the reverse of <code>dumps</code>, which loads JSON <strong><code>string</code></strong> representation into a Python object.</p>
+<p>A handy Python module <a href="https://docs.python.org/2/library/json.html"><code>json</code></a> already exists for such purpose. For basic usage,
+the most important methods are <a href="https://docs.python.org/2/library/json.html#json.dumps"><code>dumps</code></a> and <a href="https://docs.python.org/2/library/json.html#json.loads"><code>loads</code></a>.
+<code>dumps</code> means dumping python object into JSON <strong><code>string</code></strong> representation; <code>loads</code> is the reverse of <code>dumps</code>, which loads JSON <strong><code>string</code></strong> representation
+into a Python object.</p>
 
 <p>Here are some examples how you can use these two methods:</p>
-<div class='highlight'><pre><code class='python'><span class='o'>&gt;&gt;&gt;</span> <span class='kn'>import</span> <span class='nn'>json</span>
 
-<span class='c'># dumps: python object -&gt; json string</span>
-<span class='o'>&gt;&gt;&gt;</span> <span class='n'>json</span><span class='o'>.</span><span class='n'>dumps</span><span class='p'>([</span><span class='s'>&#39;foo&#39;</span><span class='p'>,</span> <span class='p'>{</span><span class='s'>&#39;bar&#39;</span><span class='p'>:</span> <span class='p'>(</span><span class='s'>&#39;baz&#39;</span><span class='p'>,</span> <span class='bp'>None</span><span class='p'>,</span> <span class='mf'>1.0</span><span class='p'>,</span> <span class='mi'>2</span><span class='p'>)}])</span>
-<span class='s'>&#39;[&quot;foo&quot;, {&quot;bar&quot;: [&quot;baz&quot;, null, 1.0, 2]}]&#39;</span>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">json</span>
 
-<span class='c'># loads: json string -&gt; python object</span>
-<span class='o'>&gt;&gt;&gt;</span> <span class='n'>json</span><span class='o'>.</span><span class='n'>loads</span><span class='p'>(</span><span class='s'>&#39;[&quot;foo&quot;, {&quot;bar&quot;:[&quot;baz&quot;, null, 1.0, 2]}]&#39;</span><span class='p'>)</span>
-<span class='p'>[</span><span class='s'>u&#39;foo&#39;</span><span class='p'>,</span> <span class='p'>{</span><span class='s'>u&#39;bar&#39;</span><span class='p'>:</span> <span class='p'>[</span><span class='s'>u&#39;baz&#39;</span><span class='p'>,</span> <span class='bp'>None</span><span class='p'>,</span> <span class='mf'>1.0</span><span class='p'>,</span> <span class='mi'>2</span><span class='p'>]}]</span>
-</code></pre>
-</div>
-<p>That&#8217;s it! This is how simple it is!</p>
+<span class="c"># dumps: python object -&gt; json string</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">([</span><span class="s">&#39;foo&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">&#39;bar&#39;</span><span class="p">:</span> <span class="p">(</span><span class="s">&#39;baz&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)}])</span>
+<span class="s">&#39;[&quot;foo&quot;, {&quot;bar&quot;: [&quot;baz&quot;, null, 1.0, 2]}]&#39;</span>
 
-<p>Be aware that JSON format only accepts double-quoted <em>strings</em> as its keys, and for its values, it accepts only Number (<strong><code>int</code> <code>long</code> <code>float</code></strong>), String (<strong><code>str</code> <code>unicode</code></strong>), Boolean (<strong><code>True</code> <code>False</code></strong>), Array (<strong><code>list</code> <code>tuple</code></strong>), Object (<strong><code>dict</code></strong>) and Null (<strong><code>None</code></strong>).</p>
+<span class="c"># loads: json string -&gt; python object</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="s">&#39;[&quot;foo&quot;, {&quot;bar&quot;:[&quot;baz&quot;, null, 1.0, 2]}]&#39;</span><span class="p">)</span>
+<span class="p">[</span><span class="s">u&#39;foo&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s">u&#39;bar&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s">u&#39;baz&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]}]</span></code></pre></div>
 
-<p>That means just arbitrary Python objects cannot be turned into a JSON with <code>json.dumps</code>; they need to be convered by hand (with some codes) into combinations of the Python data types mentioned in the previous paragraph before feeding them into <code>dumps</code>.</p>
+<p>That’s it! This is how simple it is!</p>
 
-<h4 id='further_reference'>FURTHER REFERENCE</h4>
+<p>Be aware that JSON format only accepts double-quoted <em>strings</em> as its keys, and for its values, it accepts 
+only Number (<strong><code>int</code> <code>long</code> <code>float</code></strong>), String (<strong><code>str</code> <code>unicode</code></strong>), Boolean (<strong><code>True</code> <code>False</code></strong>), Array (<strong><code>list</code> <code>tuple</code></strong>), 
+Object (<strong><code>dict</code></strong>) and Null (<strong><code>None</code></strong>).</p>
+
+<p>That means just arbitrary Python objects cannot be turned into a JSON with <code>json.dumps</code>; they need to be convered by 
+hand (with some codes) into combinations of the Python data types mentioned in the previous paragraph before feeding 
+them into <code>dumps</code>.</p>
+
+<h4 id="further-reference">FURTHER REFERENCE</h4>
 
 <ul>
-<li><a href='http://pymotw.com/2/json/'>PYMOTW JSON</a></li>
+  <li><a href="http://pymotw.com/2/json/">PYMOTW JSON</a></li>
 </ul>
+
 
   <footer>
   <ul class="tag_list">
@@ -147,9 +158,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

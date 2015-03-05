@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,9 +86,12 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>What is <code>auto_ptr</code> class? It is a template that defines a pointer-like object intended to be assigned an address obtained by <code>new</code>. When an <code>auto_ptr</code> object expires, its destructor uses <code>delete</code> to free the memory. It is an example of smart pointer, which is a class that has pointer-like properties and augment the behavior of a simple pointer.</p>
+  <p>What is <code>auto_ptr</code> class? It is a template that defines a pointer-like object intended to be assigned an address obtained by <code>new</code>.
+When an <code>auto_ptr</code> object expires, its destructor uses <code>delete</code> to free the memory. It is an example of smart pointer, which is a 
+class that has pointer-like properties and augment the behavior of a simple pointer.</p>
 
-<p><code>auto_ptr</code> behaves very much like a simple pointer, with which you can store the address of memory allocated by <code>new</code> and can be derefernced. Here is an example:</p>
+<p><code>auto_ptr</code> behaves very much like a simple pointer, with which you can store the address of memory allocated by <code>new</code> and can be 
+derefernced. Here is an example:</p>
 
 <pre><code>void demo()
 {
@@ -96,23 +100,19 @@
 
     // do not need to free memory yourself, auto_ptr takes care of that automatically
     return;
-}</code></pre>
+}
+</code></pre>
 
-<p>It is convenient and easy to use, however it does has some caveats:</p>
+<p>It is convenient and easy to use, however it does has some caveats:
+1. <code>auto_ptr</code> cannot be used to point to dynamically allocated array, because it uses <code>delete</code> not <code>delete []</code>.
+2. It institutes the concept of <em>ownership</em>, with only one smart pointer allowed to own a particular object.
+   Assignment transfers ownership. So it is advised that to use <code>auto_ptr</code> with STL container classes, it might 
+   not behave as you expected.</p>
 
-<ol>
-<li><code>auto_ptr</code> cannot be used to point to dynamically allocated array, because it uses <code>delete</code> not <code>delete []</code>.</li>
+<p>Further readings:
++ <a href="http://www.gotw.ca/publications/using_auto_ptr_effectively.htm">Using auto_ptr effectively</a>
++ <a href="http://www.cplusplus.com/reference/std/memory/auto_ptr/"><code>auto_ptr</code> reference</a></p>
 
-<li>It institutes the concept of <em>ownership</em>, with only one smart pointer allowed to own a particular object. Assignment transfers ownership. So it is advised that to use <code>auto_ptr</code> with STL container classes, it might not behave as you expected.</li>
-</ol>
-
-<p>Further readings:</p>
-
-<ul>
-<li><a href='http://www.gotw.ca/publications/using_auto_ptr_effectively.htm'>Using auto_ptr effectively</a></li>
-
-<li><a href='http://www.cplusplus.com/reference/std/memory/auto_ptr/'><code>auto_ptr</code> reference</a></li>
-</ul>
 
   <footer>
   <ul class="tag_list">
@@ -136,7 +136,7 @@
 <!--     <a id="left" href="/cpp-io-concepts" title="C++ IO Stream Concepts Review">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/include-c-header-files-in-c%2B%2B" title="How can I include a non-system C header file in C++ code?">Newer &rarr;</a> -->
+<!--     <a id="right" href="/include-c-header-files-in-c++" title="How can I include a non-system C header file in C++ code?">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
@@ -146,9 +146,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

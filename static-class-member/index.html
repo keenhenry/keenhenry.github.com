@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,64 +86,77 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>A <code>static</code> class data member has <strong><code>static</code></strong> storage, meaning a program creates only ONE copy of a static class variable, regardless of the number of objects created. This property can be useful when you want to share some data among several objects of the same class.</p>
+  <p>A <code>static</code> class data member has <strong><code>static</code></strong> storage, meaning a program creates only ONE copy of 
+a static class variable, regardless of the number of objects created. This property can be useful 
+when you want to share some data among several objects of the same class.</p>
 
-<p>One caveat of using static class member is that you cannot initialize it inside the class declaration, which is usually put in a header file (<code>.h</code> or <code>.hpp</code>). This is because the declaration is a description of how memory is to be allocated, but it doesn&#8217;t allocate memory.</p>
+<p>One caveat of using static class member is that you cannot initialize it inside the class 
+declaration, which is usually put in a header file (<code>.h</code> or <code>.hpp</code>). This is because the 
+declaration is a description of how memory is to be allocated, but it doesn’t allocate memory.</p>
 
-<p><code>static</code> class member is initialzed in the file containing the class methods and the scope operator is used in the initialization to indicate to which class the static member belongs. However, one exception is that, if the static member is a <strong><code>const</code></strong> integral type or an enumeration type, it can be initialized in the class declaration itself.</p>
+<p><code>static</code> class member is initialzed in the file containing the class methods and the scope operator 
+is used in the initialization to indicate to which class the static member belongs. However, one 
+exception is that, if the static member is a <strong><code>const</code></strong> integral type or an enumeration type, it 
+can be initialized in the class declaration itself.</p>
 
-<p>A <code>const static</code> integral (or enumeration) can serve as a symbolic constant shared by all objects of the class in which the <code>const static</code> member is declared and initialzed. However, since the constant initialization is not a <em>definition</em> yet, you still need to define that <code>static</code> member in an enclosing namespace, otherwise, the linker will throw errors like &#8216;undefined reference to something&#8217;.</p>
+<p>A <code>const static</code> integral (or enumeration) can serve as a symbolic constant shared by all objects 
+of the class in which the <code>const static</code> member is declared and initialzed. However, since 
+the constant initialization is not a <em>definition</em> yet, you still need to define that <code>static</code> member 
+in an enclosing namespace, otherwise, the linker will throw errors like ‘undefined reference to 
+something’.</p>
 
-<p>If you are defining a constant to be shared among all the instances of the class, use static const. If the constant is specific to each instance, just use const (but note that all constructors of the class must initialise this const member variable in the initialisation list).</p>
+<p>If you are defining a constant to be shared among all the instances of the class, use static const. 
+If the constant is specific to each instance, just use const (but note that all constructors of the 
+class must initialise this const member variable in the initialisation list).</p>
 
-<p>Let&#8217;s see some example:</p>
-<div class='highlight'><pre><code class='cpp'><span class='c1'>// Example1.h -- a static class member declared in header file</span>
-<span class='k'>class</span> <span class='nc'>Example1</span>
-<span class='p'>{</span>
-    <span class='nl'>public:</span>
-        <span class='n'>Example1</span><span class='p'>();</span>
-        <span class='o'>~</span><span class='n'>Example1</span><span class='p'>();</span>
-    <span class='nl'>private:</span>
-        <span class='kt'>int</span> <span class='n'>len</span><span class='p'>;</span>
-        <span class='k'>static</span> <span class='kt'>int</span> <span class='n'>somenumber</span><span class='p'>;</span>
-<span class='p'>}</span>
+<p>Let’s see some example:</p>
 
-<span class='c1'>// Example1.cpp</span>
-<span class='kt'>int</span> <span class='n'>Example1</span><span class='o'>::</span><span class='n'>somenumber</span> <span class='o'>=</span> <span class='mi'>0</span><span class='p'>;</span>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="c1">// Example1.h -- a static class member declared in header file</span>
+<span class="k">class</span> <span class="nc">Example1</span>
+<span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">Example1</span><span class="p">();</span>
+        <span class="o">~</span><span class="n">Example1</span><span class="p">();</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+        <span class="k">static</span> <span class="kt">int</span> <span class="n">somenumber</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class='n'>Example1</span><span class='o'>::</span><span class='n'>Example1</span><span class='p'>()</span>
-<span class='p'>{</span>
-    <span class='c1'>// blablablablablabla ...</span>
-<span class='p'>}</span>
+<span class="c1">// Example1.cpp</span>
+<span class="kt">int</span> <span class="n">Example1</span><span class="o">::</span><span class="n">somenumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-<span class='c1'>// Example2.h -- a const static integral class member declared </span>
-<span class='c1'>// and initialized in header file</span>
-<span class='k'>class</span> <span class='nc'>Example2</span>
-<span class='p'>{</span>
-    <span class='nl'>public:</span>
-        <span class='n'>Example2</span><span class='p'>();</span>
-        <span class='o'>~</span><span class='n'>Example2</span><span class='p'>();</span>
-    <span class='nl'>private:</span>
-        <span class='kt'>int</span> <span class='n'>len</span><span class='p'>;</span>
-        <span class='k'>static</span> <span class='k'>const</span> <span class='kt'>int</span> <span class='n'>somenumber</span> <span class='o'>=</span> <span class='mi'>0</span><span class='p'>;</span>
-<span class='p'>}</span>
+<span class="n">Example1</span><span class="o">::</span><span class="n">Example1</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// blablablablablabla ...</span>
+<span class="p">}</span>
 
-<span class='c1'>// Example2.cpp</span>
-<span class='k'>const</span> <span class='kt'>int</span> <span class='n'>Example2</span><span class='o'>::</span><span class='n'>somenumber</span><span class='p'>;</span>     <span class='c1'>// must be defined!</span>
+<span class="c1">// Example2.h -- a const static integral class member declared </span>
+<span class="c1">// and initialized in header file</span>
+<span class="k">class</span> <span class="nc">Example2</span>
+<span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">Example2</span><span class="p">();</span>
+        <span class="o">~</span><span class="n">Example2</span><span class="p">();</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+        <span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">somenumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 
-<span class='n'>Example1</span><span class='o'>::</span><span class='n'>Example2</span><span class='p'>()</span>
-<span class='p'>{</span>
-    <span class='c1'>// blablablablablabla ...</span>
-<span class='p'>}</span>
-</code></pre>
-</div>
+<span class="c1">// Example2.cpp</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">Example2</span><span class="o">::</span><span class="n">somenumber</span><span class="p">;</span>     <span class="c1">// must be defined!</span>
+
+<span class="n">Example1</span><span class="o">::</span><span class="n">Example2</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// blablablablablabla ...</span>
+<span class="p">}</span></code></pre></div>
+
 <p><strong>REFERENCE</strong></p>
 
 <ul>
-<li><a href='http://publib.boulder.ibm.com/infocenter/lnxpcomp/v8v101/index.jsp?topic=%2Fcom.ibm.xlcpp8l.doc%2Flanguage%2Fref%2Fcplr038.htm'>C++ Static Data Members</a></li>
-
-<li><a href='http://cboard.cprogramming.com/cplusplus-programming/96595-static-const-vs-sharpdefine.html'>static const vs #define</a></li>
+  <li><a href="http://publib.boulder.ibm.com/infocenter/lnxpcomp/v8v101/index.jsp?topic=%2Fcom.ibm.xlcpp8l.doc%2Flanguage%2Fref%2Fcplr038.htm">C++ Static Data Members</a></li>
+  <li><a href="http://cboard.cprogramming.com/cplusplus-programming/96595-static-const-vs-sharpdefine.html">static const vs #define</a></li>
 </ul>
+
 
   <footer>
   <ul class="tag_list">
@@ -178,9 +192,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

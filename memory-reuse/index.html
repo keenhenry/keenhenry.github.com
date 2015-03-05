@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,55 +86,67 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>This week I helped my colleague resolve a memory leak problem. Of course, we used <code>valgrind</code> to locate where the leak was, after that, the problem became how to free the non-freed memory.</p>
+  <p>This week I helped my colleague resolve a memory leak problem. Of course, we used <code>valgrind</code> 
+to locate where the leak was, after that, the problem became how to free the non-freed memory.</p>
 
-<p>In the original code, the memory pointed by a pointer was not freed one last time outside a <code>for</code> loop, which is a typical case for memory leak problem. But when we tried to do just that, the program crashes at the newly introduced <code>free()</code>, what had happened?</p>
+<p>In the original code, the memory pointed by a pointer was not freed one last time outside 
+a <code>for</code> loop, which is a typical case for memory leak problem. But when we tried to do just 
+that, the program crashes at the newly introduced <code>free()</code>, what had happened?</p>
 
-<p>The problem was, we were trying to <em>reused a pointer that has already been freed</em>. How to detect such situation?</p>
+<p>The problem was, we were trying to <em>reused a pointer that has already been freed</em>. How to 
+detect such situation?</p>
 
 <p>In the original code, it frees memory like this:</p>
-<div class='highlight'><pre><code class='cpp'><span class='k'>for</span> <span class='p'>(</span><span class='kt'>int</span> <span class='n'>i</span> <span class='o'>=</span> <span class='mi'>0</span><span class='p'>;</span> <span class='n'>i</span> <span class='o'>&lt;</span> <span class='n'>some_length</span><span class='p'>;</span> <span class='o'>++</span><span class='n'>i</span><span class='p'>)</span>
-<span class='p'>{</span>
-    <span class='k'>if</span> <span class='p'>(</span> <span class='n'>some_condition</span> <span class='p'>)</span>
-    <span class='p'>{</span>
-        <span class='c1'>// some codes before the free</span>
-        <span class='n'>free</span><span class='p'>(</span><span class='n'>pointer_to_a_object</span><span class='p'>);</span>
-        <span class='c1'>// ... code to allocate new memory for </span>
-        <span class='c1'>// ... pointer_to_a_object again</span>
-    <span class='p'>}</span>
-    <span class='c1'>// continue with next iteration</span>
-<span class='p'>}</span>
 
-<span class='n'>free</span><span class='p'>(</span><span class='n'>pointer_to_a_object</span><span class='p'>);</span> <span class='c1'>// crashes the program!</span>
-</code></pre>
-</div>
-<p>This code is already problematic because it doesn&#8217;t test if <code>pointer_to_a_object</code> is already being freed. To test it, one instinct would be using <code>if ( pointer_to_a_object != NULL )</code>, but this condition only holds when the pointer is explicitly set to <code>NULL</code>.</p>
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">some_length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">some_condition</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// some codes before the free</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">pointer_to_a_object</span><span class="p">);</span>
+        <span class="c1">// ... code to allocate new memory for </span>
+        <span class="c1">// ... pointer_to_a_object again</span>
+    <span class="p">}</span>
+    <span class="c1">// continue with next iteration</span>
+<span class="p">}</span>
 
-<p>So the biggest problem with this code is actually <strong>NOT ZEROING OUT POINTERS AFTER FREE/DELETE</strong>. This should be a standard practice when you write code. The following code solves the problem.</p>
-<div class='highlight'><pre><code class='cpp'><span class='k'>for</span> <span class='p'>(</span><span class='kt'>int</span> <span class='n'>i</span> <span class='o'>=</span> <span class='mi'>0</span><span class='p'>;</span> <span class='n'>i</span> <span class='o'>&lt;</span> <span class='n'>some_length</span><span class='p'>;</span> <span class='o'>++</span><span class='n'>i</span><span class='p'>)</span>
-<span class='p'>{</span>
-    <span class='k'>if</span> <span class='p'>(</span> <span class='n'>some_condition</span> <span class='p'>)</span>
-    <span class='p'>{</span>
-        <span class='c1'>// some codes before the free</span>
-        <span class='k'>if</span> <span class='p'>(</span> <span class='n'>pointer_to_a_object</span> <span class='o'>!=</span> <span class='nb'>NULL</span> <span class='p'>)</span>
-        <span class='p'>{</span>
-            <span class='n'>free</span><span class='p'>(</span><span class='n'>pointer_to_a_object</span><span class='p'>);</span>
-            <span class='n'>pointer_to_a_object</span> <span class='o'>=</span> <span class='nb'>NULL</span><span class='p'>;</span>
-        <span class='p'>}</span>
-        <span class='c1'>// ... code to allocate new memory for </span>
-        <span class='c1'>// ... pointer_to_a_object again</span>
-    <span class='p'>}</span>
-    <span class='c1'>// continue with next iteration</span>
-<span class='p'>}</span>
+<span class="n">free</span><span class="p">(</span><span class="n">pointer_to_a_object</span><span class="p">);</span> <span class="c1">// crashes the program!</span></code></pre></div>
 
-<span class='k'>if</span> <span class='p'>(</span> <span class='n'>pointer_to_a_object</span> <span class='o'>!=</span> <span class='nb'>NULL</span> <span class='p'>)</span>
-<span class='p'>{</span>
-    <span class='n'>free</span><span class='p'>(</span><span class='n'>pointer_to_a_object</span><span class='p'>);</span> <span class='c1'>// crashes the program!</span>
-    <span class='n'>pointer_to_a_object</span> <span class='o'>=</span> <span class='nb'>NULL</span><span class='p'>;</span>
-<span class='p'>}</span>
-</code></pre>
-</div>
-<p>Because you always zero out pointers after you are done with them, you know for sure next time they are not freed yet when they are not <code>NULL</code>. Or, in other words, you only free pointers when they are still pointing to &#8216;something&#8217;. And this small tip can avoid pointers being reused. Safer code, higher assurance.</p>
+<p>This code is already problematic because it doesn’t test if <code>pointer_to_a_object</code> is already 
+being freed. To test it, one instinct would be using <code>if ( pointer_to_a_object != NULL )</code>, but 
+this condition only holds when the pointer is explicitly set to <code>NULL</code>.</p>
+
+<p>So the biggest problem with this code is actually <strong>NOT ZEROING OUT POINTERS AFTER 
+FREE/DELETE</strong>. This should be a standard practice when you write code. The following 
+code solves the problem.</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">some_length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">some_condition</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// some codes before the free</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">pointer_to_a_object</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">pointer_to_a_object</span><span class="p">);</span>
+            <span class="n">pointer_to_a_object</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// ... code to allocate new memory for </span>
+        <span class="c1">// ... pointer_to_a_object again</span>
+    <span class="p">}</span>
+    <span class="c1">// continue with next iteration</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span> <span class="n">pointer_to_a_object</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">pointer_to_a_object</span><span class="p">);</span> <span class="c1">// crashes the program!</span>
+    <span class="n">pointer_to_a_object</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Because you always zero out pointers after you are done with them, you know for sure 
+next time they are not freed yet when they are not <code>NULL</code>. Or, in other words, you only 
+free pointers when they are still pointing to ‘something’. And this small tip can avoid 
+pointers being reused. Safer code, higher assurance.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -167,9 +180,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

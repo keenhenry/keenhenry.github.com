@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,114 +86,123 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>I have long wanted a good terminal multiplexer to improve my workflow on a terminal; I tried <strong>Terminator</strong> before, but I did not like it very much. I heard of <strong>Screen</strong>, but never tried it. After searching around, I decided to give <strong>Tmux</strong> a try. It does takes some time to learn and has some compatibility issues with <strong>Vim</strong>; but that can be circumvented by configuring <code>tmux</code> properly, thanks to <code>tmux</code>&#8217;s highly configurable nature.</p>
+  <p>I have long wanted a good terminal multiplexer to improve my workflow on a terminal; I tried <strong>Terminator</strong> before, but I did not like it very 
+much. I heard of <strong>Screen</strong>, but never tried it. After searching around, I decided to give <strong>Tmux</strong> a try. It does takes some time to learn 
+and has some compatibility issues with <strong>Vim</strong>; but that can be circumvented by configuring <code>tmux</code> properly, thanks to <code>tmux</code>’s highly configurable 
+nature.</p>
 
-<p>The first problem I encounterd when started using <code>tmux</code> is Vim no longer recognizes modifier keys - SHIFT, CTRL and ALT, etc. The problem is with an environmental variable both <code>tmux</code> and <code>vim</code> rely on: <code>$TERM</code>.</p>
+<p>The first problem I encounterd when started using <code>tmux</code> is Vim no longer recognizes modifier keys - SHIFT, CTRL and ALT, etc. The problem is 
+with an environmental variable both <code>tmux</code> and <code>vim</code> rely on: <code>$TERM</code>.</p>
 
-<p>Thankfully, I found a thread <a href='http://unix.stackexchange.com/questions/29907/how-to-get-vim-to-work-with-tmux-properly'>here</a>, which also explains a valid solution for my use case. If you need a more detailed explanation, go check this <a href='http://snk.tuxfamily.org/log/vim-256color-bce.html'>blog post</a>.</p>
+<p>Thankfully, I found a thread <a href="http://unix.stackexchange.com/questions/29907/how-to-get-vim-to-work-with-tmux-properly">here</a>, which also explains 
+a valid solution for my use case. If you need a more detailed explanation, go check this <a href="http://snk.tuxfamily.org/log/vim-256color-bce.html">blog post</a>.</p>
 
 <p>So, problem solved. But then I had a hard time configuring <code>tmux</code> to be vim-user friendly. Time to study something again.</p>
 
-<p>First I found this <a href='http://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/'>nice tutorial</a> for a <code>tmux</code> beginner. From this tutorial, you can grasp clear pictures of the default key mappings in <code>tmux</code>, which is a corner-stone for configuring it. In the second part of this tutorial, it shows some configuration examples, however not exactly fitting my taste.</p>
+<p>First I found this <a href="http://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/">nice tutorial</a> for a <code>tmux</code> beginner. From this tutorial, 
+you can grasp clear pictures of the default key mappings in <code>tmux</code>, which is a corner-stone for configuring it. In the second part of this tutorial,
+it shows some configuration examples, however not exactly fitting my taste.</p>
 
-<p>Then, I found <a href='https://gist.github.com/spicycode/1229612'>this gist post</a>, which became my bootstrapping <code>.tmux.conf</code> file. I also learned some more configuration tips from <a href='http://tonkersten.com/2011/07/104-switching-to-tmux/'>this post</a> as well, which is more comprehensive.</p>
+<p>Then, I found <a href="https://gist.github.com/spicycode/1229612">this gist post</a>, which became my bootstrapping <code>.tmux.conf</code> file. I also learned some more 
+configuration tips from <a href="http://tonkersten.com/2011/07/104-switching-to-tmux/">this post</a> as well, which is more comprehensive.</p>
 
-<p>Of course, after all these efforts configuring <code>tmux</code>, I have already learned &#8221;<code>man tmux</code>&#8221; and &#8221;<code>prefix ?</code>&#8221; are really good friends.</p>
+<p>Of course, after all these efforts configuring <code>tmux</code>, I have already learned “<code>man tmux</code>” and “<code>prefix ?</code>” are really good friends.</p>
 
 <p>My current <code>.tmux.conf</code> file:</p>
-<div class='highlight'><pre><code class='bash'><span class='c'># reset shell to ordinary shell; instead of login shell</span>
-<span class='nb'>set</span> -g default-command <span class='nv'>$SHELL</span>
 
-<span class='c'># tell tmux to pass xterm key combinations to xterm</span>
-<span class='nb'>set</span>-window-option -g xterm-keys on
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># reset shell to ordinary shell; instead of login shell</span>
+<span class="nb">set</span> -g default-command <span class="nv">$SHELL</span>
 
-<span class='c'># 0 is too far from ` ;)</span>
-<span class='nb'>set</span> -g base-index 1
+<span class="c"># tell tmux to pass xterm key combinations to xterm</span>
+<span class="nb">set</span>-window-option -g xterm-keys on
 
-<span class='c'># all nice options</span>
-<span class='nb'>set</span> -g status-keys vi
+<span class="c"># 0 is too far from ` ;)</span>
+<span class="nb">set</span> -g base-index 1
+
+<span class="c"># all nice options</span>
+<span class="nb">set</span> -g status-keys vi
 setw -g mode-keys vi
 setw -g monitor-activity on
 
-<span class='c'># remap prefix to ALT-a</span>
+<span class="c"># remap prefix to ALT-a</span>
 unbind C-b
-<span class='nb'>set</span>-option -g prefix M-a
-<span class='nb'>bind</span>-key M-a send-prefix
+<span class="nb">set</span>-option -g prefix M-a
+<span class="nb">bind</span>-key M-a send-prefix
 
-<span class='c'># Automatically set window title</span>
-<span class='nb'>set</span>-window-option -g automatic-rename on
-<span class='nb'>set</span>-option -g <span class='nb'>set</span>-titles on
+<span class="c"># Automatically set window title</span>
+<span class="nb">set</span>-window-option -g automatic-rename on
+<span class="nb">set</span>-option -g <span class="nb">set</span>-titles on
 
-<span class='c'># statusbar</span>
-<span class='nb'>set</span>-option -g   status-utf8 on
-<span class='nb'>set</span>-option -g   status-justify left
-<span class='nb'>set</span>-option -g   status-left-length 15
-<span class='nb'>set</span>-option -g   status-left <span class='s1'>&#39; #h |&#39;</span>
-<span class='nb'>set</span>-option -g   status-right <span class='s1'>&#39; | %Y-%m-%d %H:%M #[default]&#39;</span>
+<span class="c"># statusbar</span>
+<span class="nb">set</span>-option -g   status-utf8 on
+<span class="nb">set</span>-option -g   status-justify left
+<span class="nb">set</span>-option -g   status-left-length 15
+<span class="nb">set</span>-option -g   status-left <span class="s1">&#39; #h |&#39;</span>
+<span class="nb">set</span>-option -g   status-right <span class="s1">&#39; | %Y-%m-%d %H:%M #[default]&#39;</span>
 
-<span class='c'># default statusbar colors</span>
-<span class='nb'>set</span>-option -g   status-fg white
-<span class='nb'>set</span>-option -g   status-bg blue
-<span class='nb'>set</span>-option -g   status-attr bright
+<span class="c"># default statusbar colors</span>
+<span class="nb">set</span>-option -g   status-fg white
+<span class="nb">set</span>-option -g   status-bg blue
+<span class="nb">set</span>-option -g   status-attr bright
 
-<span class='c'># default window title colors</span>
-<span class='nb'>set</span>-window-option -g window-status-fg white
-<span class='nb'>set</span>-window-option -g window-status-bg blue
-<span class='nb'>set</span>-window-option -g window-status-attr dim
+<span class="c"># default window title colors</span>
+<span class="nb">set</span>-window-option -g window-status-fg white
+<span class="nb">set</span>-window-option -g window-status-bg blue
+<span class="nb">set</span>-window-option -g window-status-attr dim
 
-<span class='c'># active window title colors</span>
-<span class='nb'>set</span>-window-option -g window-status-current-fg yellow
-<span class='nb'>set</span>-window-option -g window-status-current-bg red
-<span class='nb'>set</span>-window-option -g window-status-current-attr bright
-<span class='c'>#</span>
-<span class='nb'>set</span>-window-option -g mode-fg white
-<span class='nb'>set</span>-window-option -g mode-bg red
-<span class='nb'>set</span>-window-option -g mode-attr bright
+<span class="c"># active window title colors</span>
+<span class="nb">set</span>-window-option -g window-status-current-fg yellow
+<span class="nb">set</span>-window-option -g window-status-current-bg red
+<span class="nb">set</span>-window-option -g window-status-current-attr bright
+<span class="c">#</span>
+<span class="nb">set</span>-window-option -g mode-fg white
+<span class="nb">set</span>-window-option -g mode-bg red
+<span class="nb">set</span>-window-option -g mode-attr bright
 
-<span class='c'># Alt-n/p to switch windows without prefix key</span>
-<span class='nb'>bind</span> -n M-p previous-window
-<span class='nb'>bind</span> -n M-n next-window
+<span class="c"># Alt-n/p to switch windows without prefix key</span>
+<span class="nb">bind</span> -n M-p previous-window
+<span class="nb">bind</span> -n M-n next-window
 
-<span class='c'># Splitting windows into panes with h and v</span>
-<span class='nb'>bind</span>-key v split-window -h
-<span class='nb'>bind</span>-key s split-window -v
+<span class="c"># Splitting windows into panes with h and v</span>
+<span class="nb">bind</span>-key v split-window -h
+<span class="nb">bind</span>-key s split-window -v
 
-<span class='c'># Use Alt-vim keys without prefix key to switch panes</span>
-<span class='nb'>bind</span> -n M-h <span class='k'>select</span>-pane -L
-<span class='nb'>bind</span> -n M-j <span class='k'>select</span>-pane -D 
-<span class='nb'>bind</span> -n M-k <span class='k'>select</span>-pane -U
-<span class='nb'>bind</span> -n M-l <span class='k'>select</span>-pane -R
+<span class="c"># Use Alt-vim keys without prefix key to switch panes</span>
+<span class="nb">bind</span> -n M-h <span class="k">select</span>-pane -L
+<span class="nb">bind</span> -n M-j <span class="k">select</span>-pane -D 
+<span class="nb">bind</span> -n M-k <span class="k">select</span>-pane -U
+<span class="nb">bind</span> -n M-l <span class="k">select</span>-pane -R
 
-<span class='c'># quick pane cycling</span>
+<span class="c"># quick pane cycling</span>
 unbind ^A
-<span class='nb'>bind </span>M-a <span class='k'>select</span>-pane -t :.+
+<span class="nb">bind </span>M-a <span class="k">select</span>-pane -t :.+
 
-<span class='c'># resize panes</span>
-unbind M-Left  ; unbind-key C-Left  ; unbind Left
-unbind M-Right ; unbind-key C-Right ; unbind Right
-unbind M-Up    ; unbind-key C-Up    ; unbind Up
-unbind M-Down  ; unbind-key C-Down  ; unbind Down
-<span class='nb'>bind</span> -n M-Left    resize-pane -L 3
-<span class='nb'>bind</span> -n M-Right   resize-pane -R 3
-<span class='nb'>bind</span> -n M-Up      resize-pane -U 3
-<span class='nb'>bind</span> -n M-Down    resize-pane -D 3
+<span class="c"># resize panes</span>
+unbind M-Left  <span class="p">;</span> unbind-key C-Left  <span class="p">;</span> unbind Left
+unbind M-Right <span class="p">;</span> unbind-key C-Right <span class="p">;</span> unbind Right
+unbind M-Up    <span class="p">;</span> unbind-key C-Up    <span class="p">;</span> unbind Up
+unbind M-Down  <span class="p">;</span> unbind-key C-Down  <span class="p">;</span> unbind Down
+<span class="nb">bind</span> -n M-Left    resize-pane -L 3
+<span class="nb">bind</span> -n M-Right   resize-pane -R 3
+<span class="nb">bind</span> -n M-Up      resize-pane -U 3
+<span class="nb">bind</span> -n M-Down    resize-pane -D 3
 
-<span class='c'># No delay for escape key press</span>
-<span class='nb'>set</span> -sg escape-time 0
+<span class="c"># No delay for escape key press</span>
+<span class="nb">set</span> -sg escape-time 0
 
-<span class='c'># force a reload of the config file</span>
-<span class='nb'>bind </span>r <span class='nb'>source</span>-file ~/.tmux.conf
+<span class="c"># force a reload of the config file</span>
+<span class="nb">bind </span>r <span class="nb">source</span>-file ~/.tmux.conf
 
-<span class='c'># copy-mode settings; use vim-compatible settings to speed</span>
-<span class='c'># things up in copy-mode (scroll-mode)</span>
-unbind <span class='o'>]</span> ; unbind p; unbind <span class='o'>[</span>
-<span class='nb'>bind </span>m copy-mode
-<span class='nb'>bind </span>p paste-buffer
-<span class='nb'>bind</span>-key -t vi-copy <span class='s1'>&#39;v&#39;</span> begin-selection
-<span class='nb'>bind</span>-key -t vi-copy <span class='s1'>&#39;y&#39;</span> copy-selection
-</code></pre>
-</div>
-<p>Want to know more about Vi mode in <code>tmux</code>? Check <a href='http://blog.sanctum.geek.nz/vi-mode-in-tmux/'>this post</a>.</p>
+<span class="c"># copy-mode settings; use vim-compatible settings to speed</span>
+<span class="c"># things up in copy-mode (scroll-mode)</span>
+unbind <span class="o">]</span> <span class="p">;</span> unbind p<span class="p">;</span> unbind <span class="o">[</span>
+<span class="nb">bind </span>m copy-mode
+<span class="nb">bind </span>p paste-buffer
+<span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;v&#39;</span> begin-selection
+<span class="nb">bind</span>-key -t vi-copy <span class="s1">&#39;y&#39;</span> copy-selection</code></pre></div>
+
+<p>Want to know more about Vi mode in <code>tmux</code>? Check <a href="http://blog.sanctum.geek.nz/vi-mode-in-tmux/">this post</a>.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -232,9 +242,6 @@ unbind <span class='o'>]</span> ; unbind p; unbind <span class='o'>[</span>
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,66 +86,91 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>This week I created some query with <code>INTERSECTS</code> spatial operation in it, it is used to detect if some line segments &#8216;intersects&#8217; or &#8216;overlaps&#8217; a group of other line segments.</p>
+  <p>This week I created some query with <code>INTERSECTS</code> spatial operation in it, it is used 
+to detect if some line segments ‘intersects’ or ‘overlaps’ a group of other line segments.</p>
 
-<p>That turned out to be a very slow query, although that wasn&#8217;t obvious when I ran query over map data of Wolfsburg (because this is a small data set). Why is it slow?</p>
+<p>That turned out to be a very slow query, although that wasn’t obvious when I ran query 
+over map data of Wolfsburg (because this is a small data set). Why is it slow?</p>
 
 <p>The query looks like this:</p>
-<div class='highlight'><pre><code class='sqlite3'><span class='go'>SELECT col1,</span>
-<span class='go'>       col2,</span>
-<span class='go'>       /* &quot;geom&quot; is some geometry created outside of this </span>
-<span class='go'>           query beforehand */</span>
-<span class='go'>       INTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
-<span class='go'>  FROM tb1,</span>
-<span class='go'>       tb2 </span>
-<span class='go'> WHERE tb1.id = tb2.id</span>
-</code></pre>
-</div>
-<p>This query doesn&#8217;t look gigantic in terms of text size. However, there is one lengthy operation in it: <code>INTERSECTS</code>. This is a spatial operation to calculate exact spatial relationship between two geometries. If the data set is big, like the map data of China, then all the line segments in China are run through this operation and the performance issue would be quite noticeable, which was what I encountered this week.</p>
 
-<p>So, Spatialite is slow, isn&#8217;t it? No, not really. The problem is spatialite does not use <em>spatial index</em> at all to perform such spatial operation unless you explicitly tell it to so.</p>
+<div class="highlight"><pre><code class="language-sqlite3" data-lang="sqlite3"><span class="go">SELECT col1,</span>
+<span class="go">       col2,</span>
+<span class="go">       /* &quot;geom&quot; is some geometry created outside of this </span>
+<span class="go">           query beforehand */</span>
+<span class="go">       INTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
+<span class="go">  FROM tb1,</span>
+<span class="go">       tb2 </span>
+<span class="go"> WHERE tb1.id = tb2.id</span></code></pre></div>
 
-<p>See <a href='http://gis.stackexchange.com/questions/34697/is-spatialite-really-slow'>this stackoverflow post</a>. Due to limitations in the SQLite design, using a spatial index in a query isn&#8217;t as invisible as it is in PostGIS.</p>
+<p>This query doesn’t look gigantic in terms of text size. However, there is one lengthy
+operation in it: <code>INTERSECTS</code>. This is a spatial operation to calculate exact spatial 
+relationship between two geometries. If the data set is big, like the map data of China, then 
+all the line segments in China are run through this operation and the performance issue would 
+be quite noticeable, which was what I encountered this week.</p>
 
-<p>That said, what we can do to accelerate the query above is to build a spatial index over the geometries stored in <code>tb1</code> table, so the spatial opeartion <code>INTERSECTS</code> can make use of the spatial index to quickly find the answer. To build a spatial index, there are two ways in Spatialite/SQLite domain:</p>
+<p>So, Spatialite is slow, isn’t it? No, not really. The problem is spatialite does not use 
+<em>spatial index</em> at all to perform such spatial operation unless you explicitly tell it to 
+so.</p>
+
+<p>See <a href="http://gis.stackexchange.com/questions/34697/is-spatialite-really-slow">this stackoverflow post</a>. Due to limitations in the SQLite design, using a spatial index in a query isn’t as 
+invisible as it is in PostGIS.</p>
+
+<p>That said, what we can do to accelerate the query above is to build a spatial index over the 
+geometries stored in <code>tb1</code> table, so the spatial opeartion <code>INTERSECTS</code> can make use of 
+the spatial index to quickly find the answer. To build a spatial index, there are two ways 
+in Spatialite/SQLite domain:</p>
 
 <ol>
-<li>build it explicitly within the query like <a href='http://www.gaia-gis.it/spatialite-3.0.0-BETA/spatialite-cookbook/html/neighbours.html'>this recipe</a>.</li>
-
-<li>use <a href='http://www.sqlite.org/rtree.html'>SQLite R*Tree module</a>, which is implemented as a virtual table in SQLite.</li>
+  <li>build it explicitly within the query like <a href="http://www.gaia-gis.it/spatialite-3.0.0-BETA/spatialite-cookbook/html/neighbours.html">this recipe</a>.</li>
+  <li>use <a href="http://www.sqlite.org/rtree.html">SQLite R*Tree module</a>, which is implemented as 
+a virtual table in SQLite.</li>
 </ol>
 
-<p>The speedup should be quite dramatic with the help of spatial indexes. However, the trade-off is more code and less readibility (especially with the first method mentioned above). Can we do better?</p>
+<p>The speedup should be quite dramatic with the help of spatial indexes. However, the trade-off 
+is more code and less readibility (especially with the first method mentioned above). Can we do 
+better?</p>
 
-<p>To answer this question, let&#8217;s have a closer look at the query again; what do we really want to achieve in this query? Do we really need to calculate the <strong>EXACT AND ACCURATE</strong> spatial relationship among geometries?</p>
+<p>To answer this question, let’s have a closer look at the query again; what do we really want to 
+achieve in this query? Do we really need to calculate the <strong>EXACT AND ACCURATE</strong> spatial 
+relationship among geometries?</p>
 
-<p>If the answer is yes, then building a spatial index is necessary. If the answer is no, which means you only need some &#8216;approximation&#8217; on the spatial relation, then building spatial index could be overkill. And even if you really need the exact spatial relation, you can still use the approximation as a pre-filtering to avoid some unnecessary, expensive operations beforehand.</p>
+<p>If the answer is yes, then building a spatial index is necessary. If the answer is no, 
+which means you only need some ‘approximation’ on the spatial relation, then building spatial 
+index could be overkill. And even if you really need the exact spatial relation, you can still 
+use the approximation as a pre-filtering to avoid some unnecessary, expensive operations 
+beforehand.</p>
 
-<p>So how to calculate <em>approximate</em> spatial relationships? Use Spatialite MBR (Minimum Bounding Rectangle) operations! <a href='http://www.gaia-gis.it/gaia-sins/spatialite-tutorial-2.3.1.html#t4.1'>See here</a>. MBR relationships are fast to evaluate, plus the MBR information is already embeded in every geometry which means no extra calculation is needed to obtain such information.</p>
+<p>So how to calculate <em>approximate</em> spatial relationships? Use Spatialite MBR (Minimum Bounding
+Rectangle) operations! <a href="http://www.gaia-gis.it/gaia-sins/spatialite-tutorial-2.3.1.html#t4.1">See here</a>.
+MBR relationships are fast to evaluate, plus the MBR information is already embeded in every 
+geometry which means no extra calculation is needed to obtain such information.</p>
 
-<p>In other words, if approximate spatial relation is already good enough, then the above query can become the following:</p>
-<div class='highlight'><pre><code class='sqlite3'><span class='go'>SELECT col1,</span>
-<span class='go'>       col2,</span>
-<span class='go'>       MBRINTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
-<span class='go'>  FROM tb1,</span>
-<span class='go'>       tb2 </span>
-<span class='go'> WHERE tb1.id = tb2.id</span>
+<p>In other words, if approximate spatial relation is already good enough, then the above query can 
+become the following:</p>
 
-<span class='go'> /* Or use MBR relation as a prefiltering if exact spatial </span>
-<span class='go'>    relation is still required */</span>
-<span class='go'>SELECT col1,</span>
-<span class='go'>       col2,</span>
-<span class='go'>       /* assume spatial index has already been created </span>
-<span class='go'>          over tb1.geom1&#39;s; I do not explicitly show that </span>
-<span class='go'>          in this query for simplicity */</span>
-<span class='go'>       INTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
-<span class='go'>  FROM tb1,</span>
-<span class='go'>       tb2 </span>
-<span class='go'> WHERE tb1.id = tb2.id</span>
-<span class='go'>   AND NOT MBRDISJOINT(tb1.geom1, geom)</span>
-</code></pre>
-</div>
+<div class="highlight"><pre><code class="language-sqlite3" data-lang="sqlite3"><span class="go">SELECT col1,</span>
+<span class="go">       col2,</span>
+<span class="go">       MBRINTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
+<span class="go">  FROM tb1,</span>
+<span class="go">       tb2 </span>
+<span class="go"> WHERE tb1.id = tb2.id</span>
+
+<span class="go"> /* Or use MBR relation as a prefiltering if exact spatial </span>
+<span class="go">    relation is still required */</span>
+<span class="go">SELECT col1,</span>
+<span class="go">       col2,</span>
+<span class="go">       /* assume spatial index has already been created </span>
+<span class="go">          over tb1.geom1&#39;s; I do not explicitly show that </span>
+<span class="go">          in this query for simplicity */</span>
+<span class="go">       INTERSECTS(tb1.geom1, geom) AS IsOverlappingTunnels</span>
+<span class="go">  FROM tb1,</span>
+<span class="go">       tb2 </span>
+<span class="go"> WHERE tb1.id = tb2.id</span>
+<span class="go">   AND NOT MBRDISJOINT(tb1.geom1, geom)</span></code></pre></div>
+
 <p>See the difference? :)</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -188,9 +214,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

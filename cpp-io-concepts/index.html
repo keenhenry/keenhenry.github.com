@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,23 +86,36 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>Recently I have to deal with C++ I/O interface extensively in my job. However, I had not used it directly for a while, so I decided to review/relearn a bit so that I can use it fluently.</p>
+  <p>Recently I have to deal with C++ I/O interface extensively in my job. However, I had not used it directly for a while, so I decided to 
+review/relearn a bit so that I can use it fluently.</p>
 
-<p>At a first glimpse, I found it a bit confusing and complex, given the number of classes and their intertwined <a href='http://www.cplusplus.com/reference/iostream/'>inheritance relationships</a>. Then I picked up my old C++ textbook and went through the underlining design concepts of I/O Stream library. Suddenly, things became clear and intuitive.</p>
+<p>At a first glimpse, I found it a bit confusing and complex, given the number of classes and their intertwined 
+<a href="http://www.cplusplus.com/reference/iostream/">inheritance relationships</a>. Then I picked up my old C++ textbook and went through the 
+underlining design concepts of I/O Stream library. Suddenly, things became clear and intuitive.</p>
 
 <p>Here I am going to outline what I had understood:</p>
 
 <ul>
-<li>The most fundamental concept is <em>stream</em>. Stream is a flow of characters or bytes, which means they have to <em>flow in</em> from one end, and <em>flow out</em> from the other end. The real question remained is what to connect to each end and how.</li>
-
-<li>For example, <code>cin</code> object is a predefined stream objec in STL I/O interface. The &#8216;input&#8217; end is connected to <code>stdin</code>, which is (usually) keyboard, the &#8216;output&#8217; end could be connected to different kinds of data structures in user program, like a <code>char array</code> or a <code>string</code> object and so on. Another example is <code>ifstream</code> object. The input end connects to an open file, output ends again could connect to various data structures in user program. And the bytes stream flow from the open file through <code>ifstream</code> object and then directed to some data structure predefined in user program.</li>
-
-<li>There are many ways or combinations to connect two ends of a stream, that is why we have many predefined <code>stream</code> classes in C++ STL I/O interface. Each I/O class represents one distinct stream concept, and some classes share certain features or components together. Class hierachy can be seen from <a href='http://www-h.eng.cam.ac.uk/help/tpl/languages/C++/io.html'>here</a>).</li>
-
-<li>Another important concept is buffer. Buffer makes I/O operations more efficient because it reduces frequencies of disk accessing. Every C++ stream class manages a buffer internally, which makes programmers&#8217; life easier when dealing with I/O. There is a <strong>base buffer class</strong> for the buffer used internally by c++ stream classes: <code>streambuf</code>. It is an abstract class which cannot be instantiated directly. However, it has two concrete derived classes - <code>filebuf</code> and <code>stringbuf</code>, which are actually used. Normally, a programmer does not need to create a buffer object to deal with I/O stuff since C++ stream classes already take care of that internally.</li>
+  <li>The most fundamental concept is <em>stream</em>. Stream is a flow of characters or bytes, which means they have to <em>flow in</em> from one end, and 
+<em>flow out</em> from the other end. The real question remained is what to connect to each end and how.</li>
+  <li>For example, <code>cin</code> object is a predefined stream objec in STL I/O interface. The ‘input’ end is connected to <code>stdin</code>, which is (usually) 
+keyboard, the ‘output’ end could be connected to different kinds of data structures in user program, like a <code>char array</code> or a <code>string</code> object 
+and so on. Another example is <code>ifstream</code> object. The input end connects to an open file, output ends again could connect to various data 
+structures in user program. And the bytes stream flow from the open file through <code>ifstream</code> object and then directed to some data structure 
+predefined in user program.</li>
+  <li>There are many ways or combinations to connect two ends of a stream, that is why we have many predefined <code>stream</code> classes in C++ STL I/O interface.
+Each I/O class represents one distinct stream concept, and some classes share certain features or components together. Class hierachy can be 
+seen from <a href="http://www-h.eng.cam.ac.uk/help/tpl/languages/C++/io.html">here</a>).</li>
+  <li>Another important concept is buffer. Buffer makes I/O operations more efficient because it reduces frequencies of disk accessing. Every C++ 
+stream class manages a buffer internally, which makes programmers’ life easier when dealing with I/O. There is a <strong>base buffer class</strong> for the buffer 
+used internally by c++ stream classes: <code>streambuf</code>. It is an abstract class which cannot be instantiated directly. However, it has 
+two concrete derived classes - <code>filebuf</code> and <code>stringbuf</code>, which are actually used. Normally, a programmer does not need to create a buffer object 
+to deal with I/O stuff since C++ stream classes already take care of that internally.</li>
 </ul>
 
-<p>To conclude, to use C++ I/O interface, a programmer usually does not need to create a memory buffer himself/herself, just create the most appropriate stream class object and connect the object&#8217;s input and output end accordingly.</p>
+<p>To conclude, to use C++ I/O interface, a programmer usually does not need to create a memory buffer himself/herself, just create the most 
+appropriate stream class object and connect the object’s input and output end accordingly.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -137,9 +151,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 

@@ -62,9 +62,10 @@
           </ul>
 
           <ul>
-            <li><a href="/blog.html">Blog</a></li>
+            <li><a href="/about.html">About</a></li>
             <li><a href="/readings.html">Worth A Read</a></li>
             <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
             <li><a href="http://github.com/keenhenry">Github</a></li>
             <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
           </ul>
@@ -85,33 +86,32 @@
 </div>
 
 <article class="ten columns offset-by-four">
-  <p>To improve OpenGL&#8217;s performance to draw things, it is often considered faster to render ONE long triangle strip than to render thousands of small strips.</p>
+  <p>To improve OpenGL’s performance to draw things, it is often considered faster to render 
+ONE long triangle strip than to render thousands of small strips.</p>
 
 <p>Why? You can probably find some answers from the following links:</p>
 
 <ul>
-<li><a href='http://www.glprogramming.com/blue/ch01.html'>Chap 1 of OpenGL Blue Book</a></li>
-
-<li><a href='http://en.wikipedia.org/wiki/OpenGL'>OpenGL Wikipedia</a></li>
+  <li><a href="http://www.glprogramming.com/blue/ch01.html">Chap 1 of OpenGL Blue Book</a></li>
+  <li><a href="http://en.wikipedia.org/wiki/OpenGL">OpenGL Wikipedia</a></li>
 </ul>
 
 <p>But then, the question becomes: how to combine several triangle strips into one strip?</p>
 
-<p>It is actually quite easy to achieve that; the idea is to use degenerated triangles to connect all the strips together. To create degenerated triangles, what you can typically do is creating some &#8216;fake vertices&#8217; in between strips:</p>
+<p>It is actually quite easy to achieve that; the idea is to use degenerated triangles to 
+connect all the strips together. To create degenerated triangles, what you can typically 
+do is creating some ‘fake vertices’ in between strips:</p>
 
 <ul>
-<li>1st strip</li>
-
-<li>repeat last vertex of 1st strip</li>
-
-<li>repeat first vertex of 2nd strip</li>
-
-<li>2nd strip</li>
-
-<li>etcetera &#8230;</li>
+  <li>1st strip</li>
+  <li>repeat last vertex of 1st strip</li>
+  <li>repeat first vertex of 2nd strip</li>
+  <li>2nd strip</li>
+  <li>etcetera …</li>
 </ul>
 
-<p>Try search &#8216;degenerate triangles&#8217; on Google.</p>
+<p>Try search ‘degenerate triangles’ on Google.</p>
+
 
   <footer>
   <ul class="tag_list">
@@ -149,9 +149,6 @@
   <!-- JS
   ================================================== -->
   <script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-  <script src="javascripts/tabs.js"></script>
-  <script type="text/javascript" src="http://twitter.com/javascripts/blogger.js"></script>
-  <script type="text/javascript" src="http://twitter.com/statuses/user_timeline/keenhenry.json?callback=twitterCallback2&count=6"></script>
   <!-- Grab Google CDN's jQuery. fall back to local if necessary -->
   <!-- <script>!window.jQuery && document.write(unescape('%3Cscript src="/static/js/jquery-1.6.4.min.js"%3E%3C/script%3E'))</script> -->
 
