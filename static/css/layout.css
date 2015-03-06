@@ -145,6 +145,20 @@ article li li li {
 
 /*** Customized styles for homepage ***/ 
 
+#bio {
+    text-align: justify;
+}
+
+/* .projects { */
+/*     padding         : 0px; */
+/*     font-family     : Consolas,Monaco,Lucida Console,Liberation Mon; */
+/*     font-size       : inherit; */
+/*     /* color: inherit; */ */
+/*     white-space     : pre-wrap; */
+/*     background-color: #E8E8E8; */
+/*     border-radius   : 5px; */
+/* } */
+
 #map_div {
     margin-top: 10px; 
 }
