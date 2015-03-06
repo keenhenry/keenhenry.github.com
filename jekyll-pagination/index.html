@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="/static/css/default.css" /> -->
+  <!-- <link rel="stylesheet" type="text/css" href="/static/css/home.css" /> -->
+  
+	<!-- Favicons
+	================================================== -->
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Jekyll Pagination</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  06 Mar 2015
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Jekyll Pagination" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>I have recently migrated this site to use a much newer (2.5.3) Jekyll blog generation engine. The trigger was I wanted to seperate long list
+of posts into several pages (or <a href="http://jekyllrb.com/docs/pagination/">pagination</a>) to make my blog look neater, and I found the Jekyll
+I used was so old (0.11.xx) that does not support pagination very well.</p>
+
+<p>Thankfully, after migrating to new Jekyll and with helpful documentations found <a href="http://jekyllrb.com/docs/pagination/">here</a> and 
+<a href="http://jekyllrb.com/docs/installation/">there</a>, everything works out of the box again! Hooray! Basically, if Jekyll is configured 
+correctly, <a href="http://liquidmarkup.org/">Liquid</a> template engine will be able to see <code>paginator</code> object and its attributes, meaning
+they should be ready to be used in those ‘templated’ html pages.</p>
+
+<p>One thing worth mentioning is, Jekyll now depends on <a href="https://nodejs.org/">NodeJS</a> to run server locally; I didn’t prepare to start using
+NodeJS under this occasion, but now, I have a new toy to play with;).</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/note">note</a></li>
+    
+    <li><a href="/tag/web">web</a></li>
+    
+    <li><a href="/tag/jekyll">jekyll</a></li>
+    
+    <li><a href="/tag/web templates">web templates</a></li>
+    
+    <li><a href="/tag/liquid">liquid</a></li>
+    
+    <li><a href="/tag/nodejs">nodejs</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/personal-wiki" title="My Wiki">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
