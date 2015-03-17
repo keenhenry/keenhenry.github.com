@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Cross-Origin Resource Sharing</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  16 Mar 2015
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Cross-Origin Resource Sharing" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Why is cross-origin resource sharing important? That means you can build your web services based on somebody else’s services and 
+contents, instead of rolling out everything on your own. When combined with AJAX, the synergy opens up a more convenient and interactive
+way for web services to communicate with each other. However, AJAX is confined by a wall called <a href="http://mzl.la/1iIrEqT">Same Origin Policy</a> 
+because the underlining <strong>XMLHttpRequest</strong> object is required to follow. Luckily, there are ways to get around it; here I noted down two 
+approaches, <strong>CORS</strong> and <strong>JSONP</strong>:</p>
+
+<p><a href="http://en.wikipedia.org/wiki/Cross-origin_resource_sharing">CORS</a> is a mechanism/protocol to allow resources being shared/requested
+from another domain outside the domain from which the resource originated.</p>
+
+<p>The idea of CORS is pretty simple: if CORS is enabled on the server-side, the response sent by the server will contain some HTTP headers
+like, <strong><code>Access-Control-Allow-Origin</code></strong>, and then it is generally the browser’s responsibility to support the headers and respect the 
+restrictions they impose. Wonder which browers support CORS? Check out <a href="http://caniuse.com/#feat=cors">Can I use CORS</a>. Basically many
+modern browsers already support CORS.</p>
+
+<p>Since CORS is only enabled on the server-side, if you are only a client sending the requests to the server, you can’t do much to make
+CORS works except making sure your brower is modern enough to respect CORS protocol. In other words, for APIs or servers that support
+CORS, you can just use it; for those that do not, you will need to do it in other ways, for example, <a href="http://bit.ly/1BNp7Kc">JSONP</a>.</p>
+
+<p>JSONP takes the advantage that Same-Origin Policy is not imposed on <code>&lt;script&gt;</code> tags. When a server is ‘JSONP enabled’, it will take 
+a callback function you pass in as a parameter in the request, and return the data wrapped with that callback function as a response
+and injected as a script into your page. In other words, it is basically a <em>cross-domain javascript injection</em>. To better understand it,
+here is a <a href="http://bit.ly/1oHORz4">demo</a> and <a href="http://stackoverflow.com/questions/2067472/what-is-jsonp-all-about">examples</a>. To use JSONP,
+the server or API needs to enable that feature for it to work. You need to read API’s documentation to know if JSONP is supported.</p>
+
+<p>Some real world examples: <a href="http://developer.nytimes.com/docs/read/article_search_api_v2">New York Times Article Search API v2</a> supports CORS 
+(you will realize that once you check the HTTP response headers returned by the API service); and <a href="http://bit.ly/1EtSqkI">Wikipedia API</a> supports 
+JSONP.</p>
+
+<p>From my point of view, CORS is a much ‘proper’,structural solution but it is newer so the backward compatibility is not that good. JSONP 
+is more like a hack and has more security concerns but it is supported even by older browers.</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/note">note</a></li>
+    
+    <li><a href="/tag/protocol">protocol</a></li>
+    
+    <li><a href="/tag/http">http</a></li>
+    
+    <li><a href="/tag/web">web</a></li>
+    
+    <li><a href="/tag/cors">cors</a></li>
+    
+    <li><a href="/tag/ajax">ajax</a></li>
+    
+    <li><a href="/tag/jsonp">jsonp</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/jekyll-pagination" title="Jekyll Pagination">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
