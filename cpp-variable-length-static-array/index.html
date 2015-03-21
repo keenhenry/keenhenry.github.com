@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Variable-Length Array</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  19 Mar 2015
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Variable-Length Array" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Recently, I have discovered a hidden bug in a computer program, which caused the program to crash under certain circumstances.
+The code looks like the following:</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Tools</span><span class="o">::</span><span class="n">blobToString</span><span class="p">(</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span>        <span class="n">out_string</span><span class="p">,</span>
+        <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in_blob</span><span class="p">,</span>
+        <span class="k">const</span> <span class="kt">int</span>           <span class="n">in_size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="kt">char</span> <span class="n">tmpBlob</span><span class="p">[</span><span class="n">in_size</span><span class="p">];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">in_size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">tmpBlob</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="kt">char</span><span class="p">)</span><span class="n">in_blob</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+    <span class="p">}</span>
+
+    <span class="n">out_string</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="n">tmpBlob</span><span class="p">,</span> <span class="n">in_size</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>The program crashed when <code>tmpBlob</code> is being written inside the for-loop. But why?</p>
+
+<p>Maybe a bit more background information first: the function is used to copy an image blob into a 
+C++ string which will be used later in the program; the size of the image is passed in as 
+<code>in_size</code> parameter.</p>
+
+<p>When I debugged the program, I found the image that caused the crash has <code>in_size</code> around <strong>70MB</strong> and <code>in_blob</code>
+was filled and not empty. I suspected the large image size could be the root cause but I wasn’t sure. Then I found 
+the memory for <code>tmpBlob</code> was not allocated at the moment the program crashed, since the memory of that array
+was not accessible in the debugger. So … ah-ha!!!!! There it is!</p>
+
+<p><code>tmpBlob</code> is a <strong>statically</strong> allocated variable-length character array, which means it is usually allocated on statck. 
+If the array length is too long (or the available remaining space on stack is not enough), which was my case, 
+then <a href="http://en.wikipedia.org/wiki/Stack_overflow"><strong>stack overflow</strong></a> will occur and allocation will fail.
+And no, not the <a href="http://stackoverflow.com/">stackoverflow website</a>.</p>
+
+<p>But wait, how do you know for sure the array is bigger than your stack? how big is your stack? Try <code>ulimit</code>:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">ulimit</span> -a
+core file size          <span class="o">(</span>blocks, -c<span class="o">)</span> 0
+data seg size           <span class="o">(</span>kbytes, -d<span class="o">)</span> unlimited
+scheduling priority             <span class="o">(</span>-e<span class="o">)</span> 0
+file size               <span class="o">(</span>blocks, -f<span class="o">)</span> unlimited
+pending signals                 <span class="o">(</span>-i<span class="o">)</span> 63086
+max locked memory       <span class="o">(</span>kbytes, -l<span class="o">)</span> 64
+max memory size         <span class="o">(</span>kbytes, -m<span class="o">)</span> unlimited
+open files                      <span class="o">(</span>-n<span class="o">)</span> 1024
+pipe size            <span class="o">(</span><span class="m">512</span> bytes, -p<span class="o">)</span> 8
+POSIX message queues     <span class="o">(</span>bytes, -q<span class="o">)</span> 819200
+real-time priority              <span class="o">(</span>-r<span class="o">)</span> 0
+stack size              <span class="o">(</span>kbytes, -s<span class="o">)</span> 8192
+cpu <span class="nb">time</span>               <span class="o">(</span>seconds, -t<span class="o">)</span> unlimited
+max user processes              <span class="o">(</span>-u<span class="o">)</span> 63086
+virtual memory          <span class="o">(</span>kbytes, -v<span class="o">)</span> unlimited
+file locks                      <span class="o">(</span>-x<span class="o">)</span> unlimited</code></pre></div>
+
+<p>Looks like normal stack size is only a few mega bytes. Therefore, 70MB is no doubt way to big. So, the array space was 
+not created, but the program still tried to write data to a non-existing memory space, segfault occured, mystery solved.</p>
+
+<p>This type of error is one of the ‘NO-NOs’ your teacher taught you to avoid at school, but yet it happens in real-life, 
+production code (how embarrassed). The rule of thumb is, you shouldn’t allocate variable-length array on stack 
+if the size cannot be determined at compile-time; in such cases, you should allocate memory (using <code>malloc</code>) on heap. 
+Stack is better-suited for fixed-size data structures.</p>
+
+<p>However, we can also imagine in a reasonable-sized software, the need for dynamic memory allocation is quite large. And if
+we keep using <code>malloc</code> all over the place, the code will look like spaghetti and causes memory fragmentation, which might
+drag down your software performance; in other words, this is not an efficient way to manage your memory <em>EITHER</em>. The more 
+structural solution is to implement a <a href="http://en.wikipedia.org/wiki/Memory_pool">memory pool</a>.</p>
+
+<p><strong>ADDENDUM</strong></p>
+
+<p>My colleauge provided an alternative solution to the code above, which prevents copying twice (and creating allocation issues):</p>
+
+<div class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span class="kt">void</span> <span class="n">Tools</span><span class="o">::</span><span class="n">blobToString</span><span class="p">(</span>
+        <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span>        <span class="n">out_string</span><span class="p">,</span>
+        <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">char</span> <span class="o">*</span><span class="n">in_blob</span><span class="p">,</span>
+        <span class="k">const</span> <span class="kt">unsigned</span> <span class="kt">int</span>  <span class="n">in_size</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">out_string</span><span class="p">.</span><span class="n">assign</span><span class="p">(</span><span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">::</span><span class="n">value_type</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">in_blob</span><span class="p">),</span> <span class="n">in_size</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
+
+<p>Much better and simpler isn’t it? But why C++ has to make things so complicated in the first place so that the first person who
+wrote the original code didn’t figure out?</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/c++">c++</a></li>
+    
+    <li><a href="/tag/c">c</a></li>
+    
+    <li><a href="/tag/memory management">memory management</a></li>
+    
+    <li><a href="/tag/segfault">segfault</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/cors" title="Cross-Origin Resource Sharing">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
