@@ -72,66 +72,48 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Vim Tips</h1>
+<h1>Is Python Pass-By-Value Or Pass-By-Reference?</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  25 Dec 2020
+  21 Mar 2015
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Vim Tips" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Is Python Pass-By-Value Or Pass-By-Reference?" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href="http://rayninfo.co.uk/vimtips.html">This page</a> is indeed a great source of inspirations for 
-useful vim tips; please do visit this page often.</p>
+  <p>The short answer is <em>NEITHER</em>. The complete answer is:</p>
 
-<p>Here is my own curated vim tips:</p>
+<blockquote>
+  <p>Everything in Python is an object, and object references are passed by value.
+Some people call it pass by object reference.</p>
+</blockquote>
 
-<p><strong>Inserting Command Output Into Currently Editting File</strong></p>
+<p>What matters is what you can do with the object references passed to a function. There are two cases
+here: <strong>mutable object</strong> and <strong>immutable object</strong>.</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; inserts text from a specified file into the current buffer</span>
-<span class="p">:</span><span class="k">r</span> textfile
+<p>For mutable objects like lists, you can use the object reference to <em>read</em> the original object, to modify 
+the contents of the original object, or to rebind the object reference to another object created inside the 
+function; after rebound to another object, whatever you do with the object reference will not affect the
+original object, since the reference is now refering to the new object created inside the function.</p>
 
-<span class="c">&quot; read in sorted order of file names</span>
-<span class="p">:</span><span class="k">r</span> <span class="p">!</span> <span class="k">ls</span> <span class="m">-1</span> <span class="sr">/home/</span>user/<span class="nb">directory</span> <span class="p">|</span> <span class="k">sort</span> <span class="p">-</span><span class="k">r</span></code></pre></div>
+<p>For immutable objects like strings, you can almost do the same: use the object reference to <em>read</em> the 
+original object and rebind the reference to another object, but <strong>NOT modifying</strong> the original object; 
+this is not possible because it is immutable!</p>
 
-<p><strong>Execute External Commands Without Quiting Vim</strong></p>
+<p>Variables in Python are just names or tags to objects, they are not the same as objects themselves. Check
+out <a href="http://foobarnbaz.com/2012/07/08/understanding-python-variables/">python memory management</a> to find
+out what that means! You might find it a smart way to manage memory!</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; execute an NON-INTERACITVE command by Bang (!)</span>
-<span class="c">&quot; below: count the number of words for current editing file (%)</span>
-<span class="p">:!</span> <span class="nb">wc</span> %
+<p><strong>FURTHER READINGS</strong></p>
 
-<span class="c">&quot; execute INTERACTIVE commands by dropping to interactive </span>
-<span class="c">&quot; shell; you can always go back to vim by &#39;CTRL-D&#39; or &#39;exit&#39;</span>
-<span class="p">:</span><span class="k">sh</span></code></pre></div>
-
-<p><strong>Line Completion</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Line complete SUPER USEFUL</span>
-<span class="p">&lt;</span>C<span class="p">-</span><span class="k">X</span><span class="p">&gt;&lt;</span>C<span class="p">-</span>L<span class="p">&gt;</span></code></pre></div>
-
-<p><strong>Search Words Completion</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Pull &lt;cword&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span>
-
-<span class="c">&quot; Pull &lt;CWORD&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>A<span class="p">&gt;</span></code></pre></div>
-
-<p><strong>Window Size Adjustment</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Adjust height of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;+|-&gt;</span>
-
-<span class="c">&quot; Adjust width of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>lessthan<span class="p">(&lt;)|</span>greaterthan<span class="p">(&gt;)&gt;</span></code></pre></div>
-
-<p><strong>Jump Among Functions By Function Browsers</strong></p>
-
-<p>By using Taglist plugin? Or some other better tools/plugins?</p>
+<ul>
+  <li>For more detailed explanation, check out this <a href="http://bit.ly/1LGovwr">post</a></li>
+  <li><a href="http://stackoverflow.com/questions/986006/how-do-i-pass-a-variable-by-reference">explanation on stackoverflow</a></li>
+</ul>
 
 
   <footer>
@@ -140,9 +122,15 @@ useful vim tips; please do visit this page often.</p>
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/vim">vim</a></li>
+    <li><a href="/tag/programming">programming</a></li>
     
-    <li><a href="/tag/vimscript">vimscript</a></li>
+    <li><a href="/tag/python">python</a></li>
+    
+    <li><a href="/tag/memory model">memory model</a></li>
+    
+    <li><a href="/tag/memory management">memory management</a></li>
+    
+    <li><a href="/tag/memory">memory</a></li>
     
   </ul>
 
@@ -153,8 +141,10 @@ useful vim tips; please do visit this page often.</p>
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/python-pass-by-value-reference" title="Is Python Pass-By-Value Or Pass-By-Reference?">&larr; Older</a> -->
+<!--     <a id="left" href="/cpp-variable-length-static-array" title="Variable-Length Array">&larr; Older</a> -->
 <!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
