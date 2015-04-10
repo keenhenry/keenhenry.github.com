@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Equal Element Array Transformation Problem</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  10 Apr 2015
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Equal Element Array Transformation Problem" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Consider this problem:</p>
+
+<pre><code>There is an array consisting of N elements, all the elements 
+are integer numbers (can be positive, zero or negative).
+
+A transformation step is to be applied to the array, 
+which is as follows:
+
+Each element HAS to be incremented or decremented by 1 in a 
+single step; Please find the minimum number of steps (MNOS)
+required to transform the original array into an array with 
+all equal elements. If such array cannot be found, then return 
+-1.
+
+For example:
+
+[11, 3, 7, 1] (initial array)
+[10, 4, 6, 2] (after step 1)
+[9,  5, 7, 3] (after step 2)
+[8,  6, 6, 4] (after step 3)
+[7,  7, 5, 5] (after step 4)
+[6,  6, 6, 6] (after step 5)
+
+The required time complexity is O(N) and space complexity is O(1)
+</code></pre>
+
+<p>Not a difficult problem to tackle. Obviously, a minimum number of steps exists if a <strong>middle number</strong> can be found for 
+every element in the array to converges to. A middle number is an integer that is the mean of the largest and the smallest 
+numbers in the sequence (If the mean is not a whole number, then the sequence will not converge! Think about why?!).</p>
+
+<p>Such middle number is chosen because the minimum number of steps (MNOS) is then capped by the distance between the middle 
+number and the largest or smallest number in the sequence, in fact, the distance is the smallest since the middle number is 
+the mean. In other words, this choice guarantees a candidate number which the sequence <em>might</em> converges to in <strong>the least 
+necessary steps</strong>. However, it still does not guarantee convergence.</p>
+
+<p>To confirm if the sequence converges to the middle number, the <strong>difference</strong> between the distance of each element 
+and the distance of the largest or smallest element to the middle number has to be an even number.</p>
+
+<p>The difference represents the <strong>extra</strong> MNOS for an element to reach the middle number <strong>BEFORE</strong> the largest (or smallest) 
+element does. All elements except the largest (or smallest) reach the middle number sooner than the largest (or smallest) 
+element since their distance(s) to the middle number are always shorter. Once they reach the middle number, they start to 
+<em>oscillate</em> around the middle number. No matter how they oscillate, they need <em>half</em> of the extra steps to oscillate AWAY
+from the middle number, and the other half to return back; that’s why the extra MNOS has to be even, if not, then the element
+does not converge to middle number, and therefore the sequence does not converge.</p>
+
+<p>If all the extra MNOS are even, then the entire sequence <em>synchronizes</em> to reach the middle number at the same time - when the 
+largest (or smallest) element reaches the middle number.</p>
+
+<p>Enough explanation, let’s see how it is implemented.</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">minmax</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given an integer array A, return the min and max values </span>
+<span class="sd">    in the sequence =&gt; O(N)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+     
+    <span class="n">lo</span> <span class="o">=</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+     
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">A</span><span class="p">)):</span>
+     
+        <span class="k">if</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">hi</span><span class="p">:</span>
+            <span class="n">hi</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">elif</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">lo</span><span class="p">:</span>
+            <span class="n">lo</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+     
+    <span class="k">return</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span>
+
+ 
+<span class="k">def</span> <span class="nf">middle_and_mnos</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Given an integer array A, return the middle number and </span>
+<span class="sd">    the distance to the middle number =&gt; O(N)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+ 
+    <span class="n">l</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">minmax</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+     
+    <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="n">h</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">h</span> <span class="o">-</span> <span class="n">m</span>
+     
+    <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">d</span>
+ 
+
+<span class="k">def</span> <span class="nf">converges</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">max_dis</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Test if list A converges to the middle number =&gt; O(N)</span>
+
+<span class="sd">    If convergence succeeds, return the max distance/MNOS </span>
+<span class="sd">    to convergence! Otherwise return -1</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+ 
+    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">A</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">max_dis</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e</span><span class="o">-</span><span class="n">m</span><span class="p">))</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+     
+    <span class="k">return</span> <span class="n">max_dis</span>
+
+ 
+<span class="k">def</span> <span class="nf">find_minsteps</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+ 
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">A</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+     
+    <span class="k">return</span> <span class="n">converges</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="o">*</span><span class="n">middle_and_mnos</span><span class="p">(</span><span class="n">A</span><span class="p">))</span></code></pre></div>
+
+<p>The worse case running time for the above implementation is O(2N), since it has to search the array
+twice to give a final answer, but the space complexity is indeed O(1). To see a implementation which 
+also demonstrates the steps of transformation, please refer to this <a href="https://gist.github.com/keenhenry/8dd56ccfc7d5e61fd719">gist post</a>.</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/algorithms">algorithms</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/python-pass-by-value-reference" title="Is Python Pass-By-Value Or Pass-By-Reference?">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
