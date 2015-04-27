@@ -167,6 +167,10 @@ structural solution is to implement a <a href="http://en.wikipedia.org/wiki/Memo
 <p>Much better and simpler isn’t it? But why C++ has to make things so complicated in the first place so that the first person who
 wrote the original code didn’t figure out?</p>
 
+<p>Also, the rule of thumb is to never use a C array in C++. Use <code>vector</code> instead if you know the size in advance (which is the case
+in the example shown above - a known fixed length at run time), and <code>vector</code> is always allocated on stack which also solves our
+problem mentioned in this post.</p>
+
 
   <footer>
   <ul class="tag_list">
