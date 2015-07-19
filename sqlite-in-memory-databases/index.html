@@ -72,66 +72,56 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Vim Tips</h1>
+<h1>SQLite In-Memory Databases</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  25 Dec 2020
+  19 Jul 2015
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Vim Tips" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="SQLite In-Memory Databases" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href="http://rayninfo.co.uk/vimtips.html">This page</a> is indeed a great source of inspirations for 
-useful vim tips; please do visit this page often.</p>
+  <p>There are 3 ways of creating in-memory databases in SQLite:</p>
 
-<p>Here is my own curated vim tips:</p>
+<p>Use <code>:memory:</code> filename to create distinct in-memory database. Every <code>:memory:</code> database is distinct from every other. For example:</p>
 
-<p><strong>Inserting Command Output Into Currently Editting File</strong></p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">rc</span> <span class="o">=</span> <span class="n">sqlite3_open</span><span class="p">(</span><span class="s">&quot;:memory:&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">db</span><span class="p">);</span>
+<span class="c1">// or,</span>
+<span class="n">rc</span> <span class="o">=</span> <span class="n">sqlite3_open</span><span class="p">(</span><span class="s">&quot;file::memory:&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">db</span><span class="p">);</span></code></pre></div>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; inserts text from a specified file into the current buffer</span>
-<span class="p">:</span><span class="k">r</span> textfile
+<p>Or,</p>
 
-<span class="c">&quot; read in sorted order of file names</span>
-<span class="p">:</span><span class="k">r</span> <span class="p">!</span> <span class="k">ls</span> <span class="m">-1</span> <span class="sr">/home/</span>user/<span class="nb">directory</span> <span class="p">|</span> <span class="k">sort</span> <span class="p">-</span><span class="k">r</span></code></pre></div>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">ATTACH</span> <span class="k">DATABASE</span> <span class="s1">&#39;:memory:&#39;</span> <span class="k">AS</span> <span class="n">aux1</span><span class="p">;</span>
+<span class="o">//</span> <span class="k">or</span><span class="p">,</span>
+<span class="n">ATTACH</span> <span class="k">DATABASE</span> <span class="s1">&#39;file::memory:&#39;</span> <span class="k">AS</span> <span class="n">aux1</span><span class="p">;</span></code></pre></div>
 
-<p><strong>Execute External Commands Without Quiting Vim</strong></p>
+<p>The same in-memory database can be shared/opened by two or more connections as follows:</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; execute an NON-INTERACITVE command by Bang (!)</span>
-<span class="c">&quot; below: count the number of words for current editing file (%)</span>
-<span class="p">:!</span> <span class="nb">wc</span> %
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">rc</span> <span class="o">=</span> <span class="n">sqlite3_open</span><span class="p">(</span><span class="s">&quot;file::memory:?cache=shared&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">db</span><span class="p">);</span></code></pre></div>
 
-<span class="c">&quot; execute INTERACTIVE commands by dropping to interactive </span>
-<span class="c">&quot; shell; you can always go back to vim by &#39;CTRL-D&#39; or &#39;exit&#39;</span>
-<span class="p">:</span><span class="k">sh</span></code></pre></div>
+<p>Or,</p>
 
-<p><strong>Line Completion</strong></p>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">ATTACH</span> <span class="k">DATABASE</span> <span class="s1">&#39;file::memory:?cache=shared&#39;</span> <span class="k">AS</span> <span class="n">aux1</span><span class="p">;</span></code></pre></div>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Line complete SUPER USEFUL</span>
-<span class="p">&lt;</span>C<span class="p">-</span><span class="k">X</span><span class="p">&gt;&lt;</span>C<span class="p">-</span>L<span class="p">&gt;</span></code></pre></div>
+<p>Create two or more distinct but still shareable in-memory databases by using <strong>named in-memory database</strong>:</p>
 
-<p><strong>Search Words Completion</strong></p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="n">rc</span> <span class="o">=</span> <span class="n">sqlite3_open</span><span class="p">(</span><span class="s">&quot;file:memdb1?mode=memory&amp;cache=shared&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">db</span><span class="p">);</span></code></pre></div>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Pull &lt;cword&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span>
+<p>Or,</p>
 
-<span class="c">&quot; Pull &lt;CWORD&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>A<span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre><code class="language-sql" data-lang="sql"><span class="n">ATTACH</span> <span class="k">DATABASE</span> <span class="s1">&#39;file:memdb1?mode=memory&amp;cache=shared&#39;</span> <span class="k">AS</span> <span class="n">aux1</span><span class="p">;</span></code></pre></div>
 
-<p><strong>Window Size Adjustment</strong></p>
+<p>When an in-memory database is named in this way, it will only share its cache with another connection that uses exactly the same name.</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Adjust height of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;+|-&gt;</span>
+<p><strong>REFERENCE</strong></p>
 
-<span class="c">&quot; Adjust width of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>lessthan<span class="p">(&lt;)|</span>greaterthan<span class="p">(&gt;)&gt;</span></code></pre></div>
-
-<p><strong>Jump Among Functions By Function Browsers</strong></p>
-
-<p>By using Taglist plugin? Or some other better tools/plugins?</p>
+<ul>
+  <li><a href="https://www.sqlite.org/inmemorydb.html">SQLite In-Memory Databases</a></li>
+</ul>
 
 
   <footer>
@@ -140,9 +130,9 @@ useful vim tips; please do visit this page often.</p>
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/vim">vim</a></li>
+    <li><a href="/tag/databases">databases</a></li>
     
-    <li><a href="/tag/vimscript">vimscript</a></li>
+    <li><a href="/tag/SQLite">SQLite</a></li>
     
   </ul>
 
@@ -153,8 +143,10 @@ useful vim tips; please do visit this page often.</p>
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/sqlite-in-memory-databases" title="SQLite In-Memory Databases">&larr; Older</a> -->
+<!--     <a id="left" href="/calloc-vs-malloc" title="Calloc v.s. Malloc">&larr; Older</a> -->
 <!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
