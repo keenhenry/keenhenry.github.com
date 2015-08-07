@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>How To Write Performant Software</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  31 Jul 2015
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="How To Write Performant Software" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>How do you design a program to run fast?</p>
+
+<p>The first question you need to ask is what kind of I/O this program will use? Networked I/O’s, database disk I/O’s
+or accessing data only in memory? In principle, you would want to minimize the number of networked and disk I/O’s as much
+as possible because this is usually the real bottleneck of a program’s performance. Once this is certain, your program
+will then structure in a way to minimize I/O operations, which also means half of the ‘design’ problem is already 
+solved.</p>
+
+<p>The second question, then, is to ask if your program has synchronozation and locking contention, that will also cause
+your program to halt. If you can avoid that, about one-fourth of the design problem is solved.</p>
+
+<p>The third question, then, is if the program has been overdesigned or having excessivg logging. Keep things simple and
+in clean structure.</p>
+
+<p>The fourth question, then, maybe comes later than expected, is to ask what data structures and algorithms to use to even 
+further minimize the tasks a program needs to do, given the condition that all the above quesitons has being addressed
+properly.</p>
+
+<p>After all the above, you then can start thinking about memory management, for example, avoid memory leaks or using memory
+pool to avoid page faults, or doining data caching when necessary etc.</p>
+
+<p>One thing worth mentioning is that, even though the data that a program accesses is solely in memory, it can still
+be further optimized (reducing memory access) by declaring your data structure in a way that many data can already
+be cached in L0/L1/L2 cache. This is called <a href="http://bit.ly/1IL0Xiu">Data-Oriented Programming</a>.</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/software engineering">software engineering</a></li>
+    
+    <li><a href="/tag/software design">software design</a></li>
+    
+    <li><a href="/tag/perfomance">perfomance</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/sqlite-in-memory-databases" title="SQLite In-Memory Databases">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
