@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Python Concurrency Demystified</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  16 Aug 2015
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Python Concurrency Demystified" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>For problems that are suitable for improving performance using multiple processes/threads, Python does provide some convenient
+interfaces (like <a href="https://docs.python.org/2.7/library/threading.html"><code>multithreading</code></a> and <a href="https://docs.python.org/2/library/multiprocessing.html"><code>multiprocessing</code></a>) 
+to handle them. However, the behavior of Python threads may not be what you have expected if you are new to Python and 
+have multithreading experience of languages like C/C++.</p>
+
+<p>The thing is, Python threads are not <em>real</em> OS threads; Python threads are <em>synchronized</em> by the infamous Global Interpreter 
+Lock (GIL), meaning that any python thread need to acquire GIL before it can execute the code, which also means at any moment
+only one thread can own the lock and hence actually running, even though threads are dispatched onto multiple CPU cores.</p>
+
+<p>This behavior of Python has significant implication: multithreaded Python programs don’t give you performance boost (especially in
+CPU-bound tasks), in fact, it could even give you worse performance than the same Python program in single-threaded version, because
+Python threads cannot be run concurrently, instead, they are serially run and interleaved, plus locking and context-switching adds
+even more overheads (locking and context-swtiching are expensive OS operations). To understand in details how GIL affects Python
+threads behavior, please read <a href="http://www.dabeaz.com/GIL/">David Beazley’s research results</a>, especially his <a href="http://www.dabeaz.com/python/UnderstandingGIL.pdf">presentation</a>.</p>
+
+<p>Having said that threading in Python is not helpful in improving program performance was not entirely fair. In <a href="http://ibm.co/1NbLLlO">some cases</a>,
+it does help. In such cases, threads can help reduce blocking I/O waiting time by initiating each I/O operation almost immediately 
+one after another and hence most of the I/O wating time for each thread is overlapped. In fact, that is usually how multi-threading in
+Python is used - doing I/O bound tasks.</p>
+
+<p>To achieve real parallelism with Python, the salvation is using multiple processes. Each process has its own GIL and own memory,
+they are not shared between processes, therefore Python processes are totally unaffected by GIL and can be parallelized as expected.
+So if you want to parallelize CPU-bound tasks, using multi-processing is the natural and better way to go in Python. To cooridnate
+cooperations/communications among processes, it is recommended to use message passing instead of shared memory model, because it
+is easy to do wrong with shared memory. To pass messages among processes, a common pattern is to use a message queue, for which
+Python provides a <a href="https://docs.python.org/2/library/queue.html">Queue</a> module to do just that. Of course, you have other choices of
+message queues/brokers implementation like <a href="http://zeromq.org/">0mq</a>, <a href="http://python-rq.org/">RQ</a>, etc.</p>
+
+<p>Here are examples of using Python <code>multiprocessing</code> to process data:</p>
+
+<ol>
+  <li><a href="https://github.com/migrateup/thumper/blob/master/thumper.py">Thumper</a></li>
+  <li><a href="http://taotetek.net/2011/02/03/python-multiprocessing-zeromq-vs-queue/">0mq vs python Queue</a></li>
+  <li><a href="http://sebastianraschka.com/Articles/2014_multiprocessing_intro.html">Intro to Parallel Programming</a></li>
+</ol>
+
+<p>In conclusion, processes are more heavy-weight than threads, however it is a more general solution to Python concurrency - it can
+be used for both CPU-bound and I/O-bound tasks. This is NOT to justify not using multithreading techniques in Python,
+instead, you will need to study WHEN and HOW to use multithreading. Multi-processing on the other hand, is easier to use
+but has higher memory footprints. For large-scale distributed web applications, you will need to distribute tasks to different
+processes on different machines anyway, threads can only live within a process on one machine.</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/concurrency">concurrency</a></li>
+    
+    <li><a href="/tag/multithreading">multithreading</a></li>
+    
+    <li><a href="/tag/parallelization">parallelization</a></li>
+    
+    <li><a href="/tag/process">process</a></li>
+    
+    <li><a href="/tag/thread">thread</a></li>
+    
+    <li><a href="/tag/message passing">message passing</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/performance-optimization" title="How To Write Performant Software">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
