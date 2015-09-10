@@ -72,66 +72,45 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Vim Tips</h1>
+<h1>C++ Returning Reference To Local Variable</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  25 Dec 2020
+  30 Aug 2015
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Vim Tips" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="C++ Returning Reference To Local Variable" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href="http://rayninfo.co.uk/vimtips.html">This page</a> is indeed a great source of inspirations for 
-useful vim tips; please do visit this page often.</p>
+  <p>Functions are units that take several arguments as inputs and produce outputs. Outputs are values returned by functions.
+If values returned are primitive data types, the values are copied and assigned to a variable that holds the returned
+value. If values are objects, then a copy constructor is used to copy the content of the object being returned to a newly
+created object.</p>
 
-<p>Here is my own curated vim tips:</p>
+<p>If the object being returned is a complex, big object, then the copying operation is expensive, and if the function returning
+such object is called very frequently, then very likely the program will slow down noticeably.</p>
 
-<p><strong>Inserting Command Output Into Currently Editting File</strong></p>
+<p>Thankfully, most of the compilers nowadays implements some form of <a href="https://en.wikipedia.org/wiki/Return_value_optimization">Return Value Optimization</a>
+, therefore copying operation does not happen while returning big objects. The idea behind RVO is actually quite simple: a
+<a href="http://bit.ly/1ODEZTw">value-result argument</a> is passed as a function argument and set in the function.</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; inserts text from a specified file into the current buffer</span>
-<span class="p">:</span><span class="k">r</span> textfile
+<p>If you don’t want to rely on compiler optimization, there is already an old idiom in C++ ready for this: <a href="http://herbsutter.com/2008/01/01/gotw-88-a-candidate-for-the-most-important-const/">binding a temporary 
+object to a <code>const</code> reference</a>. The
+life of local object created on the local stack of a function is extended until even after the function had returned! No copying
+is involved.</p>
 
-<span class="c">&quot; read in sorted order of file names</span>
-<span class="p">:</span><span class="k">r</span> <span class="p">!</span> <span class="k">ls</span> <span class="m">-1</span> <span class="sr">/home/</span>user/<span class="nb">directory</span> <span class="p">|</span> <span class="k">sort</span> <span class="p">-</span><span class="k">r</span></code></pre></div>
+<p>Another, newer approach to achieve the same thing in C++11 is by using <a href="http://en.cppreference.com/w/cpp/utility/move"><code>std::move</code></a>:
+A local object is <em>moved</em> to another scope. IMHO, this approach is more explicit and avoid the confusion that might arise when using 
+the const reference binding.</p>
 
-<p><strong>Execute External Commands Without Quiting Vim</strong></p>
+<p><strong>REFERENCE</strong></p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; execute an NON-INTERACITVE command by Bang (!)</span>
-<span class="c">&quot; below: count the number of words for current editing file (%)</span>
-<span class="p">:!</span> <span class="nb">wc</span> %
-
-<span class="c">&quot; execute INTERACTIVE commands by dropping to interactive </span>
-<span class="c">&quot; shell; you can always go back to vim by &#39;CTRL-D&#39; or &#39;exit&#39;</span>
-<span class="p">:</span><span class="k">sh</span></code></pre></div>
-
-<p><strong>Line Completion</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Line complete SUPER USEFUL</span>
-<span class="p">&lt;</span>C<span class="p">-</span><span class="k">X</span><span class="p">&gt;&lt;</span>C<span class="p">-</span>L<span class="p">&gt;</span></code></pre></div>
-
-<p><strong>Search Words Completion</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Pull &lt;cword&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span>
-
-<span class="c">&quot; Pull &lt;CWORD&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>A<span class="p">&gt;</span></code></pre></div>
-
-<p><strong>Window Size Adjustment</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Adjust height of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;+|-&gt;</span>
-
-<span class="c">&quot; Adjust width of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>lessthan<span class="p">(&lt;)|</span>greaterthan<span class="p">(&gt;)&gt;</span></code></pre></div>
-
-<p><strong>Jump Among Functions By Function Browsers</strong></p>
-
-<p>By using Taglist plugin? Or some other better tools/plugins?</p>
+<ul>
+  <li><a href="http://bit.ly/1i1wS8s">stackoverflow discussion about returning reference to local variable</a></li>
+</ul>
 
 
   <footer>
@@ -140,9 +119,15 @@ useful vim tips; please do visit this page often.</p>
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/vim">vim</a></li>
+    <li><a href="/tag/programming">programming</a></li>
     
-    <li><a href="/tag/vimscript">vimscript</a></li>
+    <li><a href="/tag/c++">c++</a></li>
+    
+    <li><a href="/tag/c++11">c++11</a></li>
+    
+    <li><a href="/tag/memory management">memory management</a></li>
+    
+    <li><a href="/tag/optimization">optimization</a></li>
     
   </ul>
 
@@ -153,8 +138,10 @@ useful vim tips; please do visit this page often.</p>
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/cpp-move-objects" title="C++ Returning Reference To Local Variable">&larr; Older</a> -->
+<!--     <a id="left" href="/python-concurrency-parallelization" title="Python Concurrency Demystified">&larr; Older</a> -->
 <!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
