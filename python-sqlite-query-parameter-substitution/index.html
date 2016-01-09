@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Python SQLite Query Parameter Substitution</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  28 Dec 2015
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Python SQLite Query Parameter Substitution" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Contructing queries on-the-fly is a common task in database applications. Some parts of a query just cannot be known in advance
+and have to calculated at run-time. That means your SQL queries/operations will need to use values from Python variables. One
+example would be <a href="http://bit.ly/1IzmPEr" title="stackoverflow discussion">parameter substitution</a>.</p>
+
+<p>Parameter substitution in Python is done by using <code>?</code> as a placeholder in a query whenever you want to use a value, then provide
+<strong>a tuple of values</strong> as the second argument to the cursor’s <a href="http://bit.ly/1OVzRsd"><code>execute()</code></a> method. This approach is suggested
+in the <a href="http://bit.ly/1JF2Tel" title="python sqlite3 documentation">Python sqlite3 documentation</a> to avoid <a href="http://www.w3schools.com/sql/sql_injection.asp" title="w3school SQL Injection Tutorial">SQL injection</a> which can occur more easily if using plain python string
+substitution (by using <code>%</code> operator). Here is an example from the python documentation:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># Never do this -- insecure!</span>
+<span class="n">symbol</span> <span class="o">=</span> <span class="s">&#39;RHAT&#39;</span>
+<span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;SELECT * FROM stocks WHERE symbol = &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span> <span class="n">symbol</span><span class="p">)</span>
+
+<span class="c"># Do this instead</span>
+<span class="n">t</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;RHAT&#39;</span><span class="p">,)</span>
+<span class="n">c</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&#39;SELECT * FROM stocks WHERE symbol=?&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+<span class="c"># Larger example that inserts many records at a time</span>
+<span class="n">purchases</span> <span class="o">=</span> <span class="p">[(</span><span class="s">&#39;2006-03-28&#39;</span><span class="p">,</span> <span class="s">&#39;BUY&#39;</span><span class="p">,</span> <span class="s">&#39;IBM&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mf">45.00</span><span class="p">),</span>
+             <span class="p">(</span><span class="s">&#39;2006-04-05&#39;</span><span class="p">,</span> <span class="s">&#39;BUY&#39;</span><span class="p">,</span> <span class="s">&#39;MSFT&#39;</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mf">72.00</span><span class="p">),</span>
+             <span class="p">(</span><span class="s">&#39;2006-04-06&#39;</span><span class="p">,</span> <span class="s">&#39;SELL&#39;</span><span class="p">,</span> <span class="s">&#39;IBM&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mf">53.00</span><span class="p">),</span>
+            <span class="p">]</span>
+<span class="n">c</span><span class="o">.</span><span class="n">executemany</span><span class="p">(</span><span class="s">&#39;INSERT INTO stocks VALUES (?,?,?,?,?)&#39;</span><span class="p">,</span> <span class="n">purchases</span><span class="p">)</span></code></pre></div>
+
+<p>If you don’t know how many <code>?</code> marks to put into a query in advance, what do you do? One approach is to put all the data you
+want the query to bind with into a sequence data structure and construct the query dynamically; here is an example of <a href="https://bitbucket.org/keenhenry/crawler/wiki/Home" title="crawler project">my own
+code</a>:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">ids_to_be_deleted</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c"># collect primary keys to be deleted</span>
+<span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;select id, location </span><span class="se">\</span>
+<span class="s">                          from inputs </span><span class="se">\</span>
+<span class="s">                         where fresh = 0;&quot;</span><span class="p">):</span>
+    <span class="n">key</span><span class="p">,</span> <span class="n">path</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s">&#39;id&#39;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s">&#39;location&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+        <span class="n">ids_to_be_deleted</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="c"># delete obsolete records in all tables</span>
+<span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s">&quot;delete from inputs where id in (</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> \
+            <span class="s">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s">&#39;?&#39;</span><span class="o">*</span><span class="nb">len</span><span class="p">(</span><span class="n">ids_to_be_deleted</span><span class="p">)),</span>
+            <span class="n">ids_to_be_deleted</span><span class="p">)</span></code></pre></div>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/database">database</a></li>
+    
+    <li><a href="/tag/sql">sql</a></li>
+    
+    <li><a href="/tag/sql injection">sql injection</a></li>
+    
+    <li><a href="/tag/sqlite">sqlite</a></li>
+    
+    <li><a href="/tag/pysqlite">pysqlite</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/cartesian-products-of-lists" title="Python Cartesian Product of Lists">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
