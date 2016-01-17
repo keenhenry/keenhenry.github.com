@@ -76,7 +76,7 @@
 </header>
 
 <div class="five columns offset-by-four gray">
-  06 Jan 2013
+  26 Dec 2020
 </div>
 
 <div class='five columns' id='tweet'>
@@ -86,6 +86,88 @@
 
 <article class="ten columns offset-by-four">
   <p>Personal note to myself:</p>
+
+<ul>
+  <li>
+    <p>Search a history of a particular block of code: <a href="https://git-scm.com/docs/git-log"><code>git log -S&lt;string&gt;</code> or <code>git log -G&lt;regex&gt;</code></a>.</p>
+  </li>
+  <li>
+    <p>Search for patterns in the <strong>tracked files</strong> in a git repository: <a href="http://git-scm.com/docs/git-grep"><code>git-grep</code></a>.</p>
+  </li>
+</ul>
+
+<p>With <code>git grep</code> you can forget about the plain-old <code>grep</code>, provided that you’re in a git repository. <a href="http://bit.ly/208p8Td">Here</a>
+is some examples how to use <code>git grep</code>.</p>
+
+<ul>
+  <li><a href="http://bit.ly/1PYh6JZ">How to delete delete a commit in Git, local and remote</a>?</li>
+</ul>
+
+<p>Use <code>git rebase -i</code> to do interactive rebase - see <a href="https://git-scm.com/docs/git-rebase"><code>git help rebase</code></a>.
+Please not that this is rewriting history. After changing the local history, you want to publish to the remote
+repository. To do that, you need to force <a href="https://git-scm.com/docs/git-push"><code>git push</code></a> by:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git push --force-with-lease</code></pre></div>
+
+<ul>
+  <li>How to undo a commit locally? Using <code>git reset</code>:</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># first do a unwanted commit</span>
+<span class="nv">$ </span><span class="nb">echo</span> <span class="s2">&quot;added one line&quot;</span> &gt;&gt; README
+<span class="nv">$ </span>git commit -a -m <span class="s1">&#39;added one line to README file&#39;</span>
+
+<span class="c"># let&#39;s reset with --mixed option to previous commit</span>
+<span class="nv">$ </span>git reset HEAD^
+<span class="nv">$ </span>git status
+Changes not staged <span class="k">for</span> commit:
+  <span class="o">(</span>use <span class="s2">&quot;git add &lt;file&gt;...&quot;</span> to update what will be committed<span class="o">)</span>
+  <span class="o">(</span>use <span class="s2">&quot;git checkout -- &lt;file&gt;...&quot;</span> to discard changes in working directory<span class="o">)</span>
+
+	modified:   README
+
+no changes added to commit <span class="o">(</span>use <span class="s2">&quot;git add&quot;</span> and/or <span class="s2">&quot;git commit -a&quot;</span><span class="o">)</span>
+
+<span class="c"># what if we do reset --soft?</span>
+<span class="nv">$ </span>git reset --soft HEAD^
+<span class="nv">$ </span>git status
+On branch master
+Changes to be committed:
+  <span class="o">(</span>use <span class="s2">&quot;git reset HEAD &lt;file&gt;...&quot;</span> to unstage<span class="o">)</span>
+
+	modified:   README
+
+<span class="c"># how about reset --hard</span>
+<span class="nv">$ </span>git reset --hard HEAD^
+<span class="nv">$ </span>git status
+On branch master
+nothing to commit, working directory clean
+
+<span class="c"># the commit is gone in history! let&#39;s check with git log</span>
+<span class="nv">$ </span>git log --pretty<span class="o">=</span>oneline
+d63790eb7feabaf7bed6fc6b46759da109fcd901 first commit</code></pre></div>
+
+<p>Command <code>git reset</code> has three common options: <code>--soft</code>, <code>--mixed</code> and <code>--hard</code>. If you don’t specify
+any options, then the default is <code>--mixed</code>, which is the first case in the example given above. No matter
+what which mode you use, <code>git commit [&lt;mode&gt;] [&lt;commit&gt;]</code> always resets the current branch HEAD to
+<code>&lt;commit&gt;</code>. In addtion:</p>
+
+<ul>
+  <li>
+    <p><code>--soft</code> is the ‘gentlest’ of all three; it does not touch index nor working tree, only resets HEAD 
+to <code>&lt;commit&gt;</code> and leaves staged files as uncommited.</p>
+  </li>
+  <li>
+    <p><code>--mixed</code> clears the index, but not the working tree, that means changes are preserved but not in index
+yet (not staged).</p>
+  </li>
+  <li>
+    <p><code>--hard</code> clears both index and working tree, that means all your changes since <code>&lt;commit&gt;</code> are discarded.</p>
+  </li>
+</ul>
+
+<p>Pay attention that both <code>--mixed</code> and <code>--hard</code> are already changing/rewritting history. To learn more
+<code>git help reset</code> is really your friend.</p>
 
 <ul>
   <li>Creating tags (annotated tags not lightweight tags): tag specific points in history as
@@ -205,10 +287,8 @@ origin  git@github.com:user/repo.git <span class="o">(</span>push<span class="o"
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/geometry-ds-in-spatialite" title="Spatial Data Representations in Spatialite">&larr; Older</a> -->
+<!--     <a id="left" href="/vim-tips" title="Vim Tips">&larr; Older</a> -->
 <!--    -->
-<!--    -->
-<!--     <a id="right" href="/union-polygons" title="How is GEOS UnaryUnion function implemented?">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
