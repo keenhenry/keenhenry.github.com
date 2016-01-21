@@ -72,66 +72,42 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Vim Tips</h1>
+<h1>Identity Is Not The Same As Equality</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  25 Dec 2020
+  19 Jan 2016
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Vim Tips" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Identity Is Not The Same As Equality" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href="http://rayninfo.co.uk/vimtips.html">This page</a> is indeed a great source of inspirations for 
-useful vim tips; please do visit this page often.</p>
+  <p>Identity operator (<code>is</code>) and equality operator (<code>==</code>) really are <a href="http://bit.ly/1ZN7U19" title="Python `is` expression">two different things</a>.</p>
 
-<p>Here is my own curated vim tips:</p>
+<p>Identity operator tests if two objects are <strong>the same</strong>: <code>id(obj1) == id(obj2)</code> is
+equivalent to <code>obj1 is obj2</code>.</p>
 
-<p><strong>Inserting Command Output Into Currently Editting File</strong></p>
+<p>Equality operator tests if the values of two objects are the same. Most of the time in
+a program, this is what you want: <code>if a == 2</code> or <code>if s == 'dumb'</code>. But (there is always
+a but) you also see code like this: <a href="http://bit.ly/1ZN7fN6" title="Python None Comparison: `is` or `==`"><code>if a is None</code></a>, which is also a recommended
+<a href="http://bit.ly/1ARqSBt" title="PEP08">pythonic style in PEP08</a>. What is going on here?</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; inserts text from a specified file into the current buffer</span>
-<span class="p">:</span><span class="k">r</span> textfile
+<p>This is one of the nuances of Python. <a href="http://bit.ly/1ZC7l4N" title="NoneType Implementation Stackoverflow Discussion"><code>None</code></a> is a singleton object, that means there
+is only one <code>None</code> object ever, and therefore tests like <code>if a is None</code> would make sense.
+And according to PEP08:</p>
 
-<span class="c">&quot; read in sorted order of file names</span>
-<span class="p">:</span><span class="k">r</span> <span class="p">!</span> <span class="k">ls</span> <span class="m">-1</span> <span class="sr">/home/</span>user/<span class="nb">directory</span> <span class="p">|</span> <span class="k">sort</span> <span class="p">-</span><span class="k">r</span></code></pre></div>
+<blockquote>
+  <p>Comparisons to singletons like None should always be done with <code>is</code> or <code>is not</code>, never
+the equality operators.</p>
+</blockquote>
 
-<p><strong>Execute External Commands Without Quiting Vim</strong></p>
+<p>So yes, use identity operator for testing <code>None</code>, but use equality operator for testing
+other non-singleton object values, including <a href="http://bit.ly/1na8eVU" title="Python `string` comparison: `is` or `==`">strings</a>. Hmmm, this is probably one of
+the things I do not like in Python, it seems arbitrary and inconsistent.</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; execute an NON-INTERACITVE command by Bang (!)</span>
-<span class="c">&quot; below: count the number of words for current editing file (%)</span>
-<span class="p">:!</span> <span class="nb">wc</span> %
-
-<span class="c">&quot; execute INTERACTIVE commands by dropping to interactive </span>
-<span class="c">&quot; shell; you can always go back to vim by &#39;CTRL-D&#39; or &#39;exit&#39;</span>
-<span class="p">:</span><span class="k">sh</span></code></pre></div>
-
-<p><strong>Line Completion</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Line complete SUPER USEFUL</span>
-<span class="p">&lt;</span>C<span class="p">-</span><span class="k">X</span><span class="p">&gt;&lt;</span>C<span class="p">-</span>L<span class="p">&gt;</span></code></pre></div>
-
-<p><strong>Search Words Completion</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Pull &lt;cword&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span>
-
-<span class="c">&quot; Pull &lt;CWORD&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>A<span class="p">&gt;</span></code></pre></div>
-
-<p><strong>Window Size Adjustment</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Adjust height of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;+|-&gt;</span>
-
-<span class="c">&quot; Adjust width of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>lessthan<span class="p">(&lt;)|</span>greaterthan<span class="p">(&gt;)&gt;</span></code></pre></div>
-
-<p><strong>Jump Among Functions By Function Browsers</strong></p>
-
-<p>By using Taglist plugin? Or some other better tools/plugins?</p>
 
 
   <footer>
@@ -140,9 +116,7 @@ useful vim tips; please do visit this page often.</p>
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/vim">vim</a></li>
-    
-    <li><a href="/tag/vimscript">vimscript</a></li>
+    <li><a href="/tag/python">python</a></li>
     
   </ul>
 
@@ -153,10 +127,10 @@ useful vim tips; please do visit this page often.</p>
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/python-identity-vs-equality" title="Identity Is Not The Same As Equality">&larr; Older</a> -->
+<!--     <a id="left" href="/python-sqlite-query-parameter-substitution" title="Python SQLite Query Parameter Substitution">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/git-tips" title="Git Tips">Newer &rarr;</a> -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
