@@ -88,6 +88,13 @@
   <p>Personal note to myself:</p>
 
 <ul>
+  <li>Create a normal Unix patch from <code>git</code>:</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># create a diff to current branch HEAD&#39;s parent</span>
+<span class="nv">$ </span>git diff --no-prefix HEAD~ &gt; some.patch</code></pre></div>
+
+<ul>
   <li>
     <p>Search a history of a particular block of code: <a href="https://git-scm.com/docs/git-log"><code>git log -S&lt;string&gt;</code> or <code>git log -G&lt;regex&gt;</code></a>.</p>
   </li>
