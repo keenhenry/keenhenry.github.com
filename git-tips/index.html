@@ -88,6 +88,17 @@
   <p>Personal note to myself:</p>
 
 <ul>
+  <li>View a file in a different Git branch without switching branches:</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git show branch:file</code></pre></div>
+
+<p>Where <code>branch</code> can be any ref (<code>branch</code>, <code>tag</code>, <code>HEAD</code>, …) and <code>file</code> is the full path of the file.
+You can also export that file into another file:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git show branch:file &gt; exported_file</code></pre></div>
+
+<ul>
   <li>Create a normal Unix patch from <code>git</code>:</li>
 </ul>
 

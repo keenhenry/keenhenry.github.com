@@ -95,7 +95,7 @@
 <span class="k">class</span> <span class="nc">object</span>
  <span class="o">|</span>  <span class="n">The</span> <span class="n">most</span> <span class="n">base</span> <span class="nb">type</span></code></pre></div>
 
-<p>All values in Python have a type:</p>
+<p>And, all values in Python have a type:</p>
 
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">19</span><span class="p">]:</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">42</span>
 
@@ -115,9 +115,15 @@
 <p>From the examples above, we can easily see that the class is the <em>type</em> of instances created.
 Or, in other words, the class is a <strong>callable</strong> that creates instances.</p>
 
-<p>However, according to the opening statement - everything in Python is an <strong><code>object</code></strong> - we can
-reasonably guess that classes are <strong><code>object</code></strong> too, or, equivalently, classes are instances of
-<strong><code>object</code></strong>. Does that mean the type of classes is also <strong><code>object</code></strong>? Let’s find out:</p>
+<p>However, classes are <em>values</em> too; in fact, classes are ordinary objects in Python that can be
+passed around just like any other objects. This characteristic earned itself the nickname: <strong>first-class 
+objects</strong>. Please note that classes in C++ are not first-class objects, but the instances of classes
+are. This really makes the statement - <em>everything in Python is an object</em> - even more true.</p>
+
+<p>Since classes are values too, or, in other words, classes are instances of some type(s), what is the
+<em>‘type’</em> of classes (let’s focus only on <code>builtin</code> classes now …)? In the begining of this post, I
+mentioned that <strong><code>object</code></strong> is the most base type of all objects - does that mean the type of classes
+is also <strong><code>object</code></strong>? - Let’s find out:</p>
 
 <div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">In</span> <span class="p">[</span><span class="mi">48</span><span class="p">]:</span> <span class="nb">type</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">48</span><span class="p">]:</span> <span class="nb">type</span>
@@ -165,7 +171,7 @@ words, the <em>‘base’</em> type of class/type system in Python is class <str
 
 <p><code>type</code> is a special and important class, because it is used when defining classes (creating
 class instances). It is actually a Python <a href="http://bit.ly/1Kh5JMr">MetaClass</a>, which means a
-class of classes or a type of types. More about this in Part II.</p>
+class of classes or a type of types. More about this in <a href="/python-object-system-part2">Part II</a>.</p>
 
 
   <footer>
@@ -194,7 +200,7 @@ class of classes or a type of types. More about this in Part II.</p>
 <!--     <a id="left" href="/python-identity-vs-equality" title="Identity Is Not The Same As Equality">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--     <a id="right" href="/python-object-system-part2" title="Python Object System - Part II">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 

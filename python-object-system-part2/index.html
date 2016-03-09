@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Python Object System - Part II</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  14 Feb 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Python Object System - Part II" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p><a href="/python-object-system-part1">Part I</a> already alluded one important concept: an object is an instance of a class, and a class
+(itself is also an object) is also an instance of a special class (a metaclass) <strong><code>type</code></strong>.</p>
+
+<p>It actually makes sense if you think about it: a class is a type, so a type of a class should
+also be a class! In Python it is called <strong>metaclass</strong> (type of type)!</p>
+
+<p>How are they related to each other? How does a metaclass create a class, and how does
+a class create an instance? Let’s dive in:</p>
+
+<h3 id="attributes-of-objects">Attributes Of Objects</h3>
+
+<p>In Python, you can access attributes to an object easily <a href="http://mzl.la/QkOHkL">similar to Javascript</a>.
+However, this post will not elaborate more on attribute access (read, set, delete) in Python, instead,
+I will only mention necessary special attributes in order to understand Python’s object model
+(Part III will talk about attribute references).</p>
+
+<p>Creating a <code>class</code> object (by executing the class statement) implicitly sets some class attributes, one
+of them is <code>__dict__</code>, which is the dictionary object the class uses to hold most of its class attributes.</p>
+
+<p>Similar thing can be said for creating an instance of a class: creating an instance implicitly sets
+<code>__dict__</code> which is used to most (except than <code>__class__</code> and <code>__dict__</code>) instance attributes.</p>
+
+<p>As you might have guessed already, attribute <code>__dict__</code> is an essential and fundamental building block
+of Python’s object system. In fact, <code>__dict__</code> implements <strong>scopes</strong> in Python; that means all the <strong>attribute
+(including methods, functions, variables, etc., except a few special ones) lookups of an instance, a class or
+even an module (also an object!) have to go through <code>__dict__</code></strong>, since that is where they were stored. The
+take away: Python’s object system layered heavily on top of dictionaries (<code>__dict__</code> attributes).</p>
+
+<h3 id="special-methods">Special Methods</h3>
+
+<p>After understanding <code>__dict__</code>, let’s talk about special methods. Special methods are methods defined or
+inherited in a class whose names begin and end with <strong>double quotes</strong>. Each special method relates to a specific
+operation. Python implicitly invokes a special method whenever a related operation is performed on an instance
+object. The special methods that are relevant to our subject here are: <code>__new__</code> and <code>__init__</code>. Be aware that
+these methods are <strong>class level</strong> attributes, not instance attributes, even though they are implicitly invoked
+for an instance object.</p>
+
+<p><code>__new__</code> is a <em>static method</em> defined or inherited in each class. It is responsible for creating an <em>uninitialized</em>
+instance of a class. <code>__init__</code> on the other hand, is a normal method defined or inherited in a class, and is used
+to perform any <strong>instance-specific</strong> initialization. <code>__init__</code> method usually contains statements that bind instance
+attributes (attributes that will end up in instance <code>__dict__</code>). When creating an instance, <code>__new__</code> is invoked first
+before <code>__init__</code>; when <code>__init__</code> is executed, an instance is already created by <code>__new__</code> and passed to <code>__init__</code>.
+Let’s see this concept materialized:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># creating a instance of class C:</span>
+<span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__num__</span> <span class="o">=</span> <span class="n">num</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">C</span><span class="p">(</span><span class="mi">23</span><span class="p">)</span>
+
+<span class="c"># is equivalent to:</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">C</span><span class="p">):</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">23</span><span class="p">)</span></code></pre></div>
+
+<h3 id="metaclasses">Metaclasses</h3>
+
+<p>We now finally come to the last point, metaclasses. An object’s behavior is mostly determined by the type of the objct;
+same for classes: a class’s behavior is mostly determined by the class’s metaclass; and <code>type</code> is the metaclass of all
+Python built-in types, including itself. <code>type</code> creates new ‘type’ objects, a.k.a classes (<code>class</code> objects). The devil
+is in the detail:</p>
+
+<p>A class statement -</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">classname</span><span class="p">(</span><span class="n">base</span><span class="o">-</span><span class="n">classes</span><span class="p">):</span>
+    <span class="n">statement</span><span class="p">(</span><span class="n">s</span><span class="p">)</span></code></pre></div>
+
+<p>contains several components:</p>
+
+<ol>
+  <li><code>classname</code></li>
+  <li><code>base-classes</code></li>
+  <li><code>statement(s)</code> - class body: including attributes, functions, etc.</li>
+</ol>
+
+<p>When a class statement is executed, all the above three components will be used and a class will be created in the type
+system. Let’s go through the process:</p>
+
+<ol>
+  <li>base classes are collected into a tuple <code>t</code> (empty if no base classes)</li>
+  <li>class body <code>body</code> is isolated</li>
+  <li>class dictionary <code>d</code> is created (in Python 3 it is created by the <code>__prepare__</code> method)</li>
+  <li>the class body is executed in the dictionary <code>d</code>. Afterwards, <code>d</code> is populated with class attributes:</li>
+</ol>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">exec</span><span class="p">(</span><span class="n">body</span><span class="p">,</span> <span class="nb">globals</span><span class="p">(),</span> <span class="n">d</span><span class="p">)</span></code></pre></div>
+
+<ol>
+  <li>metaclass M of the class is determined (according to some internal algorithm, defaulted to <code>type</code>)</li>
+  <li>metaclass M is called with three arguments: class name, tuple of base classes and the class dictionary:</li>
+  <li>The call returns the class object <code>C</code>, which Python then binds to the class name, completing the execution
+of the class statement.</li>
+</ol>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">C</span> <span class="o">=</span> <span class="n">M</span><span class="p">(</span><span class="n">classname</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span></code></pre></div>
+
+<p>This is in fact an instantiation of type M, which means the above is also equivalent to the following:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">C</span> <span class="o">=</span> <span class="n">M</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">classname</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+<span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">M</span><span class="p">):</span> <span class="n">M</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">classname</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span></code></pre></div>
+
+<p>How to use a metaclass? In Python 2 (with new-style classes), you do the following:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Spam</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="nb">type</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">print</span> <span class="s">&#39;bar&#39;</span></code></pre></div>
+
+<p>In Python 3, an even better syntax:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Spam</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">pass</span>
+    <span class="k">def</span> <span class="nf">bar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">print</span> <span class="s">&#39;bar&#39;</span></code></pre></div>
+
+<p>To create your own metaclass(es), subclass it from <code>type</code>:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">mytype</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">clsdict</span><span class="p">):</span>
+        <span class="n">clsobj</span> <span class="o">=</span> <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">clsdict</span><span class="p">)</span>
+        <span class="n">clsobj</span> <span class="o">=</span> <span class="n">modify_old_clsobj_and_return_new_one</span><span class="p">(</span><span class="n">clsobj</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">clsobj</span>
+
+<span class="k">class</span> <span class="nc">Spam</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">mytype</span><span class="p">):</span>
+    <span class="o">...</span></code></pre></div>
+
+<p>Observation: <strong>metaclasses get information about class definitions at the time of definition</strong>, and that is
+powerful because:</p>
+
+<ul>
+  <li>it can inspect this data</li>
+  <li>it can modify this data</li>
+</ul>
+
+<p>A group of classes who were created with the same metaclass will share the same <em>mutated behavior</em>, this
+capability can be leveraged to do <a href="http://www.dabeaz.com/py3meta/" title="David Beazley Python 3 Metaprogramming"><em>metaprogramming</em></a>.</p>
+
+<p>In conclusion, most attributes (including <code>__init__</code> and <code>__new__</code>) of <code>class</code> and instance objects are stored
+in <code>__dict__</code>. Attributes <code>__new__</code> and <code>__init__</code> are used to create and initialize objects, respectively. A
+metaclass also uses <code>__new__</code> and <code>__init__</code> to create <code>class</code> objects when a class statement is executed.</p>
+
+<p><strong>P.S. This post focuses the discussion only on Python 2.5+ object model</strong></p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/OOP">OOP</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/programming languages">programming languages</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/python-object-system-part1" title="Python Object System - Part I">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/python-exception-hierarchy" title="Python Exception Hierarchy">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
