@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Python Scopes and Namespaces</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  20 Mar 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Python Scopes and Namespaces" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Understanding the namespace and scoping rules of a programming language is essential to using the language effectively.
+For Python, you can approach this subject in two ways: one is through reading its <a href="http://bit.ly/1RYoDVu" title="Python execution model documentation">wonderful documentation</a>; the other
+is to play with the language and enlightened. I will do both and summarize what I find.</p>
+
+<h3 id="read-the-docs">Read The Docs</h3>
+
+<p>Reading documentation is the first important step in hacking and understanding how a software system works. That
+is why good documentation in software engineering is equally important as writing good codes. So here we go:</p>
+
+<p>According to Python’s <a href="http://bit.ly/1RYoDVu" title="Python execution model documentation">documentation about execution model</a>, some definitions first:</p>
+
+<p><a id="what_is_a_codeblock"></a>What is a <strong>code block</strong>?</p>
+
+<blockquote>
+  <p>A block is a piece of Python program text that is executed as a unit.
+The following are blocks: a <strong>module</strong>, a <strong>function body</strong>, and a <strong>class definition</strong>. Each command typed 
+interactively is a block.</p>
+</blockquote>
+
+<blockquote>
+  <p>A code block is executed in an <strong>execution frame</strong>. A frame contains some administrative information
+(used for debugging) and determines where and how execution continues after the code block’s execution 
+has completed.</p>
+</blockquote>
+
+<p>A code block (and only a code block can) creates a <strong>scope</strong>:</p>
+
+<blockquote>
+  <p>A scope defines the visibility of a name within a block.
+If a local variable is defined in a block, its scope includes that block. If the definition occurs in a
+function block, the scope extends to any blocks contained within the defining one, unless a contained block 
+introduces a different binding for the name (shadowing).</p>
+</blockquote>
+
+<p>We now know what a scope is, how is the scope of a name determined? It is determined based on the principle
+of <strong>the nearest enclosing scope</strong>:</p>
+
+<blockquote>
+  <p>When a name is used in a code block, it is resolved using the nearest enclosing scope. The set of all such scopes 
+visible to a code block is called the block’s environment. If a name is bound in a block, it is a local variable
+of that block. If a name is bound at the module level, it is a global variable.  If a variable is used in a code
+block but not defined there, it is a <strong>free variable</strong> (for example, a global variable used in a function body,
+but not defined in the function).</p>
+</blockquote>
+
+<p>To be more specific about the scoping rules, some people call it <strong>LEGB</strong> which stands for <em>Local, Enclosed, Global
+and Builtin</em>. That means names are searched in that particular order (LEGB) to determine the scopes they belong to;
+such concept can be found in the <a href="http://bit.ly/1Roj8jr" title="Tutorial: Python Scopes and Namespaces">Python tutorial</a> written by the Python creator himself.</p>
+
+<h3 id="hands-on-experiments">Hands-On Experiments</h3>
+
+<p>Now let me get my hands dirty to sink the information in deeper in my brain. First start with something
+simple:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># a global scope and a function scope</span>
+<span class="n">ng</span> <span class="o">=</span> <span class="s">&#39;a global&#39;</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">print</span> <span class="n">ng</span><span class="p">,</span> <span class="n">nl</span>
+
+<span class="n">f</span><span class="p">()</span></code></pre></div>
+
+<p>The output is:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">a global 2</code></pre></div>
+
+<p>In the example above, variable <code>ng</code> was a free variable in function <code>f</code>. Python interpreter first tried to
+find <code>ng</code> within the local scope created by function <code>f</code>, but it could not, then it searches the next enclosing
+scope, which is already the global scope, and it found <code>ng</code> which was bound to value <code>a global</code>. No surprise
+whatsoever. Now something more interesting:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># a global scope and a function scope</span>
+<span class="n">ng</span> <span class="o">=</span> <span class="s">&#39;a global&#39;</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">print</span> <span class="n">ng</span><span class="p">,</span> <span class="n">nl</span>
+    <span class="n">ng</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">print</span> <span class="n">ng</span><span class="p">,</span> <span class="n">nl</span>
+
+<span class="n">f</span><span class="p">()</span></code></pre></div>
+
+<p>Produced output:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;./scopes.py&quot;</span>, line 14, in &lt;module&gt;
+    f<span class="o">()</span>
+  File <span class="s2">&quot;./scopes.py&quot;</span>, line 8, in f
+    print ng, nl
+UnboundLocalError: <span class="nb">local </span>variable <span class="s1">&#39;ng&#39;</span> referenced before assignment</code></pre></div>
+
+<p>Wow! This is surprising if you come from other programming languages that <em>properly</em> implement lexical scopes.
+The behavior above says that variable <code>ng</code> is ‘declared’ locally by name-binding (assigment statement) operation
+and is visible within the entire local function scope and therefore <code>ng</code> no longer referes to the global <code>ng</code>
+variable anymore (that is why the first reference to <code>ng</code> became accessing an unbound local variable)!</p>
+
+<p>If you want to rebind the global <code>ng</code> inside a function, you need to use <code>global</code> keyword:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">ng</span> <span class="o">=</span> <span class="s">&#39;a global&#39;</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">ng</span>
+    <span class="n">nl</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">print</span> <span class="n">ng</span><span class="p">,</span> <span class="n">nl</span>
+    <span class="n">ng</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">print</span> <span class="n">ng</span><span class="p">,</span> <span class="n">nl</span>
+
+<span class="n">f</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">ng</span></code></pre></div>
+
+<p>Now the output is as expected:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">a global 2
+<span class="m">3</span> 2
+3</code></pre></div>
+
+<p>If you do not use <code>global</code> keyword, name-binding in a local scope always creates a local variable only visible
+within the local scope. In fact, Python 2 can only rebind names in two scopes: local scope (by assigment statement)
+or the module-global scope (by using a <code>global</code> declaration). There is no way to rebind (assign to) names in the
+nearest enclosing scope other than local and global scopes. This is one of the <a href="http://bit.ly/1SxXk7i" title="PEP 3104"><em>annoying</em> quirks</a> Python has
+and has been <a href="http://bit.ly/1q2QduB" title="Python 3 nonlocal">fixed in Python 3</a>. This is also one of the reasons why you should use Python 3 (or learn another
+programming language!).</p>
+
+<p>Now let us investigate the scope(s) in class block:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">nclass</span> <span class="o">=</span> <span class="s">&#39;pig&#39;</span>
+
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">nclass</span>
+
+<span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">f</span><span class="p">()</span></code></pre></div>
+
+<p>Can you guess what will happen?</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">Traceback <span class="o">(</span>most recent call last<span class="o">)</span>:
+  File <span class="s2">&quot;./scopes.py&quot;</span>, line 25, in &lt;module&gt;
+    foo.f<span class="o">()</span>
+  File <span class="s2">&quot;./scopes.py&quot;</span>, line 22, in f
+    print nclass
+NameError: global name <span class="s1">&#39;nclass&#39;</span> is not defined</code></pre></div>
+
+<p>Wow! a surprise again?! It seems like a class scope does not extend into the methods of a class! Here is
+the relevant quote from <a href="http://bit.ly/1RYoDVu" title="Python execution model documentation">the doc</a></p>
+
+<blockquote>
+  <p>The scope of names defined in a class block is limited to the class block; it does not extend to the code blocks
+of methods – this includes generator expressions since they are implemented using a function scope.</p>
+</blockquote>
+
+<p>That means the following will also fail:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">A</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">42</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span></code></pre></div>
+
+<p>You might ask then how do we access the class variables from within methods? I personally prefer this
+way:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">Foo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">nclass</span> <span class="o">=</span> <span class="s">&#39;pig&#39;</span>
+
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">nclass</span>
+
+<span class="n">foo</span> <span class="o">=</span> <span class="n">Foo</span><span class="p">()</span>
+<span class="n">foo</span><span class="o">.</span><span class="n">f</span><span class="p">()</span></code></pre></div>
+
+<p>This style makes it clear that it is trying to access a class variable (shared by all instances of the
+same class) and this works even with inheritance.</p>
+
+<p>Finally, I want to mention a few more quirks about Python scopes as if it is not messy enough.</p>
+
+<p>Python separates blocks of code by giving different indentations to lines, which makes them look like
+different code blocks visually. This coding style together with scoping knowledge from other programming
+languages might give you <em>false</em> ideas that some <em>blocks</em> of codes also creates scopes. For example, you
+might expect a <code>for</code> loop, <code>with</code> or <code>try ... except .. else ... finally</code> statement creates its own scope,
+do you?</p>
+
+<p>The aforementioned constructs do not create <strong>lexical code blocks</strong> recognized by Python (as defined at
+<a href="#what_is_a_codeblock">the beginning of this post</a>), they are only syntactical blocks appear to your eyes;
+that means, <code>for</code> loops leak loop variables:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">i after loop:&#39;</span><span class="p">,</span> <span class="n">i</span></code></pre></div>
+
+<p>Gives you:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="m">0</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">4</span> <span class="m">5</span> <span class="m">6</span> <span class="m">7</span> <span class="m">8</span> <span class="m">9</span> 
+i after loop: 9</code></pre></div>
+
+<p>The loop variable (<code>i</code>) is accessible even AFTER ‘exiting’ the loop! This behavior may or may not be
+what you want. Same logic applies to <code>with</code> and <code>try ... except .. finally</code> statements; the names they
+bind within the ‘block’ are still usable <em>after</em> they are bound (but still within the same lexical scope).</p>
+
+<h3 id="summary">Summary</h3>
+
+<p>Python scopes and namespaces really show you it is a different language. And this is one of its <a href="http://bit.ly/1SpDPvj" title="Qura Answer About Python's Weaknesses">known
+weaknesses</a>. It seems the implementation is inconsistent for different cases. Having the quirks of
+Python in mind, the take-away is the <strong>LEGB rule</strong> and remember what the real lexical code blocks that
+really creates scopes are (whisper: <strong>module, function body, class definition</strong>, etc; and not loops or
+<code>with</code> or <code>try except</code> statements).</p>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+    <li><a href="/tag/scope">scope</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/python-exception-hierarchy" title="Python Exception Hierarchy">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
