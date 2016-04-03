@@ -72,66 +72,55 @@
     </div> 
 
     <header class="ten columns offset-by-four">
-<h1>Vim Tips</h1>
+<h1>Strace Is Your Friend</h1>
 </header>
 
 <div class="five columns offset-by-four gray">
-  25 Dec 2020
+  30 Mar 2016
 </div>
 
 <div class='five columns' id='tweet'>
-  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Vim Tips" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Strace Is Your Friend" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
   <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 </div>
 
 <article class="ten columns offset-by-four">
-  <p><a href="http://rayninfo.co.uk/vimtips.html">This page</a> is indeed a great source of inspirations for 
-useful vim tips; please do visit this page often.</p>
+  <p>To become a drastically better programmer, you need not only to know how to use things, you must also
+know how things really work and how they work together as a system.</p>
 
-<p>Here is my own curated vim tips:</p>
+<p>To be able to do that, diving into the source code directly is one option, but not the best option
+(IMHO). Eventually you will need to read the source code, but it had better be AFTER you have understood
+the behavior of the tool you are trying to comprehend.</p>
 
-<p><strong>Inserting Command Output Into Currently Editting File</strong></p>
+<p>Fortunately, there are already <a href="http://bit.ly/1xM717E" title="Linux Tools">a lot of tools available on Linux</a> to help you discover and inspect
+deeper into software’s behavior - <code>strace</code> (system call tracer) is one of them.</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; inserts text from a specified file into the current buffer</span>
-<span class="p">:</span><span class="k">r</span> textfile
+<p>Some simple usage of <code>strace</code>:</p>
 
-<span class="c">&quot; read in sorted order of file names</span>
-<span class="p">:</span><span class="k">r</span> <span class="p">!</span> <span class="k">ls</span> <span class="m">-1</span> <span class="sr">/home/</span>user/<span class="nb">directory</span> <span class="p">|</span> <span class="k">sort</span> <span class="p">-</span><span class="k">r</span></code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="c"># trace the target command and print details for each syscall</span>
+<span class="nv">$ </span>strace <span class="nb">command</span>
 
-<p><strong>Execute External Commands Without Quiting Vim</strong></p>
+<span class="c"># trace the target PID and print details for each syscall</span>
+<span class="nv">$ </span>strace -p PID
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; execute an NON-INTERACITVE command by Bang (!)</span>
-<span class="c">&quot; below: count the number of words for current editing file (%)</span>
-<span class="p">:!</span> <span class="nb">wc</span> %
+<span class="c"># trace the target PID and trace open() syscalls only:</span>
+strace -eopen -p PID
 
-<span class="c">&quot; execute INTERACTIVE commands by dropping to interactive </span>
-<span class="c">&quot; shell; you can always go back to vim by &#39;CTRL-D&#39; or &#39;exit&#39;</span>
-<span class="p">:</span><span class="k">sh</span></code></pre></div>
+<span class="c"># trace target PID and trace connect() and accept() syscalls only:</span>
+strace -econnect,accept -p PID</code></pre></div>
 
-<p><strong>Line Completion</strong></p>
+<p>That is it for now. Please make use of <code>strace</code> or even <a href="http://bit.ly/1M8MDJc" title="perf examples"><code>perf</code></a> to help you understand how things
+work. As you gain more experience with <code>strace</code> or even some other system observability tools, you can
+further amend this post. Do not forget to check out the <em>man page</em> of <code>strace</code>.</p>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Line complete SUPER USEFUL</span>
-<span class="p">&lt;</span>C<span class="p">-</span><span class="k">X</span><span class="p">&gt;&lt;</span>C<span class="p">-</span>L<span class="p">&gt;</span></code></pre></div>
+<h3 id="more-about-strace">More About strace</h3>
 
-<p><strong>Search Words Completion</strong></p>
+<ul>
+  <li>A good <a href="http://bit.ly/1oPYtx3" title="learning strace">introductory post</a> about <code>strace</code></li>
+  <li>Systemadmin’s <a href="http://bit.ly/237SbIj" title="strace - systemadmin's microscope">microscope</a></li>
+  <li>More <a href="http://bit.ly/1W1plax" title="more practical uses for strace">practical uses</a> for <code>strace</code></li>
+</ul>
 
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Pull &lt;cword&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>W<span class="p">&gt;</span>
-
-<span class="c">&quot; Pull &lt;CWORD&gt; onto search/command line</span>
-/<span class="p">&lt;</span>C<span class="p">-</span>R<span class="p">&gt;&lt;</span>C<span class="p">-</span>A<span class="p">&gt;</span></code></pre></div>
-
-<p><strong>Window Size Adjustment</strong></p>
-
-<div class="highlight"><pre><code class="language-vim" data-lang="vim"><span class="c">&quot; Adjust height of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;+|-&gt;</span>
-
-<span class="c">&quot; Adjust width of splitted windows</span>
-<span class="p">&lt;</span>C<span class="p">-</span>W<span class="p">&gt;&lt;</span>lessthan<span class="p">(&lt;)|</span>greaterthan<span class="p">(&gt;)&gt;</span></code></pre></div>
-
-<p><strong>Jump Among Functions By Function Browsers</strong></p>
-
-<p>By using Taglist plugin? Or some other better tools/plugins?</p>
 
 
   <footer>
@@ -140,9 +129,13 @@ useful vim tips; please do visit this page often.</p>
     
     <li><a href="/tag/notes">notes</a></li>
     
-    <li><a href="/tag/vim">vim</a></li>
+    <li><a href="/tag/linux">linux</a></li>
     
-    <li><a href="/tag/vimscript">vimscript</a></li>
+    <li><a href="/tag/strace">strace</a></li>
+    
+    <li><a href="/tag/operating system">operating system</a></li>
+    
+    <li><a href="/tag/system administration">system administration</a></li>
     
   </ul>
 
@@ -153,10 +146,10 @@ useful vim tips; please do visit this page often.</p>
 </article>
 <!-- <div class="sixteen columns clearfix" id="paginator"> -->
 <!--    -->
-<!--     <a id="left" href="/strace" title="Strace Is Your Friend">&larr; Older</a> -->
+<!--     <a id="left" href="/python-scopes" title="Python Scopes and Namespaces">&larr; Older</a> -->
 <!--    -->
 <!--    -->
-<!--     <a id="right" href="/git-tips" title="Git Tips">Newer &rarr;</a> -->
+<!--     <a id="right" href="/vim-tips" title="Vim Tips">Newer &rarr;</a> -->
 <!--    -->
 <!-- </div> -->
 
