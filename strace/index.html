@@ -104,10 +104,10 @@ deeper into software’s behavior - <code>strace</code> (system call tracer) is 
 <span class="nv">$ </span>strace -p PID
 
 <span class="c"># trace the target PID and trace open() syscalls only:</span>
-strace -eopen -p PID
+<span class="nv">$ </span>strace -eopen -p PID
 
 <span class="c"># trace target PID and trace connect() and accept() syscalls only:</span>
-strace -econnect,accept -p PID</code></pre></div>
+<span class="nv">$ </span>strace -econnect,accept -p PID</code></pre></div>
 
 <p>That is it for now. Please make use of <code>strace</code> or even <a href="http://bit.ly/1M8MDJc" title="perf examples"><code>perf</code></a> to help you understand how things
 work. As you gain more experience with <code>strace</code> or even some other system observability tools, you can
