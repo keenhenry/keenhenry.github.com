@@ -88,6 +88,21 @@
   <p>Personal note to myself:</p>
 
 <ul>
+  <li>Include the information about which commit this change was cherry-picked from into the commit message:</li>
+</ul>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git cherry-pick -x &lt;commit&gt;</code></pre></div>
+
+<p>Detailed explanation from <code>git help cherry-pick</code>:</p>
+
+<blockquote>
+  <p>When recording the commit, append a line that says “(cherry picked from commit …)” to the original commit message in order to indicate which commit this
+change was cherry-picked from. This is done only for cherry picks without conflicts. Do not use this option if you are cherry-picking from your private branch
+because the information is useless to the recipient. If on the other hand you are cherry-picking between two publicly visible branches (e.g. backporting a fix
+to a maintenance branch for an older release from a development branch), adding this information can be useful.</p>
+</blockquote>
+
+<ul>
   <li>View a file in a different Git branch without switching branches:</li>
 </ul>
 
