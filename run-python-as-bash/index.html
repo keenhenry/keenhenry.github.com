@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Run A Python Script Inside A Bash Script</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  12 Apr 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Run A Python Script Inside A Bash Script" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>It seems odd to want to do it: wrapping a python script inside a bash and run it. Why bother?</p>
+
+<p>In my job, I encountered a situation which I created a python script that has dependencies on
+some internal libraries. In particular, I need the libraries to be loaded before python process
+starts. Of course, one obvious solution is to create a bash script that sets environment
+variable <code>LD_LIBRARY_PATH</code> and calls the python script within:</p>
+
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nb">export </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="s2">&quot;/path/to/some/library/&quot;</span>
+<span class="nv">$@</span></code></pre></div>
+
+<p>However, this is a bit cumbersome if you want to run python scripts that need this dependency
+frequently and only need this dependency when running those scripts, since you need to
+type one more script name every time (for example, if this wrapping bash script is called
+<code>runpy.sh</code>, then you need to run <code>$ runpy.sh somepythonscript.py</code> every time).</p>
+
+<p>One interesting hack I learned from one of my colleagues is as follows:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c">#!/bin/bash</span>
+
+<span class="sd">&quot;&quot;&quot;echo&quot; &quot;-n&quot;</span>
+
+<span class="sd">export LD_LIBRARY_PATH=/path/to/the/shared/library/you/need/</span>
+<span class="sd">export PYTHONPATH=$PYTHONPATH:/some/imaginary/path</span>
+
+<span class="sd">exec `which python` &quot;$0&quot; &quot;$@&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;----- SYS PATHS:  -----&#39;</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span> <span class="k">print</span> <span class="n">p</span>
+
+    <span class="k">print</span> <span class="s">&#39;----- OS ENVIRON:  -----&#39;</span>
+    <span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;PYTHONPATH&#39;</span><span class="p">]</span>
+    <span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;LD_LIBRARY_PATH&#39;</span><span class="p">]</span></code></pre></div>
+
+<h3 id="detailed-explanations">Detailed Explanations</h3>
+
+<p>The script above is <strong>both</strong> a bash and python script at the same time! In fact, it is a <strong>bash
+script that will execute itself as a python script</strong>!</p>
+
+<p>The first shbang line tells the OS it is a bash script and therefore will be executed in a <strong>new bash
+process</strong> spawned by the current shell. This is the standard behavior of how a bash script is executed.</p>
+
+<p>Then, in the new bash process, the environment variables <code>LD_LIBRARY_PATH</code> and <code>PYTHONPATH</code>
+are set and only set for this process, not its parent process. In other words, this environment
+is only visible/accessible inside this new bash process, whatever statements or commands run within
+this process will inherit this environment.</p>
+
+<p>Next, something interesting happened: the new bash process <code>exec</code> itself into a python process!
+It is still the <strong>same</strong> process but the process image was replaced by a python interpreter. That
+means, this python process still has the same environment before <code>exec</code> but now executing the same
+script as a python script! Note that <code>exec</code> <strong>does not</strong> return if it succeeds, which means the bash
+interpreter before <code>exec</code> are <strong>not</strong> swapped back into the process image and continue execution
+after python interpreter terminates! This also implies the new process (which becomes a python
+interpreter process after <code>exec</code>) terminates as soon as the python interpreter finishes execution,
+and THEN, the control returns back to the parent shell.</p>
+
+<p>While the python interpreter executes the script, it sees the original bash statements understood by
+bash interpreter are wrapped around in triple quotes, therefore treates them as <code>doctring</code> and executes
+the statements that follow, which are normal python statements printing some information to the console.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>Here is the output on the console:</p>
+
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="o">-----</span> <span class="n">SYS</span> <span class="n">PATHS</span><span class="p">:</span>  <span class="o">-----</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">henry</span><span class="o">/</span><span class="n">Work</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">tools</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span>
+<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">henry</span><span class="o">/</span><span class="n">Work</span><span class="o">/</span><span class="n">repos</span><span class="o">/</span><span class="n">tools</span>
+<span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">imaginary</span><span class="o">/</span><span class="n">path</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">plat</span><span class="o">-</span><span class="n">x86_64</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">lib</span><span class="o">-</span><span class="n">tk</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">lib</span><span class="o">-</span><span class="n">old</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">lib</span><span class="o">-</span><span class="n">dynload</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">PILcompat</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">gst</span><span class="o">-</span><span class="mf">0.10</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span><span class="o">/</span><span class="n">dist</span><span class="o">-</span><span class="n">packages</span><span class="o">/</span><span class="n">gtk</span><span class="o">-</span><span class="mf">2.0</span>
+<span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">pymodules</span><span class="o">/</span><span class="n">python2</span><span class="o">.</span><span class="mi">7</span>
+<span class="o">-----</span> <span class="n">OS</span> <span class="n">ENVIRON</span><span class="p">:</span>  <span class="o">-----</span>
+<span class="p">:</span><span class="o">/</span><span class="n">some</span><span class="o">/</span><span class="n">imaginary</span><span class="o">/</span><span class="n">path</span>
+<span class="o">/</span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">the</span><span class="o">/</span><span class="n">shared</span><span class="o">/</span><span class="n">library</span><span class="o">/</span><span class="n">you</span><span class="o">/</span><span class="n">need</span><span class="o">/</span><span class="n">at</span><span class="o">/</span><span class="n">runtime</span></code></pre></div>
+
+<p>As you can see, the environment variables set are indeed visble to the python interpreter as you can spot
+the set paths in the <code>os.environ</code> and <code>sys.path</code> attributes. Mission complete, interesting and convenient
+hack!</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/unix">unix</a></li>
+    
+    <li><a href="/tag/linux">linux</a></li>
+    
+    <li><a href="/tag/bash">bash</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/selenium" title="Using Selenium">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/sql-cte" title="SQL Common Table Expression">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
