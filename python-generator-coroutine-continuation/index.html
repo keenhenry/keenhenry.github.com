@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Python Generator, Coroutine and Continuation</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  25 Sep 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Python Generator, Coroutine and Continuation" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>There are some ‘advanced’ constructs in Python that are very interesting but lesser known. They are generator, coroutine and
+continuation. They are actually not constructs specifically invented by Python; instead, they are concepts/components already
+existed long time ago in computing theory and practice. However, I will try to approach these concepts by giving a high level
+explanations and pointing to Python’s language support to these constructs, so we know how they are done in Python.</p>
+
+<h3 id="preface---how-subroutine-works">Preface - How Subroutine Works</h3>
+
+<p>Before we can comprehend those magic three constructs, firstly we need to understand how subroutine works in Python.</p>
+
+<p>When Python makes a call, it allocates a frame object and put it on a call stack (not a traditional call stack/C stack
+in static memory; but a call stack in Python virtual machine). In the frame object, the following information is kept:</p>
+
+<ol>
+  <li>local variables (<code>name -&gt; object</code> bindings)</li>
+  <li>offset to the current bytecode instruction; the offset is relative to the start of the code object’s immutable bytecode vector</li>
+  <li>a evalution stack holding temps and dynamic block-nesting information</li>
+</ol>
+
+<p>So basically, a frame stores a subroutine’s state information, and it’s a <strong>data structure kept by Python virutal machine (on OS
+heap memory, not on OS call stacks)</strong>. When a subroutine returns, Python VM decrefs the frame and then the frame typically goes
+away.</p>
+
+<h3 id="generator">Generator</h3>
+
+<p>Generators add two abstract operations, <strong>suspend</strong> and <strong>resume</strong>. When a generator suspends, it is exactly like a return except no
+decref-ing the frame, and that’s it! Therefore the information kept by the frame is not thrown away after suspension. A resume
+then <strong>re</strong>starting the frame at its next bytecode instruction, with the retained frame’s locals and eval stack. ‘Suspend’ is
+something only a generator can do, and ‘resume’ is something only its caller can do (although the caller can also be a generator).</p>
+
+<p>And in Python, a generator is simply a function that <code>yield</code>s.</p>
+
+<h3 id="coroutine">Coroutine</h3>
+
+<p>Coroutines add yet another new abstract operation to generators: <strong>transfer</strong>. This gives coroutines the ability to also <strong>consume</strong>
+data (data that is transferred to them) whereas generators only produce data (data producer)! <strong>Transfer</strong> names a coroutine to
+transfer to, and gives a value to deliver to it. When A transfers to B, it acts like a generator <em>suspends</em> with respect to A and like
+a generator <em>resumes</em> with respect to B. Coroutines are working together as <em>colleagues</em>, no one is a subordinate of another. And
+unlike subroutines, coroutines have multiple entry and exit points, whereas subroutines have only one.</p>
+
+<p>Coroutine is a very powerful technique to create light-weight, userspace (as opposed to kernel-space), concurrent and cooperative
+computing agents without using threads. It is so powerful that the core idea and mechanism behind several concurrent prorgramming
+(e.g. <a href="https://greenlet.readthedocs.io/en/latest/#" title="Greenlet Documentation">Greenlet</a>) and non-blocking I/O networking (e.g. <a href="http://www.gevent.org/" title="gevent.org">gevent</a> and <a href="http://eventlet.net/" title="eventlet.net">eventlet</a>) libraries.</p>
+
+<p>In Python, coroutine is introduced (via <a href="https://www.python.org/dev/peps/pep-0342/" title="PEP0342">enhanced generators</a>) since Python 2.5. The syntax and API of enhanced generator can be
+found in the <a href="https://docs.python.org/2/reference/expressions.html#generator-iterator-methods" title="Generator Iterator Methods">Python2 documentation</a>. For Python 3, the support of coroutine is even stronger, there are two ways of creating
+coroutines, one is via generators like Python 2 (but with an improved <code>yield from</code> syntax), the other is by using <a href="https://docs.python.org/3/reference/compound_stmts.html#async-def" title="Python 3 async def"><code>async def</code></a>
+statement (introduced since Python 3.5).</p>
+
+<p>Some examples and very nice introductory concepts of generator-based coroutine can be found <a href="http://wla.berkeley.edu/~cs61a/fa11/lectures/streams.html#coroutines" title="UCBerkeley CS61A course material">here</a>.</p>
+
+<h3 id="continuation">Continuation</h3>
+
+<p>Continuations are something different from generators and coroutines. They are much simpler than generators, even than a regular
+function call. In essence it is a supercharged <code>goto</code> statement (or nicknamed <strong>gotos with arguments</strong>). In theory a continuation
+is a function that computes the <em>rest of the program</em>, or its <em>future</em> (the <strong>continuation</strong> of the program). It is the basis for
+all control flow, from goto statements to exception handling, recursion, generators, coroutines, backtracking and even loops.</p>
+
+<p>In implementation terms a continuation adds an abstract operation: <strong>capture</strong>, which captures the program counter, call stack, and
+local block stack at its point of invocation, and packages all that into a first-class <em>continuation</em> object. In other words, the
+program resumption state is captured at some point and assigned to a variable.</p>
+
+<p>A continuation can be captured anywhere, and be invoked at will from anywhere else. Continuation is not like a function call though,
+in practice, it is a call that never returns to its caller (a <code>goto</code>!); it is abandoning the current continuation, <em>replacing</em> it
+with another one.</p>
+
+<p>In Python there is no direct language support (<code>call-with-current-continuation</code>) to write code in Continuation Passing Style (CPS),
+however, Python can achieve CPS without <code>call/cc</code>. See <a href="https://www.ps.uni-saarland.de/~duchier/python/continuations.html" title="Continuations Made Simple">examples here</a>. And checkout more detailed <a href="http://www.stackless.com/spcpaper.htm" title="Stackless Python and Continuations">explanations from Stackless
+Python</a>.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>A coroutine can be seen as a more general generator; a generator is a semi-coroutine. In the modern implementation of Python they
+are not difficult to implement because all the ‘state’ information is contained in a single frame object and is managed by Python
+VM. Continuation is something even more fundamental, a construct that unifies all, you can write continuation passing programs in
+Python, or in any language that supports some form of closures and automated garbage collection, although it might not be as
+intuitive and convenient.</p>
+
+<p>P.S. Most parts of this post are extracts and summaries based on <a href="https://mail.python.org/pipermail/python-dev/1999-July/000467.html" title="Tim Peters Answer">Tim Peter’s answer of a discussion in a mailing list</a>.</p>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/functional programming">functional programming</a></li>
+    
+    <li><a href="/tag/generator">generator</a></li>
+    
+    <li><a href="/tag/coroutine">coroutine</a></li>
+    
+    <li><a href="/tag/continuation">continuation</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/multiprocessing-python-queue-redis-list" title="Python Multiprocessing Using Queues and Redis Lists">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/django-impressions" title="Meet Django">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
