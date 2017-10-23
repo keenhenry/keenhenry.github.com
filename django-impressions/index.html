@@ -122,14 +122,36 @@ solutions I researched about which have Django integration support (the solution
 <h3 id="what-i-dislike-about-django">What I Dislike About Django</h3>
 
 <p>I do not have strong opinions about Django as I haven’t had extensive experience with it yet, however,
-based on my limited experience so far, I found the template system in Django is inconvenient, because
-a python function cannot be called from within a template directly, and yet Django let you create a
-custom template tag or filter to achieve the same thing (then why bother?).</p>
+based on my limited experience so far, I could mention a few things I do not like about it.</p>
 
-<p>Another thing I found a bit inconvenient is Django’s ORM layer. It seems not flexible and cannot be
-‘turned off’.</p>
+<ol>
+  <li>
+    <p>The template system in Django is inconvenient, because a python function cannot be called from within
+a template directly, and yet Django let you create a custom template tag or filter to achieve the same
+thing (then why bother?).</p>
+  </li>
+  <li>
+    <p>Django is too monolithic. For the parts you do not like, there seems to be no easy way to swap them out, for
+example, Django’s ORM (you cannot simply replace Django ORM with SQLAlchemy, to use SQLAlchemy, you might
+want to consider using SQLAlchemy with <a href="http://flask.pocoo.org/" title="Flask">Flask</a> or <a href="https://trypyramid.com/" title="Pyramid">Pyramid</a>).</p>
+  </li>
+  <li>
+    <p>Yes, speaking of Django’s ORM, there are quite a few shortcomings. For example, Django model field choices
+does not enforce <code>Enum</code> checks on database level, instead, it only does checking on model forms. For the cases
+where you want database DDL to implement data type checks, you will need to write some <a href="https://docs.djangoproject.com/en/1.11/howto/custom-model-fields/#howto-custom-model-fields">custom model fields</a>.
+In fact, what’s even worse: no full support for database vendor-specific (for example, Oracle) data types; and
+the solution is the same: write custom model fields. This is where SQLAlchemy shines, it supports SQL/ORM
+in different dialects. Another example is <a href="https://code.djangoproject.com/wiki/MultipleColumnPrimaryKeys" title="Django Multi-Column Primary Key Support Ticket">missing composite primary key</a>; Django does not support creating
+a multi-column primary key, you will have to settle with using <code>unique_together</code>, which translates to <code>UNIQUE</code>
+constraint in SQL DDL; this sounds like a degenerate choice.</p>
+  </li>
+  <li>
+    <p>Everything seems to be based on the ORM, for projects that does not need the ORM, there seems to be no way to
+‘turn it off’.</p>
+  </li>
+</ol>
 
-<p>Some more insights about Django from other people can be found in this <a href="http://nando.oui.com.br/2014/04/01/large_apps_with_sqlalchemy__architecture.html" title="Large Web Apps in Python">blog post</a>.</p>
+<p>Some others’ insights about Django from this <a href="https://www.quora.com/What-are-the-advantages-and-disadvantages-of-using-Django/answer/Prasad-Gujar-3?srid=hPKZ" title="Django Disavantages vs Advantages">quora answer</a>.</p>
 
 <h3 id="summary">Summary</h3>
 
