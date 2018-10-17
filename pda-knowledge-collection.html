@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>PDA Knowledge Collection</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  24 Feb 2014
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="PDA Knowledge Collection" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Listed below are some documentation and references I collected over the course of
+developing tool <code>pda</code>:</p>
+
+<p>Python packing tools differences:</p>
+
+<ul>
+  <li>
+    <p><a href="http://bit.ly/NO6sII">python distribution tools evolution and comparisons</a></p>
+  </li>
+  <li>
+    <p><a href="http://pythonhosted.org/setuptools/setuptools.html"><code>setuptools</code></a></p>
+  </li>
+  <li>
+    <p><a href="http://pythonhosted.org/setuptools/setuptools.html#develop"><code>python setup.py develop</code></a></p>
+  </li>
+  <li>
+    <p><a href="http://bit.ly/1fXxDqp">python packaging example</a></p>
+  </li>
+</ul>
+
+<p>Uninstall a python package you installed with python setup.py install?
+<a href="http://bit.ly/1oCZ1PR">See this stackoverflow thread</a></p>
+
+<p>Python static code analyzing tool:</p>
+
+<ul>
+  <li><a href="http://docs.pylint.org/">Pylint</a></li>
+  <li><a href="http://doughellmann.com/2008/03/01/static-code-analizers-for-python.html">Blog post on using pylint</a></li>
+  <li><a href="http://www.pylint.org/">Pylint project page</a></li>
+  <li>message codes =&gt; http://pylint-messages.wikidot.com/all-codes</li>
+  <li>blog about using pylint =&gt; http://nedbatchelder.com/blog/200806/pylint.html</li>
+  <li>
+    <p>pylint not supporting property decorator: 
+http://www.logilab.org/52020
+http://stackoverflow.com/questions/9631666/pylint-e0202-false-positive-or-is-this-piece-of-code-wrong</p>
+  </li>
+  <li>generate pylintrc file: <code>pylint --generate-rcfile</code></li>
+</ul>
+
+<p>Python Standard Coding Style:</p>
+
+<ul>
+  <li><a href="http://legacy.python.org/dev/peps/pep-0008/">PEP 8</a></li>
+</ul>
+
+<p><strong>Updating your distribution</strong></p>
+
+<p>Down the road, after you’ve made updates to your distribution and wish to make a new release:</p>
+
+<ul>
+  <li>increment the version number in your setup.py file,</li>
+  <li>update your CHANGES.txt file,</li>
+  <li>if necessary, update the “Contributors” and “Thanks also to” sections of your README.txt file.
+run python setup.py sdist upload again.</li>
+</ul>
+
+<p>http://guide.python-distribute.org/creation.html#arranging-your-file-and-directory-structure</p>
+
+<p><strong>distributing a command line python application example:</strong></p>
+
+<p>http://gehrcke.de/2014/02/distributing-a-python-command-line-application/?utm_source=Python+Weekly+Newsletter&amp;utm_campaign=8d9f1256ee-Python_Weekly_Issue_131_March_20_2014&amp;utm_medium=email&amp;utm_term=0_9e26887fc5-8d9f1256ee-312661513</p>
+
+<p><code>twine</code> error:</p>
+
+<pre><code>(py27_venv)&gt; twine upload ../dist/*
+KeyError: Missing 'None' section from the configuration file
+</code></pre>
+
+<p>https://github.com/dstufft/twine/issues/33</p>
+
+<p>how to make gnu make ignore/continue after errors?
+http://stackoverflow.com/questions/2188376/how-to-have-gnu-make-continue-after-error</p>
+
+<p>To leave a python virtualenv:</p>
+
+<p>http://stackoverflow.com/questions/990754/how-to-leave-a-python-virtualenv</p>
+
+<p>The long_description field can be attached to a text file located in the package:</p>
+
+<pre><code>from distutils.core import setup
+
+with open('README.txt') as file:
+    long_description = file.read()
+
+    setup(name='Distutils',
+          long_description=long_description)
+</code></pre>
+
+<p>In that case, README.txt is a regular reStructuredText text file located in the root 
+of the package besides setup.py.</p>
+
+<p>Please install <code>pip install docutils</code> to have a front-end tool <code>rst2html.py</code> tool installed before using it.</p>
+
+<p>To prevent registering broken reStructuredText content, you can use the rst2html 
+program that is provided by the docutils package and check the long_description 
+from the command line:</p>
+
+<pre><code>$ python setup.py --long-description | rst2html.py &gt; output.html
+</code></pre>
+
+<p>docutils will display a warning if there’s something wrong with your syntax. 
+Because PyPI applies additional checks (e.g. by passing –no-raw to rst2html.py 
+in the command above), being able to run the command above without warnings does 
+not guarantee that PyPI will convert the content successfully.</p>
+
+<p>Sphinx reST syntax for various code blocks: http://sphinx-doc.org/markup/code.html</p>
+
+<p>Further about generate documentation with Sphinx and reST:</p>
+
+<p>(Even Varnish project uses it!)
+https://www.varnish-cache.org/docs/trunk/phk/sphinx.html</p>
+
+<p><a href="https://github.com/kennethreitz/requests/issues/1882">python 3 resourcewarning problem</a>
+<a href="http://python-future.org/compatible_idioms.html?utm_source=Python+Weekly+Newsletter&amp;utm_campaign=c2fdbf0fcc-Python_Weekly_Issue_152_August_14_2014&amp;utm_medium=email&amp;utm_term=0_9e26887fc5-c2fdbf0fcc-312661513">python 2 to 3 porting cheatsheet</a></p>
+
+<ul>
+  <li><a href="https://pypip.in/">python pins/shields</a></li>
+</ul>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/pda">pda</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+    <li><a href="/tag/projects">projects</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/sql-inner-outer-join" title="SQL INNER vs OUTER join">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/recursive-chmod" title="Recursive chmod">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

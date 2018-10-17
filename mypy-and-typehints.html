@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Meet Type Hints and mypy</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  15 Sep 2018
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Meet Type Hints and mypy" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>It has really been a while since last time I posted something on the blog. Let’s get the rhythm back again with this post.</p>
+
+<p>Recently I started using <a href="https://www.python.org/dev/peps/pep-0484/"><strong>Type Hints</strong></a> in Python 3. And I also started to use <a href="http://mypy-lang.org/"><code>mypy</code></a> to do static type checking based
+on type hints.</p>
+
+<p>I can understand the purpose of introducing Type Hints and <code>mypy</code>: a static typing system to help the machine (in this case <code>mypy</code>
+, other static checkers and whatever tools, like IDE) to check the types of your code at compile time. This can help you spot certain
+bugs earlier while building larger software system with Python. And in some ways, the type annotations might make your code easier
+to understand. For example, see the following code:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="ch">#!/usr/bin/env python</span>
+
+<span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">f</span><span class="p">(</span><span class="s1">&#39;OMG&#39;</span><span class="p">)</span></code></pre></figure>
+
+<p>And save it as <code>mypy-example.py</code>, then if you run <code>mypy</code> against this file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ mypy mypy-example.py
+mypy-example.py:6: error: Argument <span class="m">1</span> to <span class="s2">&quot;f&quot;</span> has incompatible <span class="nb">type</span> <span class="s2">&quot;str&quot;</span><span class="p">;</span> expected <span class="s2">&quot;int&quot;</span></code></pre></figure>
+
+<p>Mypy actually helped you catch a bug here! However, I do have to say, since you need to add type hints in your code to make this work,
+it does add some overhead to development compared to <em>traditional</em> python programs.</p>
+
+<p>Now, here are some of the tips I collected over using Type Hints and <code>mypy</code>:</p>
+
+<ul>
+  <li>Use <code>Optional</code> for values that could be <code>None</code> (like often happens in <strong>keyword-only</strong> arguments).</li>
+  <li>Generator is a function that yields a sequence; it is annotated as an <code>Iterable</code>.</li>
+  <li>When you are puzzled what type it is for a variable, put <code>reveal_type(var)</code> in the code and run mypy; the type of <code>var</code> will
+be printed out on <code>stdout</code>. Afterwards you can remove <code>reveal_type</code>.</li>
+  <li>Use <code># type: ignore</code> to suppress errors on a given line. This is used when your code confuses mypy (or mypy has a bug).
+You also see it used a lot to suppress <a href="https://mypy.readthedocs.io/en/stable/command_line.html#import-discovery">missing imports</a>.</li>
+  <li>To specify a callable without telling its signature, use <code>Ellipsis</code> object: <code>Callable[..., int]</code>. See <a href="https://www.python.org/dev/peps/pep-0484/#callable">PEP 0484</a>.</li>
+  <li>Arbitrary-length homogeneous tuples can be expressed using one type and ellipsis, for example <code>Tuple[int, ...]</code>.
+The <code>...</code> is part of the syntax. See <a href="https://www.python.org/dev/peps/pep-0484/#the-typing-module">PEP 0484 on <code>typing</code> module</a>.</li>
+  <li>User-defined classes are valid as types in annotations.</li>
+  <li><code>if TYPE_CHECKING:</code> is used to <a href="https://mypy.readthedocs.io/en/latest/common_issues.html?highlight=TYPE_CHECKING#import-cycles">avoid import cycles</a> or <strong>an import is only needed for type annotations in forward references</strong>.</li>
+</ul>
+
+<h4 id="side-note-on-ellipsis">Side Note on <code>Ellipsis</code></h4>
+
+<p>Ellipsis <code>...</code> is actually a valid Python expression which represents the <a href="https://www.quora.com/What-do-the-dots-mean-in-Python">singleton <code>Ellipsis</code> object</a>.</p>
+
+<p>It is originally from <code>numpy</code> package for <a href="https://stackoverflow.com/questions/772124/what-does-the-python-ellipsis-object-do">advanced slicing notation</a>. But it is now also used as:</p>
+
+<ol>
+  <li>A place holder for not-yet-written code.</li>
+  <li>Specify type hints using <code>typing</code> module (like what we saw above).</li>
+  <li>As a default argument value, especially when you want to distinguish between not passing a value and passing in <code>None</code>.</li>
+</ol>
+
+<h4 id="useful-reference-regarding-mypy-and-type-hints">Useful Reference Regarding Mypy and Type Hints</h4>
+
+<ul>
+  <li><a href="https://www.python.org/dev/peps/pep-0484/">PEP 0484</a></li>
+  <li><a href="https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html"><code>mypy</code> python 3 cheatsheet</a></li>
+</ul>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+    <li><a href="/tag/python3">python3</a></li>
+    
+    <li><a href="/tag/typehint">typehint</a></li>
+    
+    <li><a href="/tag/mypy">mypy</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/python-slots-class-attribute" title="Python Class Attribute __slots__">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

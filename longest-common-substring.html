@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Longest Common Substring Problem</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  16 Jun 2013
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Longest Common Substring Problem" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Finding the <a href="http://en.wikipedia.org/wiki/Longest_common_substring_problem">longest common substring</a> or 
+common prefix or suffix of a group of strings is a common text processing problem. And it is a special case of 
+<em>edit distance</em> problem.</p>
+
+<p>This problem has a wide range of applications in different areas, i.e. computation biology and information 
+retrieval from texts, and so on. I encountered this problem at work and I would like to give an extensive 
+survey to this problem.</p>
+
+<p>The key to this problem is to build a data structure called suffix tree over the text or group of 
+strings you want to work with.</p>
+
+<p>Suffix trees were first introduced by <a href="http://ieeexplore.ieee.org/xpl/login.jsp?tp=&amp;arnumber=4569722&amp;url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D4569722">Weiner 1973</a>. However this paper was considered too difficult to understand and had little follow-on work.</p>
+
+<p><a href="http://dl.acm.org/citation.cfm?id=321946&amp;dl=">McCreight 1979</a> came along with another algorithm 
+with better space efficiency. But this method is more difficult to extend for generalized suffix 
+trees.</p>
+
+<p><a href="http://link.springer.com/article/10.1007%2FBF01206331">Ukkonen 1992</a> then came up with an easy 
+to understand algorithm, which is an on-line construction of suffix trees in linear-time. And 
+this algorithm is currently also what most suffix tree implementations are based on.</p>
+
+<p>To understand Ukkonen’s paper, it takes some efforts to observe how suffix tree is grown from the 
+text being processed from left to right. To gain some insights and detailed explanations, try to 
+read the following links:</p>
+
+<ul>
+  <li><a href="http://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english/9513423#9513423">statckoverflow post about Ukkonen’s algorithm</a></li>
+  <li><a href="http://marknelson.us/1996/08/01/suffix-trees/">A clear explanation including C++ implementation</a></li>
+  <li><a href="http://stackoverflow.com/questions/10097323/ukkonen-suffix-tree-procedure-canonize-unclear">Explanation on <code>canonize</code> procedure</a></li>
+</ul>
+
+<p>Okay, so suffix tree can be constructed in time linear to the text size, but how can it be used 
+to solve Longest Common Substring Problem? First, build a generalized suffix tree for a set 
+of strings. Then do a tree traversal (in linear time) to find the deepest internal node which 
+has leaf nodes from all the strings in the subtree below it.</p>
+
+<p>If you are interested in the implementation of suffix tree data structure, check out the 
+following links:</p>
+
+<ul>
+  <li><a href="https://gist.github.com/axefrog/2373868">C# implementaion on Github</a></li>
+  <li><a href="http://pastie.org/5925812">Java implementaion</a></li>
+  <li><a href="http://pastie.org/5925809">Another C++ implementaion</a></li>
+</ul>
+
+<p>Feeling enthusiastic to roll out your own implementation of suffix tree?</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/algorithms">algorithms</a></li>
+    
+    <li><a href="/tag/data structures">data structures</a></li>
+    
+    <li><a href="/tag/combinatorial pattern matching">combinatorial pattern matching</a></li>
+    
+    <li><a href="/tag/information retrieval">information retrieval</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/sql-orderby-problem" title="SQL ORDER-BY error">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/bazaar-patch" title="Using Bazaar Patch to merge codes">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

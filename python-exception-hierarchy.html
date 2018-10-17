@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Python Exception Hierarchy</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  05 Mar 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Python Exception Hierarchy" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Exception handling is a common task we all encounter as a software engineer. But, to properly handle exceptions,
+the first thing to understand is the hierarchy of standard exception objects for an OOP language; the hierarchy
+is important as it determines <em>which exception handlers (<code>except</code> statement in Python) should handle which exceptions</em>,
+and such knowledge is crucial in implementing effective error handling, as you might want to keep the error handling
+<em>as narrow as possible</em> in most circumstances. Here we will focus on Python’s Exception objects’ hierarchy.</p>
+
+<p>Since Python 2.5, the base exception handling class is <code>BaseException</code>, every other exception class subclasses
+from it (in other words, it is the root of everything). Actually, that is all you need to know, because you can roll
+out <a href="http://bit.ly/1YfqIBs" title="the code snippet">your own function</a> to print the entire hierarchy:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="k">def</span> <span class="nf">classtree</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s1">&#39;.&#39;</span> <span class="o">*</span> <span class="n">indent</span><span class="p">,</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="k">for</span> <span class="n">subcls</span> <span class="ow">in</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__subclasses__</span><span class="p">():</span>
+        <span class="n">classtree</span><span class="p">(</span><span class="n">subcls</span><span class="p">,</span> <span class="n">indent</span> <span class="o">+</span> <span class="mi">3</span><span class="p">)</span>
+
+<span class="n">classtree</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">)</span></code></pre></figure>
+
+<p>Voila, and here is the result of the hierarchy for Python 2.7:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span> BaseException
+... Exception
+...... StandardError
+......... TypeError
+......... ImportError
+............ ZipImportError
+......... EnvironmentError
+............ IOError
+............... ItimerError
+............ OSError
+......... EOFError
+......... RuntimeError
+............ NotImplementedError
+......... NameError
+............ UnboundLocalError
+......... AttributeError
+......... SyntaxError
+............ IndentationError
+............... TabError
+......... LookupError
+............ IndexError
+............ KeyError
+............ CodecRegistryError
+......... ValueError
+............ UnicodeError
+............... UnicodeEncodeError
+............... UnicodeDecodeError
+............... UnicodeTranslateError
+......... AssertionError
+......... ArithmeticError
+............ FloatingPointError
+............ OverflowError
+............ ZeroDivisionError
+......... SystemError
+............ CodecRegistryError
+......... ReferenceError
+......... MemoryError
+......... BufferError
+...... StopIteration
+...... Warning
+......... UserWarning
+......... DeprecationWarning
+......... PendingDeprecationWarning
+......... SyntaxWarning
+......... RuntimeWarning
+......... FutureWarning
+......... ImportWarning
+......... UnicodeWarning
+......... BytesWarning
+...... _OptionError
+...... error
+... GeneratorExit
+... SystemExit
+... KeyboardInterrupt</code></pre></figure>
+
+<p>Additionally, <code>inspect</code> module has a relevant function <a href="http://bit.ly/1QsViEN" title="getclasstree function implementation detail"><code>getclasstree()</code></a> which walks the inheritance structure
+from <strong>bottom (the specific class you are intereseted in) to top (<code>BaseException</code>)</strong> and does not print the entire
+tree, only the path of the inheritance structure for that specific class, for example:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getclasstree</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getmro</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">17</span><span class="p">]:</span> <span class="p">[(</span><span class="nb">object</span><span class="p">,</span> <span class="p">()),</span> <span class="p">[(</span><span class="ne">BaseException</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,))]]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">16</span><span class="p">]:</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getclasstree</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">getmro</span><span class="p">(</span><span class="ne">UnicodeError</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">16</span><span class="p">]:</span> 
+<span class="p">[(</span><span class="nb">object</span><span class="p">,</span> <span class="p">()),</span>
+ <span class="p">[(</span><span class="ne">BaseException</span><span class="p">,</span> <span class="p">(</span><span class="nb">object</span><span class="p">,)),</span>
+  <span class="p">[(</span><span class="ne">Exception</span><span class="p">,</span> <span class="p">(</span><span class="ne">BaseException</span><span class="p">,)),</span>
+   <span class="p">[(</span><span class="ne">StandardError</span><span class="p">,</span> <span class="p">(</span><span class="ne">Exception</span><span class="p">,)),</span>
+    <span class="p">[(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="p">(</span><span class="ne">StandardError</span><span class="p">,)),</span> <span class="p">[(</span><span class="ne">UnicodeError</span><span class="p">,</span> <span class="p">(</span><span class="ne">ValueError</span><span class="p">,))]]]]]]</span></code></pre></figure>
+
+<p>Check out the built-in Exceptions documentation for <a href="https://docs.python.org/2/library/exceptions.html" title="Python 2 Built-in Exceptions">Python 2</a> and <a href="https://docs.python.org/3/library/exceptions.html" title="Python 3 Built-in Exceptions">Python 3</a> as they also
+contain the information about the complete Exception hierarchy diagrams.</p>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/exception handling">exception handling</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+    <li><a href="/tag/OOP">OOP</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/beyond-pep8" title="Beyond PEP08">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/python-scopes" title="Python Scopes and Namespaces">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Meet Django</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  20 Nov 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Meet Django" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>With my new job I have been using Django for about two months. Most people say it is a ‘batteries-included’
+framework, and indeed, it is. Here I want to give my first impressions about Django, to talk about what are
+the included ‘batteries’ and what I like and dislike about using it so far.</p>
+
+<h3 id="what-are-included">What Are Included?</h3>
+
+<p>Based on my experience with Django so far, useful included batteries are:</p>
+
+<ol>
+  <li>A <a href="https://docs.djangoproject.com/en/1.10/topics/auth/" title="Django 1.10 User Authentication Documentation">user authentication system</a> so that you do not need to implement your own</li>
+  <li><a href="https://docs.djangoproject.com/en/1.10/ref/forms/validation/" title="Django 1.10 Form and Field Validation Documentation">Form and field validation</a> is part of the middleware, you only need know how
+to customize certain parts in the validation chain, and it is not hard; The official
+documentation is a must-read</li>
+  <li><a href="https://docs.djangoproject.com/en/1.10/ref/contrib/messages/" title="Django 1.10 Messages Framework Documentation">Messaging framework</a> to display one-time notification message to the user after
+processing a form or some other types of user input. In my usecase, it was handy
+for displaying form validation error message to the user.</li>
+  <li>Available <a href="https://docs.djangoproject.com/en/1.10/topics/http/decorators/" title="Django 1.10 View Decorators Documentation">view decorators</a> to simplify your view handlers</li>
+  <li><a href="https://docs.djangoproject.com/en/1.10/topics/signals/" title="Django 1.10 Signals Documentation">Django Signals</a> to implement ‘Observer Pattern’. This is useful to make the components
+in a web system decoupled from each other and more event-driven.</li>
+</ol>
+
+<h3 id="what-i-like-about-django">What I Like About Django</h3>
+
+<p>A good piece of software requires good documentation. Django documentation is huge and comprehensive!
+According to my experience with Django so far, I could already find most answers and <em>learn</em> important
+concepts about Django directly in the online documentation directly. Django documentation is really
+one of its strong points.</p>
+
+<p>Another advantage of Django is it is one of the most popular (and also most mature?!) web frameworks,
+therefore it is easy to find solutions (including countless plugins and third-party Django apps) and
+examples to more difficult problems from the opensource community. That means most of the time you do
+not need to build from scratch. For example, <a href="http://huey.readthedocs.io/en/latest/" title="Huey Documentation">Huey</a> and <a href="https://github.com/arteria/django-background-tasks" title="django-background-tasks Documentation">django-background-tasks</a> are task queue
+solutions I researched about which have Django integration support (the solution includes an Django app).</p>
+
+<h3 id="what-i-dislike-about-django">What I Dislike About Django</h3>
+
+<p>I do not have strong opinions about Django as I haven’t had extensive experience with it yet, however,
+based on my limited experience so far, I could mention a few things I do not like about it.</p>
+
+<ol>
+  <li>
+    <p>The template system in Django is inconvenient, because a python function cannot be called from within
+a template directly, and yet Django let you create a custom template tag or filter to achieve the same
+thing (then why bother?).</p>
+  </li>
+  <li>
+    <p>Django is too monolithic. For the parts you do not like, there seems to be no easy way to swap them out, for
+example, Django’s ORM (you cannot simply replace Django ORM with SQLAlchemy, to use SQLAlchemy, you might
+want to consider using SQLAlchemy with <a href="http://flask.pocoo.org/" title="Flask">Flask</a> or <a href="https://trypyramid.com/" title="Pyramid">Pyramid</a>).</p>
+  </li>
+  <li>
+    <p>Yes, speaking of Django’s ORM, there are quite a few shortcomings. For example, Django model field choices
+does not enforce <code>Enum</code> checks on database level, instead, it only does checking on model forms. For the cases
+where you want database DDL to implement data type checks, you will need to write some <a href="https://docs.djangoproject.com/en/1.11/howto/custom-model-fields/#howto-custom-model-fields">custom model fields</a>.
+In fact, what’s even worse: no full support for database vendor-specific (for example, Oracle) data types; and
+the solution is the same: write custom model fields. This is where SQLAlchemy shines, it supports SQL/ORM
+in different dialects. Another example is <a href="https://code.djangoproject.com/wiki/MultipleColumnPrimaryKeys" title="Django Multi-Column Primary Key Support Ticket">missing composite primary key</a>; Django does not support creating
+a multi-column primary key, you will have to settle with using <code>unique_together</code>, which translates to <code>UNIQUE</code>
+constraint in SQL DDL; this sounds like a degenerate choice.</p>
+  </li>
+  <li>
+    <p>Everything seems to be based on the ORM, for projects that does not need the ORM, there seems to be no way to
+‘turn it off’.</p>
+  </li>
+</ol>
+
+<p>Some others’ insights about Django from this <a href="https://www.quora.com/What-are-the-advantages-and-disadvantages-of-using-Django/answer/Prasad-Gujar-3?srid=hPKZ" title="Django Disavantages vs Advantages">quora answer</a>.</p>
+
+<h3 id="summary">Summary</h3>
+
+<p>My experience with Django is still not enough to judge that much; but once I gain more insights I will
+update this post to share more.</p>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/web">web</a></li>
+    
+    <li><a href="/tag/web framework">web framework</a></li>
+    
+    <li><a href="/tag/web development">web development</a></li>
+    
+    <li><a href="/tag/django">django</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/python-generator-coroutine-continuation" title="Python Generator, Coroutine and Continuation">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/intro-to-hadoop-and-mapreduce" title="Introduced to Hadoop and Mapreduce">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

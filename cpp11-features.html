@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>C++11 Features</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  31 Aug 2015
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="C++11 Features" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <blockquote>
+  <p>“C++11 feels like a new language.” - Bjarne Stroustrup</p>
+</blockquote>
+
+<p>C++11 provide many useful features to boost programmers’ productivity dramatically. Below I listed some ‘must-know’ features:</p>
+
+<ul>
+  <li>
+    <p>Use <strong><code>auto</code></strong> to avoid redundantly restate a type’s name. Note that using <code>auto</code> doesn’t mean your code becomes <em>dynamically-typed</em>,
+it is still statically typed and the code meaning stays the same. Use auto whenever possible to save you time.</p>
+  </li>
+  <li>
+    <p>Always use the standard smart pointers and remove owning raw pointers and delete! There are three standard pointers:
+<a href="http://bit.ly/1LphvTn"><code>unique_ptr</code></a>, <a href="http://bit.ly/1KYkNyf"><code>shared_ptr</code></a> and <a href="http://bit.ly/1V2XU1r"><code>weak_ptr</code></a>.
+Here is <a href="http://bit.ly/1tUk1Wj">some explanations</a> about how to use them and the [wiki page] about smart pointers.</p>
+  </li>
+  <li>
+    <p>Always use <code>nullptr</code> for null pointer value, never use literal 0 or NULL macro because they could both mean an integer
+and a pointer.</p>
+  </li>
+  <li>
+    <p><a href="http://bit.ly/1gBhmPF">Range-based for loop</a> - finally a for loop just like the ones in scripting languages:</p>
+  </li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="c1">// C++98</span>
+<span class="k">for</span><span class="p">(</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;::</span><span class="n">iterator</span> <span class="n">i</span> <span class="o">=</span> <span class="n">v</span><span class="p">.</span><span class="n">begin</span><span class="p">();</span> <span class="n">i</span> <span class="o">!=</span> <span class="n">v</span><span class="p">.</span><span class="n">end</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="o">*</span><span class="n">i</span><span class="p">;</span>
+<span class="p">}</span>
+ 
+<span class="c1">// C++11</span>
+<span class="k">for</span><span class="p">(</span> <span class="k">auto</span> <span class="nl">d</span> <span class="p">:</span> <span class="n">v</span> <span class="p">)</span> <span class="p">{</span>
+    <span class="n">total</span> <span class="o">+=</span> <span class="n">d</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<ul>
+  <li>
+    <p>Lambda functions. Yes, the lambda functions you want! Just like the lambda function in Python or other popular languages, it
+is basically an unnamed temporary local function that can be created with ease. Now forget about functor objects!</p>
+  </li>
+  <li>
+    <p><code>rvalue</code> reference (&amp;&amp;) and <a href="http://www.cprogramming.com/c++11/rvalue-references-and-move-semantics-in-c++11.html"><code>move</code> semantics</a>.
+Since C++11, <code>rvalue</code> reference is introduced, which makes move semantics possible. So if you want your own data structure to
+take advantages of move semantics, make sure move constructor and move assignment operator is implemented for your own class.
+And the good news is, move semantics has been added to all the standard library objects (vectors, maps, strings, etc.), that means
+using this feature on the STL objects will just work! From now on, you can do return by value for large objects a lot more often
+and not worry about it slowing down program performance!</p>
+  </li>
+  <li>
+    <p>Uniform initialization and initializer lists - this avoids declaring a function rather than a variable intialization.</p>
+  </li>
+</ul>
+
+<p>C++03 to me is not like an improved C, but a more complex C, which makes writing C++ more error-prone and more complicated. But
+with the new features introduced in C++11, it is indeed more like a new language, which makes me start to like writing C++11
+programs.</p>
+
+<p><strong>REFERENCE</strong></p>
+
+<ul>
+  <li><a href="http://herbsutter.com/elements-of-modern-c-style/">Most useful c++11 features</a></li>
+</ul>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/c++">c++</a></li>
+    
+    <li><a href="/tag/c++11">c++11</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/cpp-move-objects" title="C++ Returning Reference To Local Variable">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/cartesian-products-of-lists" title="Python Cartesian Product of Lists">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

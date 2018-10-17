@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Using Tmux - A Terminal Multiplexer</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  24 Mar 2013
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Using Tmux - A Terminal Multiplexer" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>I have long wanted a good terminal multiplexer to improve my workflow on a terminal; I tried <strong>Terminator</strong> before, but I did not like it very 
+much. I heard of <strong>Screen</strong>, but never tried it. After searching around, I decided to give <strong>Tmux</strong> a try. It does takes some time to learn 
+and has some compatibility issues with <strong>Vim</strong>; but that can be circumvented by configuring <code>tmux</code> properly, thanks to <code>tmux</code>’s highly configurable 
+nature.</p>
+
+<p>The first problem I encounterd when started using <code>tmux</code> is Vim no longer recognizes modifier keys - SHIFT, CTRL and ALT, etc. The problem is 
+with an environmental variable both <code>tmux</code> and <code>vim</code> rely on: <code>$TERM</code>.</p>
+
+<p>Thankfully, I found a thread <a href="http://unix.stackexchange.com/questions/29907/how-to-get-vim-to-work-with-tmux-properly">here</a>, which also explains 
+a valid solution for my use case. If you need a more detailed explanation, go check this <a href="http://snk.tuxfamily.org/log/vim-256color-bce.html">blog post</a>.</p>
+
+<p>So, problem solved. But then I had a hard time configuring <code>tmux</code> to be vim-user friendly. Time to study something again.</p>
+
+<p>First I found this <a href="http://blog.hawkhost.com/2010/06/28/tmux-the-terminal-multiplexer/">nice tutorial</a> for a <code>tmux</code> beginner. From this tutorial, 
+you can grasp clear pictures of the default key mappings in <code>tmux</code>, which is a corner-stone for configuring it. In the second part of this tutorial,
+it shows some configuration examples, however not exactly fitting my taste.</p>
+
+<p>Then, I found <a href="https://gist.github.com/spicycode/1229612">this gist post</a>, which became my bootstrapping <code>.tmux.conf</code> file. I also learned some more 
+configuration tips from <a href="http://tonkersten.com/2011/07/104-switching-to-tmux/">this post</a> as well, which is more comprehensive.</p>
+
+<p>Of course, after all these efforts configuring <code>tmux</code>, I have already learned “<code>man tmux</code>” and “<code>prefix ?</code>” are really good friends.</p>
+
+<p>My current <code>.tmux.conf</code> file:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1"># reset shell to ordinary shell; instead of login shell</span>
+<span class="nb">set</span> -g default-command <span class="nv">$SHELL</span>
+
+<span class="c1"># tell tmux to pass xterm key combinations to xterm</span>
+set-window-option -g xterm-keys on
+
+<span class="c1"># 0 is too far from ` ;)</span>
+<span class="nb">set</span> -g base-index <span class="m">1</span>
+
+<span class="c1"># all nice options</span>
+<span class="nb">set</span> -g status-keys vi
+setw -g mode-keys vi
+setw -g monitor-activity on
+
+<span class="c1"># remap prefix to ALT-a</span>
+unbind C-b
+set-option -g prefix M-a
+bind-key M-a send-prefix
+
+<span class="c1"># Automatically set window title</span>
+set-window-option -g automatic-rename on
+set-option -g set-titles on
+
+<span class="c1"># statusbar</span>
+set-option -g   status-utf8 on
+set-option -g   status-justify left
+set-option -g   status-left-length <span class="m">15</span>
+set-option -g   status-left <span class="s1">&#39; #h |&#39;</span>
+set-option -g   status-right <span class="s1">&#39; | %Y-%m-%d %H:%M #[default]&#39;</span>
+
+<span class="c1"># default statusbar colors</span>
+set-option -g   status-fg white
+set-option -g   status-bg blue
+set-option -g   status-attr bright
+
+<span class="c1"># default window title colors</span>
+set-window-option -g window-status-fg white
+set-window-option -g window-status-bg blue
+set-window-option -g window-status-attr dim
+
+<span class="c1"># active window title colors</span>
+set-window-option -g window-status-current-fg yellow
+set-window-option -g window-status-current-bg red
+set-window-option -g window-status-current-attr bright
+<span class="c1">#</span>
+set-window-option -g mode-fg white
+set-window-option -g mode-bg red
+set-window-option -g mode-attr bright
+
+<span class="c1"># Alt-n/p to switch windows without prefix key</span>
+<span class="nb">bind</span> -n M-p previous-window
+<span class="nb">bind</span> -n M-n next-window
+
+<span class="c1"># Splitting windows into panes with h and v</span>
+bind-key v split-window -h
+bind-key s split-window -v
+
+<span class="c1"># Use Alt-vim keys without prefix key to switch panes</span>
+<span class="nb">bind</span> -n M-h <span class="k">select</span>-pane -L
+<span class="nb">bind</span> -n M-j <span class="k">select</span>-pane -D 
+<span class="nb">bind</span> -n M-k <span class="k">select</span>-pane -U
+<span class="nb">bind</span> -n M-l <span class="k">select</span>-pane -R
+
+<span class="c1"># quick pane cycling</span>
+unbind ^A
+<span class="nb">bind</span> M-a <span class="k">select</span>-pane -t :.+
+
+<span class="c1"># resize panes</span>
+unbind M-Left  <span class="p">;</span> unbind-key C-Left  <span class="p">;</span> unbind Left
+unbind M-Right <span class="p">;</span> unbind-key C-Right <span class="p">;</span> unbind Right
+unbind M-Up    <span class="p">;</span> unbind-key C-Up    <span class="p">;</span> unbind Up
+unbind M-Down  <span class="p">;</span> unbind-key C-Down  <span class="p">;</span> unbind Down
+<span class="nb">bind</span> -n M-Left    resize-pane -L <span class="m">3</span>
+<span class="nb">bind</span> -n M-Right   resize-pane -R <span class="m">3</span>
+<span class="nb">bind</span> -n M-Up      resize-pane -U <span class="m">3</span>
+<span class="nb">bind</span> -n M-Down    resize-pane -D <span class="m">3</span>
+
+<span class="c1"># No delay for escape key press</span>
+<span class="nb">set</span> -sg escape-time <span class="m">0</span>
+
+<span class="c1"># force a reload of the config file</span>
+<span class="nb">bind</span> r source-file ~/.tmux.conf
+
+<span class="c1"># copy-mode settings; use vim-compatible settings to speed</span>
+<span class="c1"># things up in copy-mode (scroll-mode)</span>
+unbind <span class="o">]</span> <span class="p">;</span> unbind p<span class="p">;</span> unbind <span class="o">[</span>
+<span class="nb">bind</span> m copy-mode
+<span class="nb">bind</span> p paste-buffer
+bind-key -t vi-copy <span class="s1">&#39;v&#39;</span> begin-selection
+bind-key -t vi-copy <span class="s1">&#39;y&#39;</span> copy-selection</code></pre></figure>
+
+<p>Want to know more about Vi mode in <code>tmux</code>? Check <a href="http://blog.sanctum.geek.nz/vi-mode-in-tmux/">this post</a>.</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/linux">linux</a></li>
+    
+    <li><a href="/tag/unix">unix</a></li>
+    
+    <li><a href="/tag/gnome terminal">gnome terminal</a></li>
+    
+    <li><a href="/tag/tmux">tmux</a></li>
+    
+    <li><a href="/tag/vim">vim</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/groupby-vs-distinct" title="GROUP BY vs DISTINCT">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/zcommands" title="ZCommands">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

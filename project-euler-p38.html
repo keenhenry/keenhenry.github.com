@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Project Euler Problem 38</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  14 Aug 2012
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Project Euler Problem 38" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Just solved problem 38 a few days ago, here is some notes about my algorithm:</p>
+
+<p><strong>Step 1</strong>: Permute string “987654321” in <em>descending</em> order.</p>
+
+<p><strong>Step 2</strong>: For every permutation, use its first few digits (could be 1-, 2-, 3-, or 4-digits) as a base integer to 
+generate a 9-digit concatenated product, if possible; otherwise continue with next permutation.</p>
+
+<p><strong>Step 3</strong>: Test if that generated concatenated product is equal to the current permutation, if it is, you found an answer;
+otherwise, repeat from <strong>Step 2</strong>.</p>
+
+<p>Here is my code in Python:</p>
+
+<div class="highlight"><pre><span class="kr">def</span> <span class="nf">p38</span><span class="p">():</span>
+    <span class="kr">def</span> <span class="nf">print_concat_product</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+        <span class="kr">for</span> <span class="n">i</span> <span class="kr">in</span> <span class="nf">xrange</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>
+            <span class="n">concat_product</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">n</span><span class="p">,</span> <span class="n">base</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nf">int</span><span class="p">(</span><span class="n">concat_product</span><span class="p">)</span>
+            <span class="kr">while</span> <span class="nf">len</span><span class="p">(</span><span class="n">concat_product</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">9</span><span class="p">:</span>
+                <span class="n">concat_product</span> <span class="o">+=</span> <span class="nf">str</span><span class="p">(</span><span class="n">base</span><span class="o">*</span><span class="n">n</span><span class="p">)</span>
+                <span class="kr">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">concat_product</span><span class="p">)</span> <span class="o">==</span> <span class="mi">9</span> <span class="o">and</span> <span class="n">concat_product</span> <span class="o">==</span> <span class="n">x</span><span class="p">:</span>
+                    <span class="kr">print</span> <span class="n">x</span><span class="p">,</span> <span class="s">&quot;and its base:&quot;</span><span class="p">,</span> <span class="nf">str</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
+                    <span class="kr">break</span>
+                <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="c"># print out all pandigital 9-digit numbers whose first digit is 9</span>
+    <span class="c"># in the order of permutation, which is from biggest to smallest</span>
+    <span class="n">permute</span><span class="p">(</span><span class="s">&quot;9&quot;</span><span class="p">,</span> <span class="s">&quot;87654321&quot;</span><span class="p">,</span> <span class="n">print_concat_product</span><span class="p">)</span>
+</pre></div>
+
+<p><strong>P.S.</strong> <code>permute()</code> is a function to gernerate permutations of a string</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/algorithms">algorithms</a></li>
+    
+    <li><a href="/tag/project euler">project euler</a></li>
+    
+    <li><a href="/tag/math">math</a></li>
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/bash-commands" title="Some Useful Bash Commands to Help You At Work">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/five-days-in-prague" title="Let's Get Bohemian!">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

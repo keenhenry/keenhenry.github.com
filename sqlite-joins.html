@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>SQLite Joins</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  14 Aug 2014
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="SQLite Joins" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>What is the difference between <code>CROSS JOIN</code>, <code>INNER JOIN</code>, <code>JOIN</code> and a comma (<code>,</code>)?</p>
+
+<p>First of all, one thing to understand is all joins in SQLite is based on the <strong>cartesian product of left and right-hand datasets</strong>.
+In other words, if the left-hand dataset consists of N<sub>left</sub> rows of M<sub>left</sub> columns, and the right-hand dataset of 
+N<sub>right</sub> rows of M<sub>right</sub> columns, then the cartesian product is a dataset of N<sub>left</sub>×N<sub>right</sub> rows, 
+each containing M<sub>left</sub>×M<sub>right</sub> columns.</p>
+
+<p>If the join-operator is “CROSS JOIN”, “INNER JOIN”, “JOIN” or a comma (“,”) and there is no ON or USING clause, then the result of the 
+join is simply the cartesian product of the left and right-hand datasets.</p>
+
+<blockquote>
+  <p>When more than two tables are joined together as part of a <code>FROM</code> clause, the join operations are processed in order from left to right. 
+In other words, the <code>FROM</code> clause (A join-op-1 B join-op-2 C) is computed as ((A join-op-1 B) join-op-2 C).</p>
+</blockquote>
+
+<blockquote>
+  <p>Side note: Special handling of CROSS JOIN. <strong>There is no difference between the “INNER JOIN”, “JOIN” and “,” join operators</strong>. They are 
+completely interchangeable in SQLite. The “CROSS JOIN” join operator produces the same result as the “INNER JOIN”, “JOIN” and “,” operators, 
+but is <strong>handled differently by the query optimizer</strong> in that it prevents the query optimizer from reordering the tables in the join. 
+An application programmer can use the CROSS JOIN operator to directly influence the algorithm that is chosen to implement the SELECT statement. 
+Avoid using CROSS JOIN except in specific situations where manual control of the query optimizer is desired. Avoid using CROSS JOIN early in the 
+development of an application as doing so is a premature optimization. The special handling of CROSS JOIN is an SQLite-specific feature and is 
+not a part of standard SQL.</p>
+</blockquote>
+
+<p>In conclusion, they are the same; but in some cases, some operators are more performant while the others are not due to special handling of
+<code>CROSS JOIN</code> by the query optimizer!</p>
+
+<p><strong>REFERENCE</strong></p>
+
+<ul>
+  <li><a href="http://www.sqlite.org/lang_select.html">SQLite SQL Reference</a></li>
+</ul>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/SQLite">SQLite</a></li>
+    
+    <li><a href="/tag/joins">joins</a></li>
+    
+    <li><a href="/tag/databases">databases</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/suppress-stdout-in-unittest" title="Suppress STDOUT in unittest">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/python-wheel-support" title="Support Wheel Distribution in Python">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

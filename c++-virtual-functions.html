@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>C++ Virtual Functions</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  27 Sep 2012
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="C++ Virtual Functions" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Why virtual functions? And how to use them?</p>
+
+<p>When compiler tries to interpret function calls in C or C++, it binds function names with the particular block of code to be executed.
+This binding happens at compiler time and termed <strong>static binding</strong> (or <strong>early binding</strong>).</p>
+
+<p>However there are times when the types of objects or functions couldn’t be determined at compile time, therefore compiler has to generate 
+code or do some extra processing to make correct function call at run-time, this is called <strong>dynamic binding</strong> (or <strong>late binding</strong>).</p>
+
+<p>Virtual member functions are the C++ answer to dynamic binding.</p>
+
+<p>Why having static binding then? (since dynamic binding solves all typing problems at run-time!). There are two reasons: efficiency and 
+conceptual model.</p>
+
+<p>Efficiency - for a program to be able to make a runtime decision, it has to have some way to keep track of what sort of object a base-class pointer 
+or reference refers to, and that entails some extra processing overhead. The fact that static binding is more efficient is the reason it is the default 
+choice for C++. You should therefore go to virtual function only if the program design needs them.</p>
+
+<p>Conceptual model - when you design a class, you may have member functions that you don’t want redefined in derived classes. By making this function non-virtual,
+you accomplish two things, first you make it more efficient; second, you announce that it is your intention that this function not be redefined. 
+That also suggests reserving the virtual label just for methods you expect to be redefined.</p>
+
+<p><strong>Rule of thumb</strong>: if a method in a base class will be redefined in a derived class, you should make it virtual. If the method should not be redefined, 
+you should make it non-virtual.</p>
+
+<p>Now comes to more interesting part: How is virtual function implemented by compiler? <strong>virtual function table (vtbl)</strong></p>
+
+<p>The usual way compilers handle virtual functions is to add a hidden member to each object. The hidden member holds a pointer to an array of function addresses.
+Such an array is usually termed a <strong>virtual function table</strong>. The <code>vtbl</code> holds the addresses of the virtual functions declared for objects of that class.</p>
+
+<p>For example, an object of a base class contains a pointer to a table of addresses of all the virtual functions for that class. And object of derived class 
+contains a pointer to a separate table of addresses. If the derived class provides a new definition of a virtual function, the <code>vtbl</code> holds the address of the new 
+function. If the derived class doesn’t redefine the virtual function, the <code>vtbl</code> holds the address of the original version of that function. If the derived class 
+defines a new function and makes it virtual, its address is added to the vtbl.</p>
+
+<p>As you can see, with this virtual function implementation, each (virtual) function call takes an extra step of going to a table to look up an address. Therefore 
+it is less efficient than static binding but able to achieve dynamic binding.</p>
+
+<p><strong>Addendum</strong></p>
+
+<ul>
+  <li>
+    <p>Beginning a class method declaration with the keyword virtual in a base class makes a function virtual for the base class and all classes derived from the base 
+class, including classes derived from the derived classes, and so on.</p>
+  </li>
+  <li>
+    <p><strong>Destructors of a base class should be virtual</strong>. You should provide a base class with a virtual destructor, even if the class doesn’t need a destructor. The 
+reason is, when you delete a derived object via a base-class pointer or reference to the object, the program uses the derived-class destructor followed by 
+the base-class destructor rather than using only the base-class destructor.</p>
+  </li>
+</ul>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/c++">c++</a></li>
+    
+    <li><a href="/tag/virtual functions">virtual functions</a></li>
+    
+    <li><a href="/tag/polymorphism">polymorphism</a></li>
+    
+    <li><a href="/tag/dynamic typing">dynamic typing</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/unix-as-ide" title="Unix As IDE">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/sqlite-architecture" title="First Thing To Know About SQLite - Software Architecture">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

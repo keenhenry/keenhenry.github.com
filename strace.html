@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Strace Is Your Friend</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  30 Mar 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Strace Is Your Friend" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>To become a drastically better programmer, you need not only to know how to use things, you must also
+know how things really work and how they work together as a system.</p>
+
+<p>To be able to do that, diving into the source code directly is one option, but not the best option
+(IMHO). Eventually you will need to read the source code, but it had better be AFTER you have understood
+the behavior of the tool you are trying to comprehend.</p>
+
+<p>Fortunately, there are already <a href="http://bit.ly/1xM717E" title="Linux Tools">a lot of tools available on Linux</a> to help you discover and inspect
+deeper into software’s behavior - <code>strace</code> (system call tracer) is one of them.</p>
+
+<p>Some simple usage of <code>strace</code>:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1"># trace the target command and print details for each syscall</span>
+$ strace <span class="nb">command</span>
+
+<span class="c1"># trace the target PID and print details for each syscall</span>
+$ strace -p PID
+
+<span class="c1"># trace the target PID and trace open() syscalls only:</span>
+$ strace -eopen -p PID
+
+<span class="c1"># trace target PID and trace connect() and accept() syscalls only:</span>
+$ strace -econnect,accept -p PID</code></pre></figure>
+
+<p>That is it for now. Please make use of <code>strace</code> or even <a href="http://bit.ly/1M8MDJc" title="perf examples"><code>perf</code></a> to help you understand how things
+work. As you gain more experience with <code>strace</code> or even some other system observability tools, you can
+further amend this post. Do not forget to check out the <em>man page</em> of <code>strace</code>.</p>
+
+<h3 id="more-about-strace">More About strace</h3>
+
+<ul>
+  <li>A good <a href="http://bit.ly/1oPYtx3" title="learning strace">introductory post</a> about <code>strace</code></li>
+  <li>Systemadmin’s <a href="http://bit.ly/237SbIj" title="strace - systemadmin's microscope">microscope</a></li>
+  <li>More <a href="http://bit.ly/1W1plax" title="more practical uses for strace">practical uses</a> for <code>strace</code></li>
+</ul>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/linux">linux</a></li>
+    
+    <li><a href="/tag/strace">strace</a></li>
+    
+    <li><a href="/tag/operating system">operating system</a></li>
+    
+    <li><a href="/tag/system administration">system administration</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/python-scopes" title="Python Scopes and Namespaces">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/selenium" title="Using Selenium">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

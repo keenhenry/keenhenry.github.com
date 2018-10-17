@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Introduced to Hadoop and Mapreduce</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  22 Jan 2017
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Introduced to Hadoop and Mapreduce" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>This weekend I finished a <a href="https://classroom.udacity.com/courses/ud617/" title="Udacity Course: Introduction to Hadoop and Mapreduce">udacity course</a> about <a href="http://hadoop.apache.org/" title="Hadoop Website">Hadoop</a> and <a href="https://en.wikipedia.org/wiki/MapReduce" title="MapReduce Wiki">Mapreduce</a>. The course was fairly easy to follow,
+certain fundamental concepts and techniques were introduced and practiced over the course. Here I summarized what I learned
+for future reference:</p>
+
+<h3 id="what-is-big-data">What is Big Data?</h3>
+
+<p>Definition of Big Data - data that is too big to be processed on a single machine. When we talk about Big Data, there are
+usually three characteristics mentioned: Volume, Variety and Velocity (3 Vs). Volume is the size of the data, usually in
+the order of tera-byte for Big Data. Variety is the various types and sources of the data; in real world examples, the data
+you are dealing with often comes in different formats and from different sources (that means the methods to fetch data from
+different sources are also likely to be different). Velocity is about storing and processing Big Data efficiently.</p>
+
+<h3 id="apache-hadoop">Apache Hadoop</h3>
+
+<p><a href="http://hadoop.apache.org/" title="Apache Hadoop">Apache Hadoop</a> system was developed to solve Big Data problems. The core hadoop system stores large volume of data in
+<a href="https://hadoop.apache.org/docs/r1.2.1/hdfs_design.html" title="HDFS">Hadoop Distributed File System (HDFS)</a> and processes data with the <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf" title="MapReduce Paper">MapReduce programming model</a> (implemented with
+Hadoop MapReduce).</p>
+
+<p>Hadoop project became successful and other projects built around Hadoop started to form an ecosystem, making Hadoop effectively
+an operating system for big data processing. Other open-source projects in Hadoop ecosystem includes: <a href="https://www.cloudera.com/content/dam/www/marketing/resources/training/introduction-to-apache-pig.png.landing.html" title="Pig Introduction">Pig</a> and <a href="https://www.cloudera.com/content/dam/www/marketing/resources/training/introduction-to-apache-hive.png.landing.html" title="Hive Introduction">Hive</a>,
+and projects like <a href="http://mahout.apache.org/" title="Apache Mahout">Mahout</a>.</p>
+
+<h4 id="hdfs">HDFS</h4>
+
+<p>HDFS uses a cluster of machines to store data. When a file is loaded into HDFS, it is splitted into chunks, each chunk is called
+a block. By default, one block is 64MB. Each block then gets stored on one node of the cluster. The node(s) that holds the blocks has
+a <strong>data node</strong> daemon running, which manages block storage for HDFS. And since a file is splitted to be stored on several data nodes,
+there must be a way to know which blocks make up the original file, indeed, this is handled by <strong>name nodes</strong>. Name nodes store the
+meta-data of the HDFS cluster.</p>
+
+<p>HDFS cluster is well equipped for dealing data node failures; its strategy is replicating each block 3 times to 3 different data nodes.
+And name nodes are smart enough to re-replicate data when one more data nodes are under-replicated (happens when one or more
+data nodes failed). And to avoid failures on the name node, usually there are two name nodes for each HDFS cluster: the active one,
+and the standby one. In this setup the name nodes will not easily become the single point of failure.</p>
+
+<p>To interact with HDFS, there is <a href="http://bit.ly/2bQq6kF" title="Hadoop Distributed Filesystem Shell Reference Documentation">Hadoop Distributed Filesystem Shell</a>, which implemented commands pretty much close to
+the bash shell commands you’ve already known.</p>
+
+<h4 id="mapreduce">MapReduce</h4>
+
+<p>MapReduce is a programming model and an associated implementation for processing and generating large data sets (in parallel) with
+a parallel, distributed algorithm on a cluster. It was initially <a href="https://static.googleusercontent.com/media/research.google.com/en//archive/mapreduce-osdi04.pdf" title="MapReduce Paper">published by Google</a> and the name soon popularized.</p>
+
+<p>The idea behind MapReduce is actually pretty simple. Input data is split into chunks and distributed to the nodes in the cluster.
+For each node, a <code>map</code> function (user defined) is applied to the split input data and writes the output to a temporary storage; this is
+the Map step. Then worker nodes redistribute data based on the output keys (produced by the <code>map</code> function), such that all data belonging
+to one key is located on the same worker node; this is the Shuffle step. And finally in the Reduce step, worker nodes process each group
+of output data, per key, in parallel. The final output from Reduce step then is collected by the MapReduce system.</p>
+
+<p>One important thing to note is in the Hadoop system, intermediate data (for example, output produced by Mappers, input to the Reducers,
+output produced by each worker Reducer, etc.) is always in the form of (key, value) pairs, so conceptually, Hadoop is a system of consuming
+hash table data.</p>
+
+<h4 id="writing-mapreduce-programs">Writing MapReduce Programs</h4>
+
+<p>Writing MapReduce programs is quite easy with Hadoop, since the really difficult things are already handled by Hadoop system underneath.
+What’s left for Hadoop users for writing MapReduce programs is only to supply Mapper and Reducer functions/programs. In Hadoop, mapper
+and reducer code is usually written in Java, however, it is also possible to write mapper/reducer code in other executables or languages;
+and this is achieved by <a href="https://hadoop.apache.org/docs/r1.2.1/streaming.html#Hadoop+Streaming" title="Hadoop Streaming Documentation">Hadoop Streaming</a>.</p>
+
+<p>For examples of Mapper and Reducer code written in Python (using Hadoop Streaming utility), check out my <a href="https://github.com/keenhenry/udacity-intro-to-hadoop-and-mapreduce-homework.git" title="Udacity Intro to Hadoop and MapReduce Homework Solutions">homework solutions</a> and
+<a href="https://github.com/keenhenry/udacity-intro-to-hadoop-and-mapreduce-final-project.git" title="Udacity Intro to Hadoop and MapReduce Solution">final project code samples</a> for <a href="https://www.udacity.com/course/intro-to-hadoop-and-mapreduce--ud617" title="Udacity Udacity Intro to Hadoop and MapReduce course">Udacity Udacity Intro to Hadoop and MapReduce course</a>.</p>
+
+<h3 id="further-readings">Further Readings</h3>
+
+<ul>
+  <li><a href="https://www.cloudera.com/products/open-source/apache-hadoop/key-cdh-components.html">Cloudera Distribution Hadoop (CDH)</a></li>
+  <li><a href="http://shop.oreilly.com/product/0636920025122.do">MapReduce Design Patterns</a></li>
+</ul>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/big data">big data</a></li>
+    
+    <li><a href="/tag/hadoop">hadoop</a></li>
+    
+    <li><a href="/tag/mapreduce">mapreduce</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/django-impressions" title="Meet Django">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/henriette-born" title="Welcome To The New World, Henriette">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Linux traceroute Utility</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  12 Jan 2014
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Linux traceroute Utility" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>How does Linux command <code>traceroute</code> works?</p>
+
+<p><code>traceroute</code> makes use of <strong>IP</strong> protocol to print complete route to a particular 
+destination:</p>
+
+<p>“Traceroute utility uses the TTL (Time To Live) field in the IP header to achieve 
+its operation. This field describes how much hops a particular packet will take 
+while traveling on network. This field is usually set to 32 or 64. Each time the 
+packet is held on an intermediate router, it decreases the TTL value by 1. When a 
+router finds the TTL value of 1 in a received packet then that packet is not 
+forwarded but instead discarded.</p>
+
+<p>After discarding the packet, router sends an ICMP error message of “Time exceeded” 
+back to the source from where packet generated. The ICMP packet that is sent back 
+contains the IP address of the router.</p>
+
+<p>So now it can be easily understood that traceroute operates by sending packets with 
+TTL value starting from 1 and then incrementing by one each time. Each time a router 
+receives the packet, it checks the TTL field, if TTL field is 1 then it discards the 
+packet and sends the ICMP error packet containing its IP address and this is what 
+traceroute requires. So traceroute incrementally fetches the IP of all the routers 
+between the source and the destination.”</p>
+
+<p>Now, let’s see some examples:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ traceroute google.com
+traceroute to google.com <span class="o">(</span><span class="m">74</span>.125.236.132<span class="o">)</span>, <span class="m">30</span> hops max, <span class="m">60</span> byte packets
+<span class="m">1</span>  <span class="m">220</span>.224.141.129 <span class="o">(</span><span class="m">220</span>.224.141.129<span class="o">)</span>  <span class="m">89</span>.174 ms  <span class="m">89</span>.094 ms  <span class="m">89</span>.054 ms
+<span class="m">2</span>  <span class="m">115</span>.255.239.65 <span class="o">(</span><span class="m">115</span>.255.239.65<span class="o">)</span>  <span class="m">109</span>.037 ms  <span class="m">108</span>.994 ms  <span class="m">108</span>.963 ms
+<span class="m">3</span>  <span class="m">124</span>.124.251.245 <span class="o">(</span><span class="m">124</span>.124.251.245<span class="o">)</span>  <span class="m">108</span>.937 ms  <span class="m">121</span>.322 ms  <span class="m">121</span>.300 ms
+<span class="m">4</span>  * <span class="m">115</span>.255.239.45 <span class="o">(</span><span class="m">115</span>.255.239.45<span class="o">)</span>  <span class="m">113</span>.754 ms  <span class="m">113</span>.692 ms
+<span class="m">5</span>  <span class="m">72</span>.14.212.118 <span class="o">(</span><span class="m">72</span>.14.212.118<span class="o">)</span>  <span class="m">123</span>.585 ms  <span class="m">123</span>.558 ms  <span class="m">123</span>.527 ms
+<span class="m">6</span>  <span class="m">72</span>.14.232.202 <span class="o">(</span><span class="m">72</span>.14.232.202<span class="o">)</span>  <span class="m">123</span>.499 ms  <span class="m">123</span>.475 ms  <span class="m">143</span>.523 ms
+<span class="m">7</span>  <span class="m">216</span>.239.48.179 <span class="o">(</span><span class="m">216</span>.239.48.179<span class="o">)</span>  <span class="m">143</span>.503 ms  <span class="m">95</span>.106 ms  <span class="m">95</span>.026 ms
+<span class="m">8</span>  bom03s02-in-f4.1e100.net <span class="o">(</span><span class="m">74</span>.125.236.132<span class="o">)</span>  <span class="m">94</span>.980 ms  <span class="m">104</span>.989 ms  <span class="m">104</span>.954 ms</code></pre></figure>
+
+<p>From the example above, <code>traceroute</code> not only gives the IP addresses of the intermediate 
+routers but also three round trip times for that particular router as for each router the 
+<code>traceroute</code> commands fires three packets.</p>
+
+<p><strong>The * field in output</strong></p>
+
+<p>There are times when one could encounter an * in the output rather than a value. 
+This depicts that the required field could not be fetched. The reason can be anything 
+from reverse DNS lookup failure to packets not hitting the target router to packets 
+getting lost on their way back. So we see that the reason could be many but for all 
+these type of cases the traceroute utility provides an * in the output:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ traceroute www.bbc.co.uk
+traceroute to www.bbc.co.uk <span class="o">(</span><span class="m">212</span>.58.244.69<span class="o">)</span>, <span class="m">30</span> hops max, <span class="m">60</span> byte packets
+<span class="m">1</span>  <span class="m">192</span>.168.1.1 <span class="o">(</span><span class="m">192</span>.168.1.1<span class="o">)</span>  <span class="m">0</span>.900 ms  <span class="m">1</span>.866 ms  <span class="m">2</span>.108 ms
+<span class="m">2</span>  s53751501.adsl.online.nl <span class="o">(</span><span class="m">83</span>.117.21.1<span class="o">)</span>  <span class="m">176</span>.235 ms  <span class="m">176</span>.629 ms  <span class="m">176</span>.739 ms
+<span class="m">3</span>  <span class="m">194</span>.134.20.98 <span class="o">(</span><span class="m">194</span>.134.20.98<span class="o">)</span>  <span class="m">29</span>.814 ms  <span class="m">30</span>.157 ms  <span class="m">31</span>.587 ms
+<span class="m">4</span>  ae3.cr1-asd6.nl.euro.net <span class="o">(</span><span class="m">194</span>.134.161.229<span class="o">)</span>  <span class="m">32</span>.887 ms  <span class="m">33</span>.246 ms  <span class="m">33</span>.602 ms
+<span class="m">5</span>  * * *
+<span class="m">6</span>  rt-amsix.tcams.bbc.co.uk <span class="o">(</span><span class="m">195</span>.69.144.169<span class="o">)</span>  <span class="m">37</span>.520 ms  <span class="m">26</span>.394 ms  <span class="m">44</span>.926 ms
+<span class="m">7</span>  ae-528.prt0.thdow.bbc.co.uk <span class="o">(</span><span class="m">212</span>.58.239.45<span class="o">)</span>  <span class="m">45</span>.095 ms  <span class="m">45</span>.368 ms  <span class="m">45</span>.780 ms
+<span class="m">8</span>  * * *
+<span class="m">9</span>  * * *
+<span class="m">10</span>  ae0.er01.telhc.bbc.co.uk <span class="o">(</span><span class="m">132</span>.185.254.109<span class="o">)</span>  <span class="m">45</span>.813 ms  <span class="m">54</span>.124 ms  <span class="m">57</span>.005 ms</code></pre></figure>
+
+<p><strong>REFERENCE</strong></p>
+
+<ul>
+  <li><a href="http://bit.ly/1cagdFi">Linux Traceroute Command Examples</a></li>
+</ul>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/linux">linux</a></li>
+    
+    <li><a href="/tag/unix">unix</a></li>
+    
+    <li><a href="/tag/network">network</a></li>
+    
+    <li><a href="/tag/tools">tools</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/live-to-best-possibility-thoughts" title="活出生命最好的可能讀後感">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/wreorder" title="C++ Reorder Warning">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

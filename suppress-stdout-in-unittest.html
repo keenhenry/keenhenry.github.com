@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Suppress STDOUT in unittest</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  13 Jul 2014
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Suppress STDOUT in unittest" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p><strong>Problem</strong></p>
+
+<p>You are testing a function in unit test using python. The function emits some text output
+to <code>sys.stdout</code>, but you want to suppress the output during unit testing (simply because
+the output is irrelevant during testing).</p>
+
+<p><strong>Solution</strong></p>
+
+<p>Using the <code>mock</code> module’s <code>patch()</code> function, it’s pretty simple to mock out 
+<code>sys.stdout</code> for just a single test, and put it back again, without messy temporary variables 
+or leaking mocked-out state between test cases. For example:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">from</span> <span class="nn">mock</span> <span class="kn">import</span> <span class="n">patch</span>
+<span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">def</span> <span class="nf">func_to_be_tested</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s1">&#39;some message texts to stdout ...&#39;</span>
+
+<span class="k">class</span> <span class="nc">MockDevice</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;A mock device to temporarily suppress output to stdout</span>
+<span class="sd">    Similar to UNIX /dev/null.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span> <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">TestFunctionToBeTested</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test_function_to_be_tested</span><span class="p">():</span>
+        <span class="c1"># some other setup code</span>
+        <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;sys.stdout&#39;</span><span class="p">,</span> <span class="n">new</span><span class="o">=</span><span class="n">MockDevice</span><span class="p">())</span> <span class="k">as</span> <span class="n">fake_out</span><span class="p">:</span>
+            <span class="n">func_to_be_tested</span><span class="p">()</span></code></pre></figure>
+
+<p><a href="https://pypi.python.org/pypi/mock"><code>mock</code></a> is a library for testing in Python. 
+It allows you to replace parts of your system under test with mock objects and makes 
+assertions about how they have been used. In the above example, it is used to replace 
+<code>std.stdout</code> temporarily ONLY within the <a href="https://docs.python.org/2/reference/compound_stmts.html#with"><code>with</code> statement</a> 
+block, and restore it back afterwards.</p>
+
+<p>And of course, the result will be that the text ‘some message texts to stdout …’ simply 
+disappear while running unit test.</p>
+
+<p>The above idea is inspired by the following web resources:</p>
+
+<ol>
+  <li><a href="http://bit.ly/1kWvdvO">Redirect or Turn Off STDOUT and STDERR</a></li>
+  <li><a href="http://chimera.labs.oreilly.com/books/1230000000393/ch14.html">Python Cookbook Chapter 14</a></li>
+</ol>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/unittest">unittest</a></li>
+    
+    <li><a href="/tag/io">io</a></li>
+    
+    <li><a href="/tag/pda">pda</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/insert-mutiple-rows-in-one-query" title="Insert Multiple Rows In One SQLite Insert Query">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/sqlite-joins" title="SQLite Joins">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

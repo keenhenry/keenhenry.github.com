@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>C++ Static Class Members</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  28 Apr 2013
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="C++ Static Class Members" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>A <code>static</code> class data member has <strong><code>static</code></strong> storage, meaning a program creates only ONE copy of 
+a static class variable, regardless of the number of objects created. This property can be useful 
+when you want to share some data among several objects of the same class.</p>
+
+<p>One caveat of using static class member is that you cannot initialize it inside the class 
+declaration, which is usually put in a header file (<code>.h</code> or <code>.hpp</code>). This is because the 
+declaration is a description of how memory is to be allocated, but it doesn’t allocate memory.</p>
+
+<p><code>static</code> class member is initialzed in the file containing the class methods and the scope operator 
+is used in the initialization to indicate to which class the static member belongs. However, one 
+exception is that, if the static member is a <strong><code>const</code></strong> integral type or an enumeration type, it 
+can be initialized in the class declaration itself.</p>
+
+<p>A <code>const static</code> integral (or enumeration) can serve as a symbolic constant shared by all objects 
+of the class in which the <code>const static</code> member is declared and initialzed. However, since 
+the constant initialization is not a <em>definition</em> yet, you still need to define that <code>static</code> member 
+in an enclosing namespace, otherwise, the linker will throw errors like ‘undefined reference to 
+something’.</p>
+
+<p>If you are defining a constant to be shared among all the instances of the class, use static const. 
+If the constant is specific to each instance, just use const (but note that all constructors of the 
+class must initialise this const member variable in the initialisation list).</p>
+
+<p>Let’s see some example:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="c1">// Example1.h -- a static class member declared in header file</span>
+<span class="k">class</span> <span class="nc">Example1</span>
+<span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">Example1</span><span class="p">();</span>
+        <span class="o">~</span><span class="n">Example1</span><span class="p">();</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+        <span class="k">static</span> <span class="kt">int</span> <span class="n">somenumber</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Example1.cpp</span>
+<span class="kt">int</span> <span class="n">Example1</span><span class="o">::</span><span class="n">somenumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+
+<span class="n">Example1</span><span class="o">::</span><span class="n">Example1</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// blablablablablabla ...</span>
+<span class="p">}</span>
+
+<span class="c1">// Example2.h -- a const static integral class member declared </span>
+<span class="c1">// and initialized in header file</span>
+<span class="k">class</span> <span class="nc">Example2</span>
+<span class="p">{</span>
+    <span class="k">public</span><span class="o">:</span>
+        <span class="n">Example2</span><span class="p">();</span>
+        <span class="o">~</span><span class="n">Example2</span><span class="p">();</span>
+    <span class="k">private</span><span class="o">:</span>
+        <span class="kt">int</span> <span class="n">len</span><span class="p">;</span>
+        <span class="k">static</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">somenumber</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// Example2.cpp</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">Example2</span><span class="o">::</span><span class="n">somenumber</span><span class="p">;</span>     <span class="c1">// must be defined!</span>
+
+<span class="n">Example1</span><span class="o">::</span><span class="n">Example2</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// blablablablablabla ...</span>
+<span class="p">}</span></code></pre></figure>
+
+<p><strong>REFERENCE</strong></p>
+
+<ul>
+  <li><a href="http://publib.boulder.ibm.com/infocenter/lnxpcomp/v8v101/index.jsp?topic=%2Fcom.ibm.xlcpp8l.doc%2Flanguage%2Fref%2Fcplr038.htm">C++ Static Data Members</a></li>
+  <li><a href="http://cboard.cprogramming.com/cplusplus-programming/96595-static-const-vs-sharpdefine.html">static const vs #define</a></li>
+</ul>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/c++">c++</a></li>
+    
+    <li><a href="/tag/static keyword">static keyword</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/memory-leak" title="Side Effects Of Memory Leaks">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/spain-trip" title="Barcelona and Andalusia">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

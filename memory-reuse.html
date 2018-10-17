@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Zero Out Pointers to Avoid Reuse</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  18 Aug 2013
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Zero Out Pointers to Avoid Reuse" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>This week I helped my colleague resolve a memory leak problem. Of course, we used <code>valgrind</code> 
+to locate where the leak was, after that, the problem became how to free the non-freed memory.</p>
+
+<p>In the original code, the memory pointed by a pointer was not freed one last time outside 
+a <code>for</code> loop, which is a typical case for memory leak problem. But when we tried to do just 
+that, the program crashes at the newly introduced <code>free()</code>, what had happened?</p>
+
+<p>The problem was, we were trying to <em>reused a pointer that has already been freed</em>. How to 
+detect such situation?</p>
+
+<p>In the original code, it frees memory like this:</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">some_length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">some_condition</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// some codes before the free</span>
+        <span class="n">free</span><span class="p">(</span><span class="n">pointer_to_a_object</span><span class="p">);</span>
+        <span class="c1">// ... code to allocate new memory for </span>
+        <span class="c1">// ... pointer_to_a_object again</span>
+    <span class="p">}</span>
+    <span class="c1">// continue with next iteration</span>
+<span class="p">}</span>
+
+<span class="n">free</span><span class="p">(</span><span class="n">pointer_to_a_object</span><span class="p">);</span> <span class="c1">// crashes the program!</span></code></pre></figure>
+
+<p>This code is already problematic because it doesn’t test if <code>pointer_to_a_object</code> is already 
+being freed. To test it, one instinct would be using <code>if ( pointer_to_a_object != NULL )</code>, but 
+this condition only holds when the pointer is explicitly set to <code>NULL</code>.</p>
+
+<p>So the biggest problem with this code is actually <strong>NOT ZEROING OUT POINTERS AFTER 
+FREE/DELETE</strong>. This should be a standard practice when you write code. The following 
+code solves the problem.</p>
+
+<figure class="highlight"><pre><code class="language-cpp" data-lang="cpp"><span></span><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">some_length</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span> <span class="n">some_condition</span> <span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// some codes before the free</span>
+        <span class="k">if</span> <span class="p">(</span> <span class="n">pointer_to_a_object</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span>
+        <span class="p">{</span>
+            <span class="n">free</span><span class="p">(</span><span class="n">pointer_to_a_object</span><span class="p">);</span>
+            <span class="n">pointer_to_a_object</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// ... code to allocate new memory for </span>
+        <span class="c1">// ... pointer_to_a_object again</span>
+    <span class="p">}</span>
+    <span class="c1">// continue with next iteration</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="p">(</span> <span class="n">pointer_to_a_object</span> <span class="o">!=</span> <span class="nb">NULL</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">free</span><span class="p">(</span><span class="n">pointer_to_a_object</span><span class="p">);</span> <span class="c1">// crashes the program!</span>
+    <span class="n">pointer_to_a_object</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Because you always zero out pointers after you are done with them, you know for sure 
+next time they are not freed yet when they are not <code>NULL</code>. Or, in other words, you only 
+free pointers when they are still pointing to ‘something’. And this small tip can avoid 
+pointers being reused. Safer code, higher assurance.</p>
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/memory management">memory management</a></li>
+    
+    <li><a href="/tag/memory leak">memory leak</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/cpp-class-memory-layout" title="C++ Class Object Memory Layout">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/pymongo-reference" title="Pymongo Tutorials and Useful References">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

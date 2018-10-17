@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Using Selenium</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  11 Apr 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Using Selenium" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p><a href="http://www.seleniumhq.org" title="Selenium Website">Selenium</a> is a suite of tools to automate web browers. It is useful because one obvious usecase is to automate
+repetitive browser testing for a website.</p>
+
+<p>This week I gave it a try to automate testing of <a href="http://keenhenry-wiki.appspot.com/" title="Keenhenry's Wiki">my wiki site</a> during development, and here I want to
+share some of my experiences of using it.</p>
+
+<p>There are two types of tools you can use from the tool suite: <em><a href="http://bit.ly/1DjWjv7" title="Selenium WebDriver">Selenium WebDriver</a></em> and <em><a href="http://bit.ly/22EYfG5" title="Selenium IDE">Selenium IDE</a></em>.
+I tried Selenium IDE first because it has a charming feature: <strong>do simple record-and-playback interfactions with
+the browser</strong>. I tried to use this feature to automate creating some 11 dummy wiki pages (by recording my actions
+in the IDE first, then, playback!). Unfortunately, it did not just work out of the box. There is probably some
+way to make it work, but I did not go further down this path.</p>
+
+<p>Then I tried Selenium WebDriver, after all, I am a progammer. The API has <a href="http://bit.ly/1YBkyet" title="Selenium Official Python API">Python binding</a> (hooray!), although it is
+is not very pythonic (probably a direct porting from Java). I first tried out the examples from the <a href="http://bit.ly/Zecx7k" title="Selenium Documentation">documentation</a>
+to get a feeling of how to use it. Then I started to create more involved codes and referenced the <a href="http://bit.ly/1VumU0O" title="Unofficial WebDriver API Documentation">unofficial Python 
+binding docs</a> frequently.</p>
+
+<p>The experience of using Selenium WebDriver (only the Firefox driver) was quite positive. It was easy to use and the
+documentation was clear enough for me to get my job done. What I ended up was two Python scripts; one was to use Adaptor
+pattern to create a more <em>pythonic</em> interface for the webdriver, the other is using that pythonic interface to automate
+creating 11 dummy wiki pages. In total it was only 100+ lines of code (including <code>docstring</code>s and comments) and it worked
+perfectly. You can feel a web brower is really under your control via WebDriver!</p>
+
+<p>If you want to get deeper into Selenium, perhaps you want to checkout its <a href="https://github.com/SeleniumHQ/selenium" title="Selenium Source Code">source code</a>. Automation can set you free!</p>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/web">web</a></li>
+    
+    <li><a href="/tag/browser automation">browser automation</a></li>
+    
+    <li><a href="/tag/browser testing">browser testing</a></li>
+    
+    <li><a href="/tag/selenium">selenium</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/strace" title="Strace Is Your Friend">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/run-python-as-bash" title="Run A Python Script Inside A Bash Script">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 

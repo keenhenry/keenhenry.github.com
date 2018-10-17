@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Python Multiprocessing Using Queues and Redis Lists</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  20 Aug 2016
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Python Multiprocessing Using Queues and Redis Lists" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Python standard library <a href="https://docs.python.org/2/library/queue.html" title="Python Queue Documentation">Queue</a> class is a convenient data structure for a message queue or job queue.
+Checkout its <a href="https://hg.python.org/cpython/file/2.7/Lib/Queue.py" title="Python Queue Class Source Code">source code</a> if you are interested in how to implement such data structure in Python.</p>
+
+<p>Message queues are useful in a sense that they facilitate a simple way/pattern for the communications among
+multiple processes/threads. Python’s <a href="https://docs.python.org/2/library/multiprocessing.html" title="Python multiprocessing Package Documentation"><code>multiprocessing</code> package</a> also provides data structures with more
+convenient interface to facilitate message passing among processes.</p>
+
+<p>I tried using <code>multiprocessing.JoinableQueue</code> class in one of my personal projects some time ago. <code>JoinableQueue</code>
+is a subclass of <code>multiprocessing.Queue</code> class and both are modelled on the <code>Queue.Queue</code> class in the standard
+library. While it was straightforward to work with, the program I created got stuck and ran painfully slowly
+sometimes.</p>
+
+<p>I did a bit of research and found a <a href="http://bugs.python.org/issue8426" title="multiprocessing.Queue blocks program">limitation</a> of using <code>JoinableQueue</code>. Now let’s get into the details of what
+could go wrong.</p>
+
+<p>First of all, Let’s check the source code of <code>multiprocessing</code> package (<code>cpython/Lib/multiprocessing/</code>) to figure
+out how <code>multiprocessing.Queue</code> and <code>multiprocessing.JoinableQueue</code> work.</p>
+
+<p>File <code>cpython/Lib/multiprocessing/queues.py</code> contains the implementations of three classes:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Queue&#39;</span><span class="p">,</span> <span class="s1">&#39;SimpleQueue&#39;</span><span class="p">,</span> <span class="s1">&#39;JoinableQueue&#39;</span><span class="p">]</span></code></pre></figure>
+
+<p>And class <code>Queue</code> is the base class of <code>JoinableQueue</code>, most of the important inner workings are implemented in
+<code>Queue</code>. The first few lines of <code>Queue</code> class is as follows:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="c1">#</span>
+<span class="c1"># Queue type using a pipe, buffer and thread</span>
+<span class="c1">#</span>
+
+<span class="k">class</span> <span class="nc">Queue</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">maxsize</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">ctx</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">maxsize</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Can raise ImportError (see issues #3770 and #23400)</span>
+            <span class="kn">from</span> <span class="nn">.synchronize</span> <span class="kn">import</span> <span class="n">SEM_VALUE_MAX</span> <span class="k">as</span> <span class="n">maxsize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_maxsize</span> <span class="o">=</span> <span class="n">maxsize</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_writer</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">Pipe</span><span class="p">(</span><span class="n">duplex</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="o">...</span></code></pre></figure>
+
+<p>There are two important things to pay attention here:</p>
+
+<ol>
+  <li>The comment mentioned that Queue class uses a pipe, buffer and thread underneath. The buffer is
+actually a deque (<code>collections.deque</code>); and the thread (dedicated feeder thread) transfers data
+from the deque to the pipe, which brings us to the next point …</li>
+  <li>The pipe, created via <code>connection.Pipe()</code> call, is a data structure having a reading and writing
+ends forming a chanel for interprocess communication.</li>
+</ol>
+
+<p>The pipe is either an OS pipe or Unix Domain Socket depends on the value of the keywoard argument <code>duplex</code>
+passed to the <code>Pipe</code> constructor:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># An excerpt from cpython/Lib/multiprocessing/connection.py</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="o">!=</span> <span class="s1">&#39;win32&#39;</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">Pipe</span><span class="p">(</span><span class="n">duplex</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Returns pair of connection objects at either end of a pipe</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">duplex</span><span class="p">:</span>
+            <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socketpair</span><span class="p">()</span>
+            <span class="n">s1</span><span class="o">.</span><span class="n">setblocking</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">s2</span><span class="o">.</span><span class="n">setblocking</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+            <span class="n">c1</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">s1</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+            <span class="n">c2</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">s2</span><span class="o">.</span><span class="n">detach</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">fd1</span><span class="p">,</span> <span class="n">fd2</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">pipe</span><span class="p">()</span>
+            <span class="n">c1</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">fd1</span><span class="p">,</span> <span class="n">writable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+            <span class="n">c2</span> <span class="o">=</span> <span class="n">Connection</span><span class="p">(</span><span class="n">fd2</span><span class="p">,</span> <span class="n">readable</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">c1</span><span class="p">,</span> <span class="n">c2</span></code></pre></figure>
+
+<p>According to the source code above, it is clear that the pipe is actually an OS pipe and thus an
+unidirectional channel for processes. The remaining implementation details of <code>Queue</code> is irrelevant
+in this discussion … The <em>KEY POINT</em> here is that an OS pipe has <strong>limited capacity</strong> (<a href="https://linux.die.net/man/7/pipe" title="pipe(7) - Linux man page"><code>man 7 pipe</code></a>)
+(same applied to sockets)! If a pipe is full, a process/thread trying to write (using system call
+<code>write</code>) to the pipe will block!</p>
+
+<p>Having this concept in mind, it is natural to understand that deadlock will occur if no other concurrent
+threads/processes remove items on the queue before joining the producer processes; since <code>join()</code> will wait
+until the feeder thread has managed to write all the items to the underlying pipe/socket, and this thread
+will hang if the pipe/socket is full. In conclusion, this is a system (OS) limitation, not a bug in the
+library. And you need to understand this limitation to use the library correctly and effectively.</p>
+
+<p>In the case of my personal project, something similar happened, although more complicated: there were several
+<code>JoinableQueue</code>s created and separate groups of processes handling tasks on those different queues. Group 1 processes
+dequeue from queue 1 and enqueue queue 2; group 2 processes dequeue from queue 2 and enqueue queue 3. The
+problem occurs when group 1 processes are joined before all the items in queue 2 are popped by group 2 processes
+and the underlying pipes for queue 2 is full. The same thing also happened to group 2 processes. This slows
+down the entire processing as congested pipes for one queue causes congestion for multiple queues.</p>
+
+<p>Of course, this is not a good design regarding the architecture and can be avoided by using only one task queue
+and only joining processes until all the tasks are processed. However, instead of adapting it with the same tools
+provided by the standard library, I used <a href="http://redis.io/topics/data-types#lists" title="Redis List Data Type">Redis List</a> to replace the entire queuing infrastructure.</p>
+
+<p>The reason I wanted to use Redis was solely because I want to play with this <em>NOSQL</em> database and see how it works.
+It turned out to be fairly easy to use and a drop-in replacement for the queueing infrastructure perfectly. I do
+not know the details of how Redis Lists are implemented yet, but it looks like it did not suffer from pipe-congestion
+problems at all and run fast. <a href="http://peter-hoffmann.com/2012/python-simple-queue-redis-queue.html" title="Simple Python Queue with Redis">Here</a> is an example of how to use Redis Lists as a message queue.</p>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+    <li><a href="/tag/multiprocessing">multiprocessing</a></li>
+    
+    <li><a href="/tag/message queue">message queue</a></li>
+    
+    <li><a href="/tag/nosql">nosql</a></li>
+    
+    <li><a href="/tag/redis">redis</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/sql-cte" title="SQL Common Table Expression">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!--     <a id="right" href="/python-generator-coroutine-continuation" title="Python Generator, Coroutine and Continuation">Newer &rarr;</a> -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
