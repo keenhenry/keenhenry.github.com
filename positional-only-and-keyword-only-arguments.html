@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Positional-Only and Keyword-Only Arguments</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  25 Sep 2018
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Positional-Only and Keyword-Only Arguments" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>One of the <a href="https://www.asmeurer.com/python3-presentation/slides.html#1">nice Python 3 features</a> is <a href="https://www.python.org/dev/peps/pep-3102/"><strong>keyword-only arguments</strong></a> for functions. Keyword-only
+arguments are usually used to represent <em>truly optional</em> function arguments.</p>
+
+<p>Let’s have a look of its syntax:</p>
+
+<pre><code class="language-python">def f(a, b, *args, option=True):
+    ...
+</code></pre>
+
+<p>Or, if you don’t want to collect <code>*args</code>, you can do the following:</p>
+
+<pre><code class="language-python">def f(a, b, *, option=True):
+    ...
+</code></pre>
+
+<p><code>option</code> is the <strong>keyword-only</strong> argument. The <em>only way</em> to access it is to explicitly call
+<code>f(a, b, option=True)</code>.</p>
+
+<p>One of the problems it is solving is that the values of <em>keyword arguments</em> can be passed without
+specifying the keyword(s); or, put it in another way, <em>keyword arguments</em> are not <em>keyword-only</em>.
+And in this case it is possible to actually pass a value as a <strong>positional argument</strong> to a keyword
+argument accidentally: <a href="https://www.asmeurer.com/python3-presentation/slides.html#13">example</a>.</p>
+
+<p>The other benefit of using keyword-only arguments is you can make youre APIs ‘future change proof’.
+To put it in another way: using keyword-only arguments allows you to add new keyword (-only) arguments
+without breaking API. Let’s see <a href="https://www.asmeurer.com/python3-presentation/slides.html#19">this example</a>.</p>
+
+<p>Without this feature, like what’s in Python 2, you have to use <code>**kwargs</code> and do the extra handling/parsing
+yourself.</p>
+
+<p>Enough said, a little summary:</p>
+
+<blockquote>
+  <p>If you somehow are writing for a Python 3 only codebase, I highly recommend making all your keyword
+arguments keyword only, especially keyword arguments that represent “options”</p>
+</blockquote>
+
+<p>Now, let’s talk about <strong>positional-only arguments</strong>. Say what?</p>
+
+<p>Positional-only arguments are parameters that cannot be specified by keywords, and they are passed only
+by mapping the positions to the formal arguments of a function. Many python <code>builtin</code> functions are actually
+allowing only positoinal-only arguments, for example, function <code>pow</code>:</p>
+
+<pre><code class="language-ipython">In [1]: pow?
+Signature: pow(x, y, z=None, /)
+Docstring:
+Equivalent to x**y (with two arguments) or x**y % z (with three arguments)
+
+Some types, such as ints, are able to use a more efficient algorithm when
+invoked using the three argument form.
+Type:      builtin_function_or_method
+
+In [3]: pow(x=2, y=3)
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-3-3c1748947c84&gt; in &lt;module&gt;()
+----&gt; 1 pow(x=2, y=3)
+
+TypeError: pow() takes no keyword arguments
+</code></pre>
+
+<p>Noticed the slash <code>/</code> at the end of the argument list? That means all arguments before it are
+<strong>positional-only</strong>. You can sometimes see such syntax in some of the <code>docstring</code>s of certain
+<code>builtin</code> functions or library functions.</p>
+
+<p>Currently (25.09.2018) there is no way to write ‘positional-only’ arguments in Python 3, to
+use such feature, you need to use Python C API (in other words, implement functions in C).
+<a href="https://www.python.org/dev/peps/pep-0570/">PEP 570</a> was already proposed for implementing such syntax in Python, however, it is not
+yet implementd as we speak (25.09.2018).</p>
+
+<p>Given such feature in mind, the <a href="https://www.python.org/dev/peps/pep-0570/#syntax-and-semantics">following syntax</a> gives the complete picture of all possible
+types of arguments in a function signature:</p>
+
+<pre><code class="language-python">def name(positional_only_parameters, /, positional_or_keyword_parameters,
+         *, keyword_only_parameters):
+</code></pre>
+
+<p>One last note, even in the above newer syntax, non-default arguments must still appear before default
+arguments (for <code>positional_only_parameters</code> and <code>positional_or_keyword_parameters</code>).</p>
+
+<p><strong>MORE REFRENCES</strong></p>
+
+<ul>
+  <li><a href="https://medium.com/@boxed/keyword-argument-confusion-in-python-59105c5a1159">keyword-argument confusion in Python</a></li>
+</ul>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/python">python</a></li>
+    
+    <li><a href="/tag/python3">python3</a></li>
+    
+    <li><a href="/tag/programming">programming</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/mypy-and-typehints" title="Meet Type Hints and mypy">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
