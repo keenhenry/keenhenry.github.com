@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html lang="en"> <!--<![endif]-->
+<head>
+
+	<!-- Basic Page Needs
+  ================================================== -->
+	<meta charset="utf-8">
+    <title>Keenhenry and his Web residence</title>
+	<meta name="description" content="Henry's Personal Website">
+	<meta name="author" content="Henry Huang">
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- Mobile Specific Metas
+  ================================================== -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- CSS
+  ================================================== -->
+	<link rel="stylesheet" href="/static/css/base.css" />
+	<link rel="stylesheet" href="/static/css/skeleton.css" />
+	<link rel="stylesheet" href="/static/css/layout.css" />
+    <link rel="stylesheet" href="/static/css/syntax.css" />
+  
+	<!-- Favicons
+	================================================== -->
+    <link rel="shortcut icon" href="http://faviconist.com/icons/c8429c04ae9b25959c9c112fd49faee8/favicon.ico" />
+	<!-- <link rel="shortcut icon" href="images/favicon.ico"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" href="images/apple&#45;touch&#45;icon.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="72x72" href="images/apple&#45;touch&#45;icon&#45;72x72.png"> -->
+	<!-- <link rel="apple&#45;touch&#45;icon" sizes="114x114" href="images/apple&#45;touch&#45;icon&#45;114x114.png"> -->
+
+</head>
+
+<body>
+  <div class="container">
+    <div class="four columns navbar"> <!-- This is a HTML5 tag, all major browser supports this tag! -->
+      <section>
+          <h1><a href="/">Keenhenry</a></h1>
+
+          <ul>
+          <li><span class="gray">Hsiu-Yu (Henry) Huang</span></li>
+          </ul>
+
+          <ul>
+          <li>
+          <span class="icons"><a href="http://www.flickr.com/photos/keenhenry" target="_blank"><img src="/static/image/flickr_36.png" 
+                  title="Flickr" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/zhxK2e" target="_blank"><img src="/static/image/picasa_36.png" 
+                  title="Picasa" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://www.diigo.com/profile/keenhenry1109" target="_blank"><img src="/static/image/diigo.png" 
+                  title="Diigo" width="36" height="36" /></a></span>
+          <span class="icons"><a href="http://bit.ly/AeKj3i" target="_blank"><img src="/static/image/gplus_36.png" 
+                  title="Google Plus" width="36" height="36" /></a></span>
+          </li>
+          </ul>
+
+          <ul>
+            <li><a href="/about.html">About</a></li>
+            <li><a href="/readings.html">Worth A Read</a></li>
+            <li><a href="/links.html">Useful Links</a></li>
+            <li><a href="/tags.html">Blog Tags</a></li>
+            <li><a href="http://github.com/keenhenry">Github</a></li>
+            <li><a href="http://twitter.com/#!/keenhenry">Twitter</a></li>
+          </ul>
+      </section>
+    </div> 
+
+    <header class="ten columns offset-by-four">
+<h1>Debugging Memory Leak for Python Asyncio Application</h1>
+</header>
+
+<div class="five columns offset-by-four gray">
+  19 Dec 2018
+</div>
+
+<div class='five columns' id='tweet'>
+  <a href="http://twitter.com/share" class="twitter-share-button" data-text="Debugging Memory Leak for Python Asyncio Application" data-count="horizontal" data-via="keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter Share']);">Tweet</a>
+  <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+</div>
+
+<article class="ten columns offset-by-four">
+  <p>Recently I had a chance to debug memory leaks for a program. This is not the first time I had to debug a leaking program, but
+this one was a little special: it was a Python <code>asyncio</code> web server. It’s special because traditional tools (like <code>valgrind</code>)
+do not work well with Python, and an <code>asyncio</code> application can be quite tricky to debug due to complex interactions among
+coroutines.</p>
+
+<p>In general, the steps to tackle memory leak problem (also for any types of bugs) is as follows:</p>
+
+<ul>
+  <li><strong>Step 1</strong> Identify where the leak(s) is in the program.</li>
+  <li><strong>Step 2</strong> Figure out <em>why</em> it is leaking.</li>
+  <li><strong>Step 3</strong> Eliminate leaking spots.</li>
+</ul>
+
+<p>Usually the first step is the trickest among the three: you need to know what information is available and useful for diagnosis
+and where to find them, or, what tools are available to help you and how to use them. Even if you’ve got the necessary information,
+you need to know how to interpret it (perhaps by visualizing some data) and use that to dig down further if necessary.</p>
+
+<p>I will explain what I did for tackling the aforementioned Python <code>asyincio</code> memory leak problem. However, before that, let’s take
+a step back and think about what could cause a Python program to <em>leak memory</em>.</p>
+
+<p>If you know Python well enough, you probably know that it is a language with garbage collection, just like many other modern programming
+languages. That means, as a programmer (a user of the language), you normally do not need to worry about allocating memory and forgetting
+to free that allocated memory later on; because the garbage collector does that for you in the background. The presence of a garbage
+collector greatly reduces the chances of memory leaks. However, it is still possible to have memory leaks in Python programs. How? you
+might ask.</p>
+
+<p>There are several scenarios I can think of:</p>
+
+<ul>
+  <li>Leaking through Python C/C++ extensions.</li>
+  <li>Reference cycles among Python objects.</li>
+  <li>Situations when memory is kept by the interpreter for long (not really memory leak).</li>
+  <li>Everything is garbage collected correctly, interpreter returns memory back to the OS, but the memory is still not freed until process termination.</li>
+</ul>
+
+<p>Let’s discuss each scenario in more details.</p>
+
+<p>The first one is obvious. And there is no garbage collector for C/C++ code; so memory leak bugs often arises in this part of the program.</p>
+
+<p>The <a href="http://engineering.hearsaysocial.com/2013/06/16/circular-references-in-python/">second scenario</a> is actually not applicable anymore (<a href="https://docs.python.org/3/library/gc.html#gc.garbage">since Python 3.4+</a>). It was possible (before Python 3.4) to have leak memory
+leaks due to reference cycles when there are circular references between objects <em>AND</em> some classes of those objects have custom <code>__del__</code> method
+implemented. After <a href="https://www.python.org/dev/peps/pep-0442/"><em>safe object finalization</em></a> was introduced, such way of leaking should not happen anymore. Having said that, reference
+cycles should still be avoided when writing an application; this is because Python’s cyclic GC runs asynchronously in the background and <a href="https://rushter.com/blog/python-garbage-collector/">in
+phases (or generations)</a>, in other words, those cyclic isolates are likely NOT to be collected immediately and linger for a while, which in
+turn might contribute to ‘high water’ phenomenon temporarily. In addition to this, running GC (which is triggered by certain heuristics) has
+performance penalty since that pauses the entire interpreter, especially in the third generation of garbage collection (the most costly).</p>
+
+<p>For more in-depths explanations to garbage collection in Python (<strong>3.6</strong>), I recommend having a read of <a href="https://rushter.com/blog/python-garbage-collector/">this post</a>.</p>
+
+<p>The third scenario is more interesting, many situations can happen (application-specific); for example, in a <code>asyncio</code> application, many corouines
+are running at the same time, and many of them are blocked by some IO operations, and each of them is still holding memory allocated to them, like
+<a href="https://tech.gadventures.com/hunting-for-memory-leaks-in-asyncio-applications-3614182efaf7">this case study</a>. Or, you have a large number of immuntable types (like <code>int</code>s and <code>float</code>s) allocated, Python still keeps them in the so-called
+<a href="https://github.com/python/cpython/blob/7d6ddb96b34b94c1cbdf95baa94492c48426404e/Objects/obmalloc.c#L588"><strong>free lists</strong></a> for <a href="http://effbot.org/pyfaq/why-doesnt-python-release-the-memory-when-i-delete-a-large-object.htm">performance reasons</a>, even after they are not referenced anymore during program run. These examples are not
+really memory leaks, but if they happen in a long-running Python process, you might still experience monotonically memory usage increase or <em>high
+water</em> phenomenon, because the memory is not released by the interpreter back to the OS yet.</p>
+
+<p>To better understand <em>free lists</em> and memory management in Python, I found <a href="https://rushter.com/blog/python-memory-managment/">this post</a>, <a href="https://realpython.com/python-memory-management/">this one</a> and <a href="http://www.evanjones.ca/memoryallocator/">this one</a> helpful. With such
+understanding, it shall help you to write Python programs that interacts well with Python’s memory management algorithms.</p>
+
+<p>The fourth scenario is not necessarily Python related, it is due to <a href="https://stackoverflow.com/questions/3770457/what-is-memory-fragmentation">memory fragmentation</a>. And seems like <a href="https://lists.gt.net/python/python/1161830#1161830">it was improved</a> since
+Python 3.3+. Memory fragmentation usually happens when you have a long running program (like a server) and it allocates a mix of short-lived and
+long-lived objects over time. As a Python application developer, you normally do not need to worry about it. Memory fragmentation symptom shows
+<strong>high water mark</strong> phenomenon in memory profiling.</p>
+
+<p>Enough said, let’s turn back to how I tackled the memory leak problem of a Python <code>asyncio</code> web server.</p>
+
+<p>With the four scenarios in mind, you might have an educated guess that it is more possible to encounter the first and the third scenarios. But
+we are engineers, we do not just guess, we need proofs.</p>
+
+<p>First of all, I knew I had a memory leak problem because there was a <a href="https://prometheus.io/">monitoring service</a> running to monitor the node where the leaking <code>asyncio</code>
+web server was running on and alerted me of unusual memory usage pattern.</p>
+
+<p>So, the problem did exist, now where was the problem exactly? I’ve tried using a few tools:</p>
+
+<ul>
+  <li><a href="https://pythonhosted.org/Pympler/"><code>Pympler</code></a></li>
+  <li><a href="https://docs.python.org/3/library/gc.html"><code>gc</code></a></li>
+  <li><a href="https://mg.pov.lt/objgraph/"><code>objgraph</code></a></li>
+  <li><a href="https://docs.python.org/3/library/tracemalloc.html"><code>tracemalloc</code></a></li>
+</ul>
+
+<p>For my problem, I found the first two tools weren’t helpful. They seem to be good tools for estimating the overall memory usage of an application.
+If the memory leaks are instances of the same type and this type is only instantiated in a few places (for example, some custom classes in the
+application), these tools can identify that. <code>objgraph</code> is only useful when you’ve <em>already</em> identified which object(s) in the code is leaking, and
+ususually used to visualize objects relations for related objects.</p>
+
+<p>After playing with the first three tools, all I saw was some generic types and most of them got garbage collected when I shutdown the application
+server on my local machine. The cause for the problem was still a mystery.</p>
+
+<p>Then I realized that the way I debugged the problem was wrong: I invoked those tools in the server program entry point when server started (this
+part was correct), and displayed the memory profile when the server shut down (this part was wrong), on my <strong>local machine</strong> (this was also wrong).
+It was wrong in two ways, the first is if the leak was caused by the third scenario described above, then this way of debugging will never catch
+that because those dangling memory chunks may very likely be collected right before the server shuts down. The second is many memory problems manifest
+themselves only in a long running process and under real-world loads, which local experiments may not easily reproduce. To do it correctly, I really
+need to be able to take snapshots of memory profiles of the <em>live, production server</em> at <em>run-time</em>: an API memory profiling endpoint to query while
+the server is running.</p>
+
+<p>Then I found <a href="https://tech.gadventures.com/hunting-for-memory-leaks-in-asyncio-applications-3614182efaf7">this wonderful post</a>, which was exactly what I needed. In this post, the author used <code>tracemalloc</code> and some <code>asyncio</code> <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.Task.all_tasks">instrospect
+utilities</a>. It turns out that <code>tracemalloc</code> is well suited for <a href="https://www.python.org/dev/peps/pep-0454/#rationale">such situations</a>: to identify top memory holders from large applications. And
+it is a module from standard library since <strong>Python 3.4</strong>! I adapted the code snippets in that post for my own use and implemented a memory profiling
+endpoint for the leaking web server (and of course, installed that endpoint to the live production server).</p>
+
+<p>Guess what? One day after the endpoint was released, I was able to (very easily) pinpoint exactly which object in the code that’s leaking memory
+based on the profiling information provided by the endpoint (<strong>step 1</strong>). It was some object in the lower level code of <a href="https://docs.aiohttp.org/en/stable/"><code>aiohttp</code></a> that keeps a
+big bulk of memory. And after some googling around, it turned out that there was indeed a <a href="https://github.com/aio-libs/multidict/issues/307">recent memory leak bug in library <code>multidict</code></a> used
+by <code>aiohttp</code> (<strong>step 2</strong>). And <code>multidict</code> is indeed a Python C extension! So after knowing the <em>why</em>, the solution became obvious and simple: either
+downgrade or upgrade the version of <code>aiohttp</code> to the one that does not have the <code>multidict</code> memory leak bug (<strong>step 3</strong>). Mission accomplished!</p>
+
+<p>In summary, I personally found <code>tracemalloc</code> to be a very useful tool for debugging memory leak problems for Python programs. And if you’re debugging
+a web server, a profiling endpoint is really a good idea!</p>
+
+
+
+  <footer>
+  <ul class="tag_list">
+    Tags for this post: 
+    
+    <li><a href="/tag/notes">notes</a></li>
+    
+    <li><a href="/tag/python3">python3</a></li>
+    
+    <li><a href="/tag/asyncio">asyncio</a></li>
+    
+    <li><a href="/tag/aiohttp">aiohttp</a></li>
+    
+    <li><a href="/tag/web server">web server</a></li>
+    
+    <li><a href="/tag/api server">api server</a></li>
+    
+    <li><a href="/tag/debug">debug</a></li>
+    
+    <li><a href="/tag/memory">memory</a></li>
+    
+    <li><a href="/tag/memory leak">memory leak</a></li>
+    
+    <li><a href="/tag/memory fragmentation">memory fragmentation</a></li>
+    
+    <li><a href="/tag/garbage collection">garbage collection</a></li>
+    
+  </ul>
+
+  <p id='follow'>
+  You should follow me on Twitter <a href="https://twitter.com/keenhenry" onClick="_gaq.push(['_trackEvent', 'Link', 'Click', 'Post Twitter']);">@keenhenry</a>
+  </p>
+  </footer>
+</article>
+<!-- <div class="sixteen columns clearfix" id="paginator"> -->
+<!--    -->
+<!--     <a id="left" href="/positional-only-and-keyword-only-arguments" title="Positional-Only and Keyword-Only Arguments">&larr; Older</a> -->
+<!--    -->
+<!--    -->
+<!-- </div> -->
+
+
+  </div>
+<!-- End Document
+================================================== -->
+</body>
+</html> 
